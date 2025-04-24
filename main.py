@@ -16,7 +16,7 @@ RECURSION_LIMIT = -1     # recursion limit for deep reductions
 # Increase recursion limit for deep reductions
 if RECURSION_LIMIT > 0:
     sys.setrecursionlimit(RECURSION_LIMIT)
-elif RECURSION_LIMIT == -1:
+else:
     sys.setrecursionlimit(2**31 - 1) # max recursion limit
 
 # ANSI helpers
