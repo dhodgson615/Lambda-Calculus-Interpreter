@@ -6,14 +6,18 @@ import sys                 # for recursion limit
 from copy import deepcopy  # for deep copy of expressions
 from typing import Dict
 
-COLOR_PARENS   = True   # color‑matched parentheses by nesting level
-COLOR_DIFF     = False  # highlight the subterm(s) that changed
-SHOW_STEP_TYPE = True   # print “(δ)” or “(β)” after each step
-COMPACT        = True   # drop all spaces in printed terms
-DELTA_ABSTRACT = True   # after normal form, abstract Church numerals to digits
+COLOR_PARENS    = True   # color‑matched parentheses by nesting level
+COLOR_DIFF      = False  # highlight the subterm(s) that changed
+SHOW_STEP_TYPE  = True   # print “(δ)” or “(β)” after each step
+COMPACT         = True   # drop all spaces in printed terms
+DELTA_ABSTRACT  = True   # after normal form, abstract Church numerals to digits
+RECURSION_LIMIT = -1     # recursion limit for deep reductions
 
 # Increase recursion limit for deep reductions
-sys.setrecursionlimit(2**31 - 1)
+if RECURSION_LIMIT > 0:
+    sys.setrecursionlimit(RECURSION_LIMIT)
+elif RECURSION_LIMIT == -1:
+    sys.setrecursionlimit(2**31 - 1) # max recursion limit
 
 # ANSI helpers
 ESC = "\x1b["
