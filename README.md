@@ -152,7 +152,7 @@ labels as desired.
 
 ## 🤝 Contributing
 
-Contributions, issues, and feature requests are welcome!  
+Contributions, issues, and feature requests are welcome!
 Feel free to fork the project and open a pull request.
 
 ---
