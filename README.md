@@ -111,7 +111,7 @@ labels as desired.
   - Numeric literals → `church(n)`
 
 ### 3. Reduction Engine
-- **`reduce_once(e)`** performs a single δ‑ or β‑step.
+- **`reduce_once(e)`** performs a single δ or β step.
 
 - Recurses into subterms to find the next reducible expression.
 
@@ -144,9 +144,9 @@ labels as desired.
 
 - **Henk Barendregt**, _The Lambda Calculus: Its Syntax and Semantics_ (1984)
 
-- **Wikipedia**, [Lambda
-  calculus](https://en.wikipedia.org/wiki/Lambda_calculus), [Church
-  encoding](https://en.wikipedia.org/wiki/Church_encoding)
+- **Wikipedia**,
+  [Lambda calculus](https://en.wikipedia.org/wiki/Lambda_calculus),
+  [Church encoding](https://en.wikipedia.org/wiki/Church_encoding)
 
 - **Benjamin C. Pierce**, _Types and Programming Languages_ (2002) – for
   advanced type systems
