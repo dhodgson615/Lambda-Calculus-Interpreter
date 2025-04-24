@@ -23,15 +23,18 @@ concepts. Not for production use.
 ## 📚 Background: What Is Lambda Calculus?
 
 > "Lambda calculus is a formal system in mathematical logic for expressing
-> computation by way of variable binding and substitution."  
+> computation by way of variable binding and substitution."
+>
 > — Wikipedia: [Lambda calculus](https://en.wikipedia.org/wiki/Lambda_calculus)
 
 Originally introduced by **Alonzo Church** in 1932 (*An Unsolvable Problem of
 Elementary Number Theory*, 1936), the λ-calculus underpins functional
 programming and the theory of computation. It uses just three constructs:
 
-1. **Variables** (e.g. `x`, `y`)  
-2. **Abstraction** (function definition): `λx.E`  
+1. **Variables** (e.g. `x`, `y`)
+
+2. **Abstraction** (function definition): `λx.E`
+
 3. **Application** (function call): `F A`
 
 Through **β‑reduction** (applying functions) and **α‑conversion** (renaming
@@ -47,8 +50,8 @@ bound variables), any computable function can be represented.
   map (e.g. booleans, arithmetic)
 
 - **Church numerals**: automatic translation of numeric literals into
-  λ‑expressions ([Church
-  encoding](https://en.wikipedia.org/wiki/Church_encoding))
+  λ‑expressions
+  ([Church encoding](https://en.wikipedia.org/wiki/Church_encoding))
 
 - **ANSI‑colored output**: visual parentheses nesting, diff highlighting
   between steps
@@ -101,10 +104,10 @@ labels as desired.
 
 ### 2. Parser
 - A **recursive‑descent parser** in `Parser`, handling:
-  - Whitespace skipping  
-  - Abstraction (`λx.E`)  
-  - Application (left‑associative)  
-  - Parenthesized subexpressions  
+  - Whitespace skipping
+  - Abstraction (`λx.E`)
+  - Application (left‑associative)
+  - Parenthesized subexpressions
   - Numeric literals → `church(n)`
 
 ### 3. Reduction Engine
