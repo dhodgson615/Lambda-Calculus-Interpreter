@@ -1,19 +1,13 @@
-from __future__ import annotations  # for type hinting
-                                    #
-import re                           # regex
-import string                       # for generating fresh variable names
-import sys                          # for recursion limit
-from copy import deepcopy           # for deep copy of expressions
-from typing import Dict             # for type hinting
+from __future__ import annotations
 
-from config import COLOR_PARENS, COLOR_DIFF, SHOW_STEP_TYPE, COMPACT, DELTA_ABSTRACT, RECURSION_LIMIT
+import re
+import string
+import sys
+from copy import deepcopy
+from typing import Dict
 
-COLOR_PARENS    = True   # color‑matched parentheses by nesting level
-COLOR_DIFF      = False  # highlight the subterm(s) that changed
-SHOW_STEP_TYPE  = True   # print “(δ)” or “(β)” after each step
-COMPACT         = True   # drop all spaces in printed terms
-DELTA_ABSTRACT  = True   # after normal form, abstract Church numerals to digits
-RECURSION_LIMIT = -1     # recursion limit for deep reductions
+from config import (COLOR_DIFF, COLOR_PARENS, COMPACT, DELTA_ABSTRACT,
+                    RECURSION_LIMIT, SHOW_STEP_TYPE)
 
 # Increase recursion limit for deep reductions
 if RECURSION_LIMIT > 0:
