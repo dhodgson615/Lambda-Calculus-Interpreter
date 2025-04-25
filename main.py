@@ -6,6 +6,8 @@ import sys                          # for recursion limit
 from copy import deepcopy           # for deep copy of expressions
 from typing import Dict             # for type hinting
 
+from config import COLOR_PARENS, COLOR_DIFF, SHOW_STEP_TYPE, COMPACT, DELTA_ABSTRACT, RECURSION_LIMIT
+
 COLOR_PARENS    = True   # color‑matched parentheses by nesting level
 COLOR_DIFF      = False  # highlight the subterm(s) that changed
 SHOW_STEP_TYPE  = True   # print “(δ)” or “(β)” after each step
