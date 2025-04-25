@@ -124,7 +124,7 @@ labels as desired.
   necessary.
 
 ### 5. Church Numerals & δ‑Definitions
-- Built‑in definitions (`DEFS_SRC`) include booleans (`⊤,⊥`), logical
+- Built‑in definitions (`DEFS_SRC`) include booleans (`⊤`, `⊥`), logical
   connectives, arithmetic (`+`, `*`, `is0`, `−`, `≤`), and pairs.
 
 - **Church encoding** transforms Python integers → λ‑terms.
