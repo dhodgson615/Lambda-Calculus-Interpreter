@@ -9,18 +9,10 @@ from typing import Dict
 from config import (COLOR_DIFF, COLOR_PARENS, COMPACT, DELTA_ABSTRACT,
                     RECURSION_LIMIT, SHOW_STEP_TYPE)
 
-# Increase recursion limit for deep reductions
-if RECURSION_LIMIT > 0:
-    sys.setrecursionlimit(RECURSION_LIMIT)
-else:
-    sys.setrecursionlimit(2**31 - 1) # max recursion limit
 
-# ANSI helpers for coloring output
 ESC = "\x1b["
 RESET = ESC + "0m"
 HIGHLIGHT = ESC + "38;2;255;255;0m"
-
-# regex to strip ANSI SGR sequences from strings
 _ANSI_RE = re.compile(r"\x1b\[[0-9;]*m")
 
 
