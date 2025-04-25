@@ -1,10 +1,10 @@
-from __future__ import annotations
-
-import re                  # regex
-import string              # for generating fresh variable names
-import sys                 # for recursion limit
-from copy import deepcopy  # for deep copy of expressions
-from typing import Dict
+from __future__ import annotations  # for type hinting
+                                    #
+import re                           # regex
+import string                       # for generating fresh variable names
+import sys                          # for recursion limit
+from copy import deepcopy           # for deep copy of expressions
+from typing import Dict             # for type hinting
 
 COLOR_PARENS    = True   # color‑matched parentheses by nesting level
 COLOR_DIFF      = False  # highlight the subterm(s) that changed
@@ -19,12 +19,12 @@ if RECURSION_LIMIT > 0:
 else:
     sys.setrecursionlimit(2**31 - 1) # max recursion limit
 
-# ANSI helpers
+# ANSI helpers for coloring output
 ESC = "\x1b["
 RESET = ESC + "0m"
 HIGHLIGHT = ESC + "38;2;255;255;0m"
 
-# regex to strip ANSI SGR sequences
+# regex to strip ANSI SGR sequences from strings
 _ANSI_RE = re.compile(r"\x1b\[[0-9;]*m")
 
 
