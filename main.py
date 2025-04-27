@@ -258,7 +258,6 @@ def free_vars(e: Expr) -> set[str]:
     return set()
 
 
-# Generate a fresh variable name that is not in the used set
 def fresh_var(used: set[str]) -> str:
     """Generate a fresh variable name that is not in the used set."""
     for base in string.ascii_lowercase:
