@@ -1,14 +1,14 @@
 import sys
 
-COLOR_PARENS    = True   # color‑matched parentheses by nesting level
-COLOR_DIFF      = False  # highlight the subterm(s) that changed
-SHOW_STEP_TYPE  = True   # print “(δ)” or “(β)” after each step
-COMPACT         = True   # drop all spaces in printed terms
-DELTA_ABSTRACT  = True   # after normal form, abstract Church numerals to digits
-RECURSION_LIMIT = -1     # recursion limit for deep reductions
+COLOR_PARENS = True  # color‑matched parentheses by nesting level
+COLOR_DIFF = False  # highlight the subterm(s) that changed
+SHOW_STEP_TYPE = True  # print “(δ)” or “(β)” after each step
+COMPACT = True  # drop all spaces in printed terms
+DELTA_ABSTRACT = True  # after normal form, abstract Church numerals to digits
+RECURSION_LIMIT = -1  # recursion limit for deep reductions
 
 # Increase recursion limit for deep reductions
 if RECURSION_LIMIT > 0:
     sys.setrecursionlimit(RECURSION_LIMIT)
 else:
-    sys.setrecursionlimit(2**31 - 1) # max recursion limit
+    sys.setrecursionlimit(2**31 - 1)  # max recursion limit
