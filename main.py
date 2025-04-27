@@ -1,42 +1,20 @@
 from __future__ import annotations
 
-import re
 import string
 import sys
 from copy import deepcopy
-from typing import Dict
 
-from config import (COLOR_DIFF, COLOR_PARENS, COMPACT, DELTA_ABSTRACT,
-                    RECURSION_LIMIT, SHOW_STEP_TYPE)
-
-
-ESC = "\x1b["
-RESET = ESC + "0m"
-HIGHLIGHT = ESC + "38;2;255;255;0m"
-_ANSI_RE = re.compile(r"\x1b\[[0-9;]*m")
+from config import DELTA_ABSTRACT, SHOW_STEP_TYPE
+from printer import format_expr, highlight_diff
 
 
-def rgb(r: int, g: int, b: int) -> str:
-    """Return ANSI SGR sequence for RGB color."""
-    return f"{ESC}38;2;{r};{g};{b}m"
-
-
-def strip_ansi(s: str) -> str:
-    """Strip ANSI SGR sequences from a string."""
-    return _ANSI_RE.sub("", s)
-
-
-# Church numerals are defined as:
-#   0 = λf.λx.x
-#   1 = λf.λx.f x
-#   2 = λf.λx.f (f x)
-#   n = λf.λx.f (f (...(f x)))  (n times)
 def church(n: int) -> Abs:
     """Return the Church numeral for n."""
     body: Expr = Var("x")
     for _ in range(n):
         body = App(Var("f"), body)
     return Abs("f", Abs("x", body))
+
 
 # δ‑definitions for logical connectives and arithmetic operations
 DEFS_SRC = {
@@ -54,8 +32,7 @@ DEFS_SRC = {
     "pair": "λx.λy.λf.f x y",
 }
 
-# δ‑definitions for Church numerals
-DEFS = {}
+DEFS = {}  # δ‑definitions for Church numerals
 
 
 class Expr:
@@ -69,7 +46,7 @@ class Expr:
         """Return the string representation of the expression."""
         return ""
 
-# Base class for all expressions
+
 class Var(Expr):
     """Variable class for λ calculus."""
 
@@ -92,7 +69,6 @@ class Var(Expr):
         return self.name
 
 
-# Variable class for Church numerals
 class Abs(Expr):
     """Abstraction class for λ calculus."""
 
@@ -119,14 +95,13 @@ class Abs(Expr):
         return f"λ{self.param}.{b}"
 
 
-# Application class for function application
 class App(Expr):
     """Application class for λ calculus."""
 
     __slots__ = ("fn", "arg")
 
     def __repr__(self) -> str:
-        """"Return the string representation of the application."""
+        """Return the string representation of the application."""
         return self.__str__()
 
     def __hash__(self) -> int:
@@ -151,7 +126,6 @@ class App(Expr):
         return f"{fn_s} {arg_s}"
 
 
-# Parser for λ calculus expressions
 class Parser:
     """Parser for λ calculus expressions."""
 
@@ -162,14 +136,18 @@ class Parser:
         self.n = len(src)
 
     def peek(self) -> str:
-        """Return the next character in the source string without consuming it."""
+        """Return the next character in the source string without
+           consuming it.
+        """
         if self.i < self.n:
             return self.src[self.i]
         else:
             return ""
 
     def consume(self) -> str:
-        """Consume the next character in the source string and return it."""
+        """Consume the next character in the source string and return
+           it.
+        """
         c = self.peek()
         self.i += 1
         return c
@@ -252,7 +230,9 @@ class Parser:
     def parse_varname(self) -> str:
         """Parse a variable name from the source string."""
         if not self.peek() or self.peek().isspace() or self.peek() in "().λ":
-            raise SyntaxError(f"Invalid var start '{self.peek()}' at pos {self.i}")
+            raise SyntaxError(
+                f"Invalid var start '{self.peek()}' at pos {self.i}"
+            )
         chars = []
         while True:
             ch = self.peek()
@@ -267,7 +247,6 @@ for nm, src in DEFS_SRC.items():
     DEFS[nm] = Parser(src).parse()
 
 
-# α‑conversion: rename bound variables to avoid name capture
 def free_vars(e: Expr) -> set[str]:
     """Return the set of free variables in the expression."""
     if isinstance(e, Var):
@@ -294,7 +273,6 @@ def fresh_var(used: set[str]) -> str:
         i += 1
 
 
-# Substitution: replace all free occurrences of var in e with val
 def subst(e: Expr, var: str, val: Expr) -> Expr:
     """Substitute all free occurrences of var in e with val."""
     if isinstance(e, Var):
@@ -317,7 +295,6 @@ def subst(e: Expr, var: str, val: Expr) -> Expr:
     raise TypeError("Unknown Expr in subst")
 
 
-# Reduce a single step of the expression
 def reduce_once(e: Expr) -> tuple[Expr, str] | None:
     """Reduce a single step of the expression."""
     # δ‑step
@@ -347,86 +324,19 @@ def reduce_once(e: Expr) -> tuple[Expr, str] | None:
     return None
 
 
-# Strip spaces from the string representation of the expression
-def strip_spaces(s: str) -> str:
-    """Strip spaces from the string representation of the expression."""
-    if COMPACT:
-        s = s.replace(" ", "")
-    return s
-
-
-# Color parentheses by nesting level
-def color_parens(s: str) -> str:
-    """Color parentheses by nesting level."""
-    if not COLOR_PARENS:
-        return s
-    depth = 0
-    maxd = 0
-    for c in s:
-        if c == "(":
-            depth += 1
-            maxd = max(maxd, depth)
-        elif c == ")":
-            depth -= 1
-    out = ""
-    depth = 0
-    for c in s:
-        if c == "(":
-            depth += 1
-            if maxd > 1:
-                ratio = (depth - 1) / (maxd - 1)
-            else:
-                ratio = 0
-            r = int(0 * (1 - ratio) + 0 * ratio)
-            g = int(128 * (1 - ratio) + 255 * ratio)
-            b = int(128 * (1 - ratio) + 255 * ratio)
-            out += rgb(r, g, b) + c + RESET
-        elif c == ")":
-            if maxd > 1:
-                ratio = (depth - 1) / (maxd - 1)
-            else:
-                ratio = 0
-            r = int(0 * (1 - ratio) + 0 * ratio)
-            g = int(128 * (1 - ratio) + 255 * ratio)
-            b = int(128 * (1 - ratio) + 255 * ratio)
-            out += rgb(r, g, b) + c + RESET
-            depth -= 1
-        else:
-            out += c
-    return out
-
-
-# Highlight the difference between two strings
-def highlight_diff(old: str, new: str) -> str:
-    """Highlight the difference between two strings."""
-    if not COLOR_DIFF:
-        return new
-    o = strip_ansi(old)
-    n = strip_ansi(new)
-    i = 0
-    L = min(len(o), len(n))
-    while i < L and o[i] == n[i]:
-        i += 1
-    j = 0
-    while j < L - i and o[-1 - j] == n[-1 - j]:
-        j += 1
-    start = new[:i]
-    mid = new[i : len(new) - j]
-    end = new[len(new) - j :]
-    return start + HIGHLIGHT + mid + RESET + end
-
-
-# δ‑abstraction: replace λf.λx.f(f(...x)) with a numeral
 def abstract_numerals(e: Expr) -> Expr:
     """Abstract Church numerals to digits."""
-    # detect λf.λx.f(f(...x))
     if isinstance(e, Abs) and isinstance(e.body, Abs):
         fparam = e.param
         xparam = e.body.param
         body = e.body.body
         count = 0
         cur = body
-        while isinstance(cur, App) and isinstance(cur.fn, Var) and cur.fn.name == fparam:
+        while (
+            isinstance(cur, App)
+            and isinstance(cur.fn, Var)
+            and cur.fn.name == fparam
+        ):
             count += 1
             cur = cur.arg
         if isinstance(cur, Var) and cur.name == xparam:
@@ -438,15 +348,6 @@ def abstract_numerals(e: Expr) -> Expr:
     return e
 
 
-# Colorize the expression for pretty printing
-def format_expr(e: Expr) -> str:
-    """Format the expression for pretty printing."""
-    s = str(e)
-    s = strip_spaces(s)
-    return color_parens(s)
-
-
-# Normalize the expression to its normal form
 def normalize(expr: Expr) -> None:
     """Normalize the expression to its normal form."""
     step = 0
