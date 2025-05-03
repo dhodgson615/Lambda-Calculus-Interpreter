@@ -76,17 +76,17 @@ bound variables), any computable function can be represented.
    ```
 
 2. **Run**
-   - One‑time expression:
+   - With an argument:
 
      ```bash
      python3 lc.py "(λx.x) (λy.y)"
      ```
      
-   - Interactive REPL:
+   - With no arguments:
 
      ```bash
      python3 lc.py
-     λ‑expr> (* 2 3)
+     λ‑expr> * 2 3
      ```
 
 3. **Adjust flags** in `main.py` for coloring, compact mode, or step‑type
