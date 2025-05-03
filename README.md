@@ -71,7 +71,7 @@ bound variables), any computable function can be represented.
 1. **Clone the repo**
 
    ```bash
-   git clone https://github.com/dhodgson615/lambda-calculus-interpreter.git
+   git clone https://github.com/dhodgson615/Lambda-Calculus-Interpreter.git
    cd lambda-calculus-interpreter
    ```
 
