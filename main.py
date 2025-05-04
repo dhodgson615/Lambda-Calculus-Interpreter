@@ -9,14 +9,6 @@ from expressions import Abs, App, Expr, Var
 from printer import format_expr, highlight_diff
 
 
-def church(n: int) -> Abs:
-    """Return the Church numeral for n."""
-    body: Expr = Var("x")
-    for _ in range(n):
-        body = App(Var("f"), body)
-    return Abs("f", Abs("x", body))
-
-
 # δ‑definitions for logical connectives and arithmetic operations
 DEFS_SRC = {
     "⊤": "λx.λy.x",
@@ -34,6 +26,14 @@ DEFS_SRC = {
 }
 
 DEFS = {}  # δ‑definitions for Church numerals
+
+
+def church(n: int) -> Abs:
+    """Return the Church numeral for n."""
+    body: Expr = Var("x")
+    for _ in range(n):
+        body = App(Var("f"), body)
+    return Abs("f", Abs("x", body))
 
 
 class Parser:
