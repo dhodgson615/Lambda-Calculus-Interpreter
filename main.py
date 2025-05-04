@@ -3,6 +3,7 @@ from __future__ import annotations
 import string
 import sys
 from copy import deepcopy
+from functools import lru_cache
 
 from config import DELTA_ABSTRACT, SHOW_STEP_TYPE
 from printer import format_expr, highlight_diff
@@ -247,6 +248,7 @@ for nm, src in DEFS_SRC.items():
     DEFS[nm] = Parser(src).parse()
 
 
+@lru_cache(maxsize=None)
 def free_vars(e: Expr) -> set[str]:
     """Return the set of free variables in the expression."""
     if isinstance(e, Var):
