@@ -1,5 +1,6 @@
 from ansi_helpers import HIGHLIGHT, RESET, rgb, strip_ansi
 from config import COLOR_DIFF, COLOR_PARENS, COMPACT
+from expressions import Expr
 
 
 def strip_spaces(s: str) -> str:
@@ -44,6 +45,7 @@ def color_parens(s: str) -> str:
             depth -= 1
         else:
             result += ch
+
     return result
 
 
@@ -67,12 +69,12 @@ def highlight_diff(old: str, new: str) -> str:
         j += 1
 
     start = new[:i]
-    mid = new[i:len(new) - j]
+    mid = new[i: len(new) - j]
     end = new[len(new) - j:]
     return f"{start}{HIGHLIGHT}{mid}{RESET}{end}"
 
 
-def format_expr(e) -> str:
+def format_expr(e: Expr) -> str:
     """Format any expression for pretty printing."""
     text = str(e)
     text = strip_spaces(text)
