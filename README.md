@@ -94,7 +94,7 @@ All runtime flags are in ` _config.py`. Edit it to customize:
 ### 2. Parser (`_parser.py`)
 
 - Recursive-descent parser for variables, abstractions, applications,
-  parentheses, and integer literals → Church numerals.
+  parentheses, and integer literals to Church numerals.
 
 ### 3. Reduction Engine (`main.py`)
 
