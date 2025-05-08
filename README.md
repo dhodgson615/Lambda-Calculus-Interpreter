@@ -50,7 +50,6 @@ bound variables).
 
    ```bash
    git clone https://github.com/dhodgson615/Lambda-Calculus-Interpreter.git
-  
    cd Lambda-Calculus-Interpreter
    ```
 
