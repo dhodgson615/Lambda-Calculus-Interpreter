@@ -43,7 +43,7 @@ functional programming.
 
    - **Interactive REPL**
 
-     ```bash
+     ```text
      python3 main.py
      λ-expr> * 2 3 Step 0: (...)
      ```
