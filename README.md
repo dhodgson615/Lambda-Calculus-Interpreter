@@ -5,7 +5,7 @@ designed for learning and demonstration. Not intended for production use.
 
 ---
 
-## 🎯 Project Goals
+## Project Goals
 
 - **Educational Clarity**
 
@@ -24,7 +24,7 @@ designed for learning and demonstration. Not intended for production use.
 
 ---
 
-## 📚 Background
+## Background
 
 > “Lambda calculus is a formal system in mathematical logic for expressing
 > computation by way of variable binding and substitution.”
@@ -44,7 +44,7 @@ bound variables).
 
 ---
 
-## 🚀 Installation & Usage
+## Installation & Usage
 
 1. **Clone the repo**
 
@@ -74,7 +74,7 @@ bound variables).
 
 ---
 
-## ⚙️ Configuration
+## Configuration
 
 All runtime flags live in ` _config.py`. Edit it to customize:
 
@@ -96,7 +96,7 @@ All runtime flags live in ` _config.py`. Edit it to customize:
 
 ---
 
-## 🚩 Limitations
+## Limitations
 
 - **Non-negative only**: numeric literals < 0 parse as variables, not Church
   numerals.
@@ -112,7 +112,7 @@ All of these (and more!) will be addressed in future updates.
 
 ---
 
-## 🔍 Code Overview
+## Code Overview
 
 ### 1. AST (`_expressions.py`)
 
@@ -147,7 +147,7 @@ All of these (and more!) will be addressed in future updates.
 
 ---
 
-## 📖 References & Further Reading
+## References & Further Reading
 
 - **Alonzo Church**, “An Unsolvable Problem of Elementary Number Theory” (1936)
 
@@ -159,7 +159,7 @@ All of these (and more!) will be addressed in future updates.
 
 ---
 
-## 🤝 Contributing
+## Contributing
 
 Contributions welcome!
 
@@ -171,7 +171,6 @@ Contributions welcome!
 
 ---
 
-## 📜 License
+## License
 
 This project is licensed under the MIT License. See `LICENSE` for details.
-
