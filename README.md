@@ -1,165 +1,130 @@
 # λ-Calculus Interpreter
 
-**A toy interpreter for the untyped λ-calculus**, implemented in Python 3.10+,
-designed both as an educational tool and a demonstration of core functional
-concepts. Not for production use.
+**A toy interpreter for the untyped λ-calculus**, implemented in Python 3.10+, designed for learning and demonstration. Not intended for production use.
 
 ---
 
 ## 🎯 Project Goals
 
-- **Educational Clarity**: Present λ-calculus concepts in a step-by-step,
-  interactive manner, suitable for classroom demonstrations or self-study.
-  
-- **Practical Demonstration**: Showcase parsing, AST manipulation, and
-  reduction mechanics in Python, skills valued by employers in compiler design
-  and language tooling.
-  
-- **Extensibility**: Provide a clean, modular codebase for adding features like
-  typed λ-calculus, optimization strategies, or alternative reduction orders.
+- **Educational Clarity**  
+  Walk through λ-calculus parsing and reduction step by step, with clear visuals.
+
+- **Practical Demonstration**  
+  Show parsing, AST manipulation, β- and δ-reduction in Python, skills useful for compiler design.
+
+- **Extensibility**  
+  Clean, modular codebase ready for typed λ-calculus, custom reduction strategies, or new primitives.
 
 ---
 
-## 📚 Background: What Is Lambda Calculus?
+## 📚 Background
 
-> "Lambda calculus is a formal system in mathematical logic for expressing
-> computation by way of variable binding and substitution."
->
-> — Wikipedia: [Lambda calculus](https://en.wikipedia.org/wiki/Lambda_calculus)
+> “Lambda calculus is a formal system in mathematical logic for expressing computation by way of variable binding and substitution.”  
+> — Wikipedia: [Lambda calculus](https://en.wikipedia.org/wiki/Lambda_calculus)
 
-Originally introduced by **Alonzo Church** in 1932 (*An Unsolvable Problem of
-Elementary Number Theory*, 1936), the λ-calculus underpins functional
-programming and the theory of computation. It uses just three constructs:
+Three constructs:
 
-1. **Variables** (e.g. `x`, `y`)
+1. **Variables** (e.g. `x`, `y`)  
+2. **Abstraction** (function definition) `λx.E`  
+3. **Application** (function call) `F A`  
 
-2. **Abstraction** (function definition): `λx.E`
-
-3. **Application** (function call): `F A`
-
-Through **β‑reduction** (applying functions) and **α‑conversion** (renaming
-bound variables), any computable function can be represented.
+Reduction rules: **β-reduction** (apply functions) and **α-conversion** (rename bound variables).
 
 ---
 
-## 🚀 Features in This Interpreter
-
-- **Normal‐order β‑reduction** (outermost-first)
-
-- **δ‑reduction**: support for user‑defined primitives via a global definitions
-  map (e.g. booleans, arithmetic)
-
-- **Church numerals**: automatic translation of numeric literals into
-  λ‑expressions
-  ([Church encoding](https://en.wikipedia.org/wiki/Church_encoding))
-
-- **ANSI‑colored output**: visual parentheses nesting, diff highlighting
-  between steps
-
-- **Compact mode**: optional removal of spaces for concise printing
-
-- **Delta‑abstraction**: re‑present numerals back into digits after
-  normalization
-
-- **Interactive CLI**: REPL prompt or one‑off evaluation via command‑line
-  argument
-
----
-
-## 🛠️ Installation & Usage
+## 🚀 Installation & Usage
 
 1. **Clone the repo**
-
    ```bash
-   git clone https://github.com/dhodgson615/Lambda-Calculus-Interpreter.git
-   cd lambda-calculus-interpreter
+   `git clone https://github.com/dhodgson615/Lambda-Calculus-Interpreter.git`  
+   `cd Lambda-Calculus-Interpreter`
    ```
 
-2. **Run**
-   - With an argument:
-
+2. **Run the interpreter**  
+    - **One-off evaluation**  
+    ```bash
+    python3 main.py "(λx.x) (λy.y)"
+    ```  
+   - **Interactive REPL**  
      ```bash
-     python3 lc.py "(λx.x) (λy.y)"
+     python3 main.py
+     ```  
+     ```text
+     λ-expr> * 2 3
+     Step 0: (…)
      ```
-     
-   - With no arguments:
-
-     ```bash
-     python3 lc.py
-     λ‑expr> * 2 3
-     ```
-
-3. **Adjust flags** in `main.py` for coloring, compact mode, or step‑type
-labels as desired.
 
 ---
 
-## 🔍 Code Walkthrough
+## ⚙️ Configuration
 
-### 1. Abstract Syntax Tree (AST)
-- `Var`, `Abs`, `App` classes represent variables, abstractions, and
-  applications.
+All runtime flags live in ` _config.py`. Edit it to customize:
 
-- Each class implements `__str__` for unambiguous pretty‑printing.
+- `COLOR_PARENS`    (bool) — color-matched parentheses by nesting level  
+- `COLOR_DIFF`      (bool) — highlight the changed subterm each step  
+- `SHOW_STEP_TYPE`  (bool) — display `(δ)` or `(β)` after each reduction  
+- `COMPACT`         (bool) — drop spaces in printed λ-terms  
+- `DELTA_ABSTRACT`  (bool) — convert Church numerals back to digits after normalization  
+- `RECURSION_LIMIT` (int)  — max recursion depth; set to a positive integer or `-1` for system max
 
-### 2. Parser
-- A **recursive‑descent parser** in `Parser`, handling:
-  - Whitespace skipping
-  - Abstraction (`λx.E`)
-  - Application (left‑associative)
-  - Parenthesized subexpressions
-  - Numeric literals → `church(n)`
+**Tip:** After editing, rerun `python3 main.py ...` to apply changes.
 
-### 3. Reduction Engine
-- **`reduce_once(e)`** performs a single δ or β step.
+---
 
-- Recurses into subterms to find the next reducible expression.
+## 🚩 Limitations
 
-- **Normalization** via repeated `reduce_once` until no more reductions.
+- **Non-negative only**: numeric literals < 0 parse as variables, not Church numerals.  
+- **No step limit**: non-terminating or very deep reductions may run until recursion limit is reached.  
+- **No CLI flags**: configuration is manual via ` _config.py`.  
+- **ANSI support**: requires a Unicode-capable terminal for colored output.
 
-### 4. Variable Management
-- **Free‑variable analysis** (`free_vars`) prevents unintended captures.
+All of these (and more!) will be addressed in future updates.
 
-- **α‑conversion** (`fresh_var`, `subst`) renames bound variables when
-  necessary.
+---
 
-### 5. Church Numerals & δ‑Definitions
-- Built‑in definitions (`DEFS_SRC`) include booleans (`⊤`, `⊥`), logical
-  connectives, arithmetic (`+`, `*`, `is0`, `−`, `≤`), and pairs.
+## 🔍 Code Overview
 
-- **Church encoding** transforms Python integers → λ‑terms.
+### 1. AST (`_expressions.py`)  
+- `Var`, `Abs`, `App` classes with concise `__str__` printing.
 
-### 6. Display & Diffing
-- **ANSI SGR coloring** for nested parentheses (`color_parens`).
+### 2. Parser (`_parser.py`)  
+- Recursive-descent parser for variables, abstractions, applications, parentheses, and integer literals → Church numerals.
 
-- **Highlight diffs** between reduction steps (`highlight_diff`).
+### 3. Reduction Engine (`main.py`)  
+- `reduce_once(e)` for a single β or δ step.  
+- `normalize(expr)` to iterate until normal form, logging each step.
 
-- **Compact printing** strips spaces for terse output.
+### 4. Variable Management  
+- `free_vars`, `fresh_var` and capture-avoiding `subst` with α-conversion.
+
+### 5. Church Numerals & δ-Definitions  
+- Built-in definitions (`DEFS_SRC`) for booleans, logic, arithmetic, pairs.  
+- `church(n)` encodes Python integers as λ-terms.
+
+### 6. Display & Diffing (`_printer.py`, `_ansi_helpers.py`)  
+- ANSI coloring for parentheses and diff highlighting.  
+- Optional compact printing to remove spaces.
 
 ---
 
 ## 📖 References & Further Reading
 
-- **Alonzo Church**, "An Unsolvable Problem of Elementary Number Theory" (1936)
-
-- **Henk Barendregt**, _The Lambda Calculus: Its Syntax and Semantics_ (1984)
-
-- **Wikipedia**,
-  [Lambda calculus](https://en.wikipedia.org/wiki/Lambda_calculus),
-  [Church encoding](https://en.wikipedia.org/wiki/Church_encoding)
-
-- **Benjamin C. Pierce**, _Types and Programming Languages_ (2002) – for
-  advanced type systems
+- **Alonzo Church**, “An Unsolvable Problem of Elementary Number Theory” (1936)  
+- **Henk Barendregt**, _The Lambda Calculus: Its Syntax and Semantics_ (1984)  
+- **Benjamin C. Pierce**, _Types and Programming Languages_ (2002)  
+- Wikipedia: [Church encoding](https://en.wikipedia.org/wiki/Church_encoding)
 
 ---
 
 ## 🤝 Contributing
 
-Contributions, issues, and feature requests are welcome!
-Feel free to fork the project and open a pull request.
+Contributions welcome!  
+1. Fork the repo  
+2. Create a feature branch  
+3. Submit a pull request with tests and documentation
 
 ---
 
 ## 📜 License
 
-This project is released under the [MIT License](LICENSE).
+This project is licensed under the MIT License. See `LICENSE` for details.
