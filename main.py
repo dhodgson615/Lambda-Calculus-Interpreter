@@ -139,6 +139,7 @@ def abstract_numerals(e: Expr) -> Expr:
         ):
             count += 1
             cur = cur.arg
+
         if isinstance(cur, Var) and cur.name == xparam:
             return Var(str(count))
 
@@ -168,7 +169,6 @@ def normalize(expr: Expr) -> None:
         rend = highlight_diff(prev_render, rend)
         if SHOW_STEP_TYPE:
             label = f" ({stype})"
-
         else:
             label = ""
 
