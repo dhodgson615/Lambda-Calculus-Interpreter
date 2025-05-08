@@ -1,7 +1,9 @@
 # λ-Calculus Interpreter
 
-**A toy interpreter for the untyped λ-calculus**, implemented in Python 3.10+,
-designed for learning and demonstration. Not intended for production use.
+Yet another λ-Calculus Interpreter, implemented in Python 3.10+. Designed for
+messing around. Not intended for production use, unless your production
+involves demolishing call stacks or pretending to be smart for understanding
+functional programming.
 
 ---
 
@@ -9,51 +11,29 @@ designed for learning and demonstration. Not intended for production use.
 
 - **Educational Clarity**
 
-  Walk through λ-calculus parsing and reduction step by step, with clear
-  visuals.
+  Walk through λ-calculus parsing and reduction step by step.
 
 - **Practical Demonstration**
 
-  Show parsing, AST manipulation, β- and δ-reduction in Python, skills useful
-  for compiler design.
+  Show parsing, AST manipulation, β- and δ-reduction.
 
 - **Extensibility**
 
-  Clean, modular codebase ready for typed λ-calculus, custom reduction
-  strategies, or new primitives.
-
----
-
-## Background
-
-> “Lambda calculus is a formal system in mathematical logic for expressing
-> computation by way of variable binding and substitution.”
->
-> — Wikipedia: [Lambda calculus](https://en.wikipedia.org/wiki/Lambda_calculus)
-
-Three constructs:
-
-1. **Variables** (e.g. `x`, `y`)
-
-2. **Abstraction** (function definition) `λx.E`
-
-3. **Application** (function call) `F A`
-
-Reduction rules: **β-reduction** (apply functions) and **α-conversion** (rename
-bound variables).
+  Modular codebase ready for typed λ-calculus, custom reduction strategies, or
+  new primitives.
 
 ---
 
 ## Installation & Usage
 
-1. **Clone the repo**
+1. **Clone**
 
    ```bash
    git clone https://github.com/dhodgson615/Lambda-Calculus-Interpreter.git
    cd Lambda-Calculus-Interpreter
    ```
 
-2. **Run the interpreter**
+2. **Run**
 
     - **One-off evaluation**
 
@@ -68,38 +48,36 @@ bound variables).
      ```
 
      ```text
-     λ-expr> * 2 3
-     Step 0: (…)
+     λ-expr> * 2 3 Step 0: (...)
      ```
 
 ---
 
-## Configuration
+## Config
 
-All runtime flags live in ` _config.py`. Edit it to customize:
+All runtime flags are in ` _config.py`. Edit it to customize:
 
-- `COLOR_PARENS` (bool) — color-matched parentheses by nesting level
+- `COLOR_PARENS` (bool) - color-matched parentheses by nesting level
 
-- `COLOR_DIFF` (bool) — highlight the changed subterm each step
+- `COLOR_DIFF` (bool) - highlight the changed subterm each step
 
-- `SHOW_STEP_TYPE` (bool) — display `(δ)` or `(β)` after each reduction
+- `SHOW_STEP_TYPE` (bool) - display `(δ)` or `(β)` after each reduction so you
+  can tell what changed
 
-- `COMPACT` (bool) — drop spaces in printed λ-terms
+- `COMPACT` (bool) - squish the output so it fits in your terminal and is
+  unreadable
 
-- `DELTA_ABSTRACT` (bool) — convert Church numerals back to digits after
-  normalization
+- `DELTA_ABSTRACT` (bool) - convert Church numerals back to actual numbers
+  after normalization
 
-- `RECURSION_LIMIT` (int)  — max recursion depth; set to a positive integer or
+- `RECURSION_LIMIT` (int) - max recursion depth. Set to a positive integer or
   `-1` for system max
-
-**Tip:** After editing, rerun `python3 main.py ...` to apply changes.
 
 ---
 
 ## Limitations
 
-- **Non-negative only**: numeric literals < 0 parse as variables, not Church
-  numerals.
+- **Non-negative only**: negative numbers don't work.
 
 - **No step limit**: non-terminating or very deep reductions may run until
   recursion limit is reached.
@@ -108,15 +86,13 @@ All runtime flags live in ` _config.py`. Edit it to customize:
 
 - **ANSI support**: requires a Unicode-capable terminal for colored output.
 
-All of these (and more!) will be addressed in future updates.
-
 ---
 
 ## Code Overview
 
 ### 1. AST (`_expressions.py`)
 
-- `Var`, `Abs`, `App` classes with concise `__str__` printing.
+- `Var`, `Abs`, `App` classes with `__str__` printing.
 
 ### 2. Parser (`_parser.py`)
 
@@ -161,7 +137,7 @@ All of these (and more!) will be addressed in future updates.
 
 ## Contributing
 
-Contributions welcome!
+Contributions welcome if they don't suck.
 
 1. Fork the repo
 
