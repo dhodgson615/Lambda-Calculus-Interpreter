@@ -120,18 +120,6 @@ All runtime flags are in ` _config.py`. Edit it to customize:
 
 ---
 
-## References & Further Reading
-
-- **Alonzo Church**, “An Unsolvable Problem of Elementary Number Theory” (1936)
-
-- **Henk Barendregt**, _The Lambda Calculus: Its Syntax and Semantics_ (1984)
-
-- **Benjamin C. Pierce**, _Types and Programming Languages_ (2002)
-
-- Wikipedia: [Church encoding](https://en.wikipedia.org/wiki/Church_encoding)
-
----
-
 ## Contributing
 
 Contributions welcome if they don't suck.
