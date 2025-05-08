@@ -111,6 +111,7 @@ def reduce_once(e: Expr) -> tuple[Expr, str] | None:
             return App(e.fn, ne), typ
 
         return None
+
     # recurse body of Abs
     if isinstance(e, Abs):
         res = reduce_once(e.body)
