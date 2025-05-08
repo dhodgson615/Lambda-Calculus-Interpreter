@@ -49,8 +49,9 @@ bound variables).
 1. **Clone the repo**
 
    ```bash
-   `git clone https://github.com/dhodgson615/Lambda-Calculus-Interpreter.git`
-   `cd Lambda-Calculus-Interpreter`
+   git clone https://github.com/dhodgson615/Lambda-Calculus-Interpreter.git
+  
+   cd Lambda-Calculus-Interpreter
    ```
 
 2. **Run the interpreter**
