@@ -1,6 +1,6 @@
-from ansi_helpers import HIGHLIGHT, RESET, rgb, strip_ansi
-from config import COLOR_DIFF, COLOR_PARENS, COMPACT
-from expressions import Expr
+from _ansi_helpers import HIGHLIGHT, RESET, rgb, strip_ansi
+from _config import COLOR_DIFF, COLOR_PARENS, COMPACT
+from _expressions import Expr
 
 
 def strip_spaces(s: str) -> str:
@@ -69,8 +69,8 @@ def highlight_diff(old: str, new: str) -> str:
         j += 1
 
     start = new[:i]
-    mid = new[i: len(new) - j]
-    end = new[len(new) - j:]
+    mid = new[i : len(new) - j]
+    end = new[len(new) - j :]
     return f"{start}{HIGHLIGHT}{mid}{RESET}{end}"
 
 
