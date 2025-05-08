@@ -45,9 +45,6 @@ functional programming.
 
      ```bash
      python3 main.py
-     ```
-
-     ```text
      λ-expr> * 2 3 Step 0: (...)
      ```
 
