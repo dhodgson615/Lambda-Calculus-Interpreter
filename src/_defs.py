@@ -1,11 +1,10 @@
 from __future__ import annotations
 
-from typing import Any
-
+from _expressions import Expression
 from _parser import Parser
 
 # δ‑definitions for logical connectives and arithmetic operations
-DEFS_SRC: dict[str | Any, str | Any] = {
+DEFS_SRC: dict[str, str] = {
     "⊤": "λx.λy.x",
     "⊥": "λx.λy.y",
     "∧": "λp.λq.p q p",
@@ -20,7 +19,7 @@ DEFS_SRC: dict[str | Any, str | Any] = {
     "pair": "λx.λy.λf.f x y",
 }
 
-DEFS: dict[Any, Any] = {}  # δ‑definitions for Church numerals
+DEFS: dict[str | Expression, str | Expression] = {}  # δ‑definitions for Church numerals
 
 for name, src in DEFS_SRC.items():
     DEFS[name] = Parser(src).parse()
