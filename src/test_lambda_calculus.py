@@ -14,8 +14,6 @@ from _vars import free_vars, fresh_var, substitute
 from main import (abstract_numerals, count_applications, is_church_numeral,
                   normalize)
 
-# ====== ANSI Helpers Tests ======
-
 
 class TestAnsiHelpers:
     """Test ANSI helpers for color and string manipulation."""
@@ -44,26 +42,19 @@ class TestAnsiHelpers:
 
     def test_ansi_regex(self):
         """Test that the ANSI regex matches escape sequences."""
-        # Test that the regex matches ANSI escape sequences
         assert _ANSI_RE.match(f"{ESC}38;2;255;0;0m") is not None
         assert _ANSI_RE.match("regular text") is None
-
-
-# ====== Config Tests ======
 
 
 class TestConfig:
     """Test configuration settings."""
 
     def test_recursion_limit(self):
-        """Test that the recursion limit is set correctly."""
+		"""Test that the recursion limit is set correctly."""
         if RECURSION_LIMIT > 0:
             assert sys.getrecursionlimit() == RECURSION_LIMIT
         else:
             assert sys.getrecursionlimit() == 2**31 - 1
-
-
-# ====== Definitions Tests ======
 
 
 class TestDefinitions:
@@ -81,9 +72,6 @@ class TestDefinitions:
         for name in DEFS_SRC:
             assert name in DEFS
             assert isinstance(DEFS[name], Expression)
-
-
-# ====== Expressions Tests ======
 
 
 class TestExpressions:
@@ -124,9 +112,6 @@ class TestExpressions:
         app1 = Application(var, var)
         app2 = Application(abs1, app1)
         assert str(app2) == "(λy.x) (x x)"
-
-
-# ====== Parser Tests (Enhanced) ======
 
 
 class TestParserEnhanced:
@@ -192,9 +177,6 @@ class TestParserEnhanced:
             Parser("").parse_varname()
 
 
-# ====== Printer Tests (Enhanced) ======
-
-
 class TestPrinterEnhanced:
     """Test the printer for λ calculus expressions."""
 
@@ -253,9 +235,6 @@ class TestPrinterEnhanced:
         assert strip_ansi(result) == "abd"
 
 
-# ====== Reduction Tests (Enhanced) ======
-
-
 class TestReductionEnhanced:
     """Test reduction functions for λ calculus expressions."""
 
@@ -296,9 +275,6 @@ class TestReductionEnhanced:
         assert str(result) == "λx.x"
 
 
-# ====== Variables Tests (Enhanced) ======
-
-
 class TestVariablesEnhanced:
     """Test variable handling functions."""
 
@@ -331,9 +307,6 @@ class TestVariablesEnhanced:
         assert fresh[0] in "abcdefghijklmnopqrstuvwxyz"
         assert len(fresh) > 1
         assert fresh[1:].isdigit()
-
-
-# ====== Main Module Tests ======
 
 
 class TestMainModule:
@@ -405,9 +378,6 @@ class TestMainModule:
 
             main()
             assert mock_print.call_count > 0
-
-
-# ====== Numeric Abstraction Tests ======
 
 
 class TestNumericAbstraction:
@@ -518,9 +488,6 @@ class TestNumericAbstraction:
         # Abstract
         abstracted = abstract_numerals(normal_expr)
         assert str(abstracted) == expected
-
-
-# ====== Boolean Operations Tests ======
 
 
 class TestBooleanOperations:
