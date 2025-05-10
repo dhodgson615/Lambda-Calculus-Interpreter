@@ -122,7 +122,7 @@ All runtime flags are in ` _config.py`. Edit it to customize:
 
 ## Contributing
 
-Contributions welcome if they don't suck.
+Contributions welcome.
 
 1. Fork the repo
 
