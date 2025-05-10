@@ -7,7 +7,9 @@ from _expressions import Abstraction, Application, Expression, Variable
 
 
 @lru_cache(maxsize=None)
-def free_vars(expression: Expression) -> frozenset[str]:
+def free_vars(
+    expression: Expression,
+) -> frozenset[str]:
     """Return the set of free variables in the expression."""
     if isinstance(expression, Variable):
         return frozenset([expression.name])
@@ -39,7 +41,9 @@ def fresh_var(used: set[str]) -> str:
 
 @lru_cache(maxsize=None)
 def substitute(
-    expression: Expression, variable: str, value: Expression
+    expression: Expression,
+    variable: str,
+    value: Expression,
 ) -> Expression:
     """Substitute all free occurrences of the variable in the
     expression with value.
@@ -63,12 +67,22 @@ def substitute(
 
             new_param: str = fresh_var(used)
             renamed: Expression = substitute(
-                expression.body, expression.param, Variable(new_param)
+                expression.body,
+                expression.param,
+                Variable(new_param),
             )
-            return Abstraction(new_param, substitute(renamed, variable, value))
+            return Abstraction(
+                new_param,
+                substitute(renamed, variable, value),
+            )
         else:
             return Abstraction(
-                expression.param, substitute(expression.body, variable, value)
+                expression.param,
+                substitute(
+                    expression.body,
+                    variable,
+                    value,
+                ),
             )
 
     if isinstance(expression, Application):

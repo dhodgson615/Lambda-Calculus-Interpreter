@@ -12,7 +12,9 @@ from _reduce import reduce_once
 
 
 @lru_cache(maxsize=None)
-def is_church_numeral(expression: Expression) -> bool:
+def is_church_numeral(
+    expression: Expression,
+) -> bool:
     """Check if the expression is a Church numeral."""
     if isinstance(expression, Abstraction) and isinstance(
         expression.body, Abstraction
@@ -31,7 +33,9 @@ def is_church_numeral(expression: Expression) -> bool:
     return False
 
 
-def count_applications(expression: Expression) -> int:
+def count_applications(
+    expression: Expression,
+) -> int:
     """Count the number of applications in a Church numeral."""
     count = 0
     current = expression.body.body
@@ -46,7 +50,9 @@ def count_applications(expression: Expression) -> int:
     return count
 
 
-def abstract_numerals(expression: Expression) -> Expression:
+def abstract_numerals(
+    expression: Expression,
+) -> Expression:
     """Abstract Church numerals to digits."""
     if is_church_numeral(expression):
         count = count_applications(expression)
@@ -54,12 +60,14 @@ def abstract_numerals(expression: Expression) -> Expression:
 
     if isinstance(expression, Abstraction):
         return Abstraction(
-            expression.param, abstract_numerals(expression.body)
+            expression.param,
+            abstract_numerals(expression.body),
         )
 
     if isinstance(expression, Application):
         return Application(
-            abstract_numerals(expression.fn), abstract_numerals(expression.arg)
+            abstract_numerals(expression.fn),
+            abstract_numerals(expression.arg),
         )
 
     return expression

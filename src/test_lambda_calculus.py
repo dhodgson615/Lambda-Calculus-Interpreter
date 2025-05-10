@@ -14,7 +14,6 @@ from _vars import free_vars, fresh_var, substitute
 from main import (abstract_numerals, count_applications, is_church_numeral,
                   normalize)
 
-
 # ====== ANSI Helpers Tests ======
 
 
@@ -224,7 +223,9 @@ class TestPrinterEnhanced:
         assert single_depth.startswith(rgb(0, 128, 128))
 
     def test_color_parens_with_config(self):
-        """Test the color_parens function with different COLOR_PARENS settings."""
+        """Test the color_parens function with different COLOR_PARENS
+        settings.
+        """
         with patch("_printer.COLOR_PARENS", True):
             result = color_parens("(a(b)c)")
             assert ESC in result  # Should contain ANSI codes
@@ -234,7 +235,9 @@ class TestPrinterEnhanced:
             assert result == "(a(b)c)"  # No ANSI codes
 
     def test_highlight_diff_with_config(self):
-        """Test the highlight_diff function with different COLOR_DIFF settings."""
+        """Test the highlight_diff function with different COLOR_DIFF
+        settings.
+        """
         with patch("_printer.COLOR_DIFF", True):
             result = highlight_diff("abc", "abd")
             assert HIGHLIGHT in result
@@ -384,7 +387,9 @@ class TestMainModule:
     @patch("builtins.input", return_value="λx.x")
     @patch("builtins.print")
     def test_main(self, mock_print, mock_input):
-        """Test the main function with input and command line arguments."""
+        """Test the main function with input and command line
+        arguments.
+        """
         with patch("sys.argv", ["main.py"]):
             from main import main
 
@@ -492,7 +497,12 @@ class TestNumericAbstraction:
             assert str(abstracted) == expected
 
     @pytest.mark.parametrize(
-        "a,b,expected", [(2, 2, "4"), (3, 5, "8"), (10, 10, "20")]
+        "a,b,expected",
+        [
+            (2, 2, "4"),
+            (3, 5, "8"),
+            (10, 10, "20"),
+        ],
     )
     def test_parametrized_addition(self, a, b, expected):
         """Test addition with parametrized values"""
@@ -508,3 +518,77 @@ class TestNumericAbstraction:
         # Abstract
         abstracted = abstract_numerals(normal_expr)
         assert str(abstracted) == expected
+
+
+# ====== Boolean Operations Tests ======
+
+
+class TestBooleanOperations:
+    """Test boolean operations and comparisons."""
+
+    def test_boolean_values(self):
+        """Test true and false values from definitions"""
+        true_expr = DEFS["⊤"]
+        false_expr = DEFS["⊥"]
+
+        assert str(true_expr) == "λx.(λy.x)"
+        assert str(false_expr) == "λx.(λy.y)"
+
+    def test_comparisons(self):
+        """Test comparison operations"""
+        test_cases = [
+            ("≤ 2 5", True),  # 2 ≤ 5 should be true
+            ("≤ 5 2", False),  # 5 ≤ 2 should be false
+            ("≤ 3 3", True),  # 3 ≤ 3 should be true
+        ]
+
+        for expr_str, expected in test_cases:
+            expr = Parser(expr_str).parse()
+            # Normalize expression to get a boolean result
+            normal_expr = expr
+            while True:
+                result = reduce_once(normal_expr, DEFS)
+                if not result:
+                    break
+                normal_expr = result[0]
+
+            # Check if the result matches true or false
+            true_repr = str(DEFS["⊤"])
+            false_repr = str(DEFS["⊥"])
+
+            if expected:
+                assert str(normal_expr) == true_repr
+            else:
+                assert str(normal_expr) == false_repr
+
+    @pytest.mark.parametrize(
+        "a,b,expected",
+        [
+            (2, 5, True),
+            (5, 2, False),
+            (3, 3, True),
+            (0, 1, True),
+            (10, 0, False),
+        ],
+    )
+    def test_parametrized_comparisons(self, a, b, expected):
+        """Test comparisons with parametrized values"""
+        expr_str = f"≤ {a} {b}"
+        expr = Parser(expr_str).parse()
+
+        # Normalize to get a result
+        normal_expr = expr
+        while True:
+            result = reduce_once(normal_expr, DEFS)
+            if not result:
+                break
+            normal_expr = result[0]
+
+        # Check against expected boolean value
+        true_repr = str(DEFS["⊤"])
+        false_repr = str(DEFS["⊥"])
+
+        if expected:
+            assert str(normal_expr) == true_repr
+        else:
+            assert str(normal_expr) == false_repr

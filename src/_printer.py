@@ -80,8 +80,8 @@ def highlight_diff(old: str, new: str) -> str:
         j += 1
 
     start: str = new[:i]
-    mid: str = new[i : len(new) - j]
-    end: str = new[len(new) - j :]
+    mid: str = new[i:len(new) - j]
+    end: str = new[len(new) - j:]
 
     return f"{start}{HIGHLIGHT}{mid}{RESET}{end}"
 
