@@ -45,8 +45,11 @@ functional programming.
 
      ```text
      python3 main.py
-     λ-expr> * 2 3 Step 0: (...)
+     λ-expr> * 2 3
+     Step 0: (...)
      ```
+
+     Note: all of the math needs to be in prefix notation and surrounded by parentheses (except the outermost term) to work like actual math.
 
 ---
 
