@@ -114,7 +114,7 @@ class TestExpressions:
         assert str(app2) == "(λy.x) (x x)"
 
 
-class TestParserEnhanced:
+class TestParser:
     """Test the parser for λ calculus expressions."""
 
     def test_church_function(self):
@@ -177,7 +177,7 @@ class TestParserEnhanced:
             Parser("").parse_varname()
 
 
-class TestPrinterEnhanced:
+class TestPrinter:
     """Test the printer for λ calculus expressions."""
 
     def test_strip_spaces_with_config(self):
@@ -235,7 +235,7 @@ class TestPrinterEnhanced:
         assert strip_ansi(result) == "abd"
 
 
-class TestReductionEnhanced:
+class TestReduction:
     """Test reduction functions for λ calculus expressions."""
 
     def test_nested_beta_reduction(self):
@@ -275,7 +275,7 @@ class TestReductionEnhanced:
         assert str(result) == "λx.x"
 
 
-class TestVariablesEnhanced:
+class TestVariables:
     """Test variable handling functions."""
 
     def test_free_vars_complex(self):
