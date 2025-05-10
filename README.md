@@ -37,9 +37,9 @@ functional programming.
 
     - **One-off evaluation**
 
-    ```bash
-    python3 main.py "(λx.x) (λy.y)"
-    ```
+      ```bash
+      python3 main.py "(λx.x) (λy.y)"
+      ```
 
    - **Interactive REPL**
 
