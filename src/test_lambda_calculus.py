@@ -61,6 +61,13 @@ class TestDefinitions:
         assert "⊥" in DEFS_SRC
         assert "+" in DEFS_SRC
         assert "*" in DEFS_SRC
+        assert "≤" in DEFS_SRC
+        assert "pair" in DEFS_SRC
+        assert "↑" in DEFS_SRC
+        assert "↓" in DEFS_SRC
+        assert "is_zero" in DEFS_SRC
+        #assert "fst" in DEFS_SRC
+        #assert "snd" in DEFS_SRC
 
     def test_defs_parsing(self):
         """Test that DEFS are parsed correctly."""
@@ -463,6 +470,13 @@ class TestNumericAbstraction:
             (2, 2, "4"),
             (3, 5, "8"),
             (10, 10, "20"),
+            (0, 0, "0"),
+            (1, 1, "2"),
+            (5, 5, "10"),
+            (7, 3, "10"),
+            (4, 6, "10"),
+            (8, 2, "10"),
+            (9, 1, "10"),
         ],
     )
     def test_parametrized_addition(self, a, b, expected):
@@ -478,6 +492,16 @@ class TestNumericAbstraction:
         abstracted = abstract_numerals(normal_expr)
         assert str(abstracted) == expected
 
+    def test_recursion_error_for_large_input(self):
+        with pytest.raises(RecursionError):
+            expr = Parser("* 1000 1000").parse()
+            while True:
+                step = reduce_once(expr, DEFS)
+                if not step:
+                    break
+
+                expr = step[0]
+
 
 class TestBooleanOperations:
     """Test boolean operations and comparisons."""
@@ -490,36 +514,6 @@ class TestBooleanOperations:
         assert str(true_expr) == "λx.(λy.x)"
         assert str(false_expr) == "λx.(λy.y)"
 
-    def test_comparisons(self):
-        """Test comparison operations"""
-        test_cases = [
-            ("≤ 2 5", True),
-            ("≤ 5 2", False),
-            ("≤ 3 3", True),
-            ("≤ 0 1", True),
-            ("≤ 10 0", False),
-            ("≤ 2 2", True),
-            ("≤ 5 5", True),
-            ("≤ 3 4", True),
-            ("≤ 4 3", False),
-        ]
-
-        for expr_str, expected in test_cases:
-            normal_expr = Parser(expr_str).parse()
-            while True:
-                result = reduce_once(normal_expr, DEFS)
-                if not result:
-                    break
-                normal_expr = result[0]
-
-            true_repr = str(DEFS["⊤"])
-            false_repr = str(DEFS["⊥"])
-
-            if expected:
-                assert str(normal_expr) == true_repr
-            else:
-                assert str(normal_expr) == false_repr
-
     @pytest.mark.parametrize(
         "a,b,expected",
         [
@@ -528,17 +522,24 @@ class TestBooleanOperations:
             (3, 3, True),
             (0, 1, True),
             (10, 0, False),
+            (2, 2, True),
+            (5, 5, True),
+            (3, 4, True),
+            (4, 3, False),
+            (1, 0, False),
+            (0, 0, True),
+            (7, 8, True),
+            (8, 7, False),
+            (9, 10, True),
+            (10, 9, False),
         ],
     )
-    def test_parametrized_comparisons(self, a, b, expected):
-        """Test comparisons with parametrized values"""
-        expr_str = f"≤ {a} {b}"
-        normal_expr = Parser(expr_str).parse()
+    def test_all_comparisons(self, a, b, expected):
+        normal_expr = Parser(f"≤ {a} {b}").parse()
         while True:
             result = reduce_once(normal_expr, DEFS)
             if not result:
                 break
-
             normal_expr = result[0]
 
         true_repr = str(DEFS["⊤"])

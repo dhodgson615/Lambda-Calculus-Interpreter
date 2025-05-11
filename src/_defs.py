@@ -13,9 +13,9 @@ DEFS_SRC: dict[str, str] = {
     "↑": "λn.λf.λx.f (n f x)",
     "+": "λm.λn.m ↑ n",
     "*": "λm.λn.m (+ n) 0",
-    "is0": "λn.n (λx.⊥) ⊤",
+    "is_zero": "λn.n (λx.⊥) ⊤",
     "-": "λm.λn.n ↓ m",
-    "≤": "λm.λn.is0 (- m n)",
+    "≤": "λm.λn.is_zero (- m n)",
     "pair": "λx.λy.λf.f x y",
 }
 
