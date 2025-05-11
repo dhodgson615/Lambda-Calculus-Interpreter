@@ -1,6 +1,6 @@
 # λ-Calculus Interpreter
 
-Yet another [λ-Calculus](https://en.m.wikipedia.org/wiki/Lambda_calculus) Interpreter, implemented in Python 3.10+. Designed for
+Yet another [λ-calculus](https://en.m.wikipedia.org/wiki/Lambda_calculus) Interpreter, implemented in Python 3.10+. Designed for
 messing around. Not intended for production use, unless your production
 involves demolishing call stacks or pretending you understanding functional
 programming.
