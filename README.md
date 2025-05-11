@@ -2,8 +2,8 @@
 
 Yet another λ-Calculus Interpreter, implemented in Python 3.10+. Designed for
 messing around. Not intended for production use, unless your production
-involves demolishing call stacks or pretending to be smart for understanding
-functional programming.
+involves demolishing call stacks or pretending you understanding functional
+programming.
 
 ---
 
