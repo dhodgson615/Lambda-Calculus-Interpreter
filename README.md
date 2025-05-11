@@ -51,7 +51,7 @@ programming.
   Step 0: (...)
   ```
 
-Note: all of the math needs to be in prefix notation and surrounded by parentheses (except the outermost term) to work like actual math.
+Note: all of the math needs to be in prefix notation and surrounded by parentheses (except the outermost term) to work like actual math. You can theoretically pull off shenanigans like `"* + *"`, but it won't be mathematically useful.
 
 Some of the following are my personal favorites:
 
