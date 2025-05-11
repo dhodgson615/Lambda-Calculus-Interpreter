@@ -1,9 +1,9 @@
 # λ-Calculus Interpreter
 
-Yet another [λ-calculus](https://en.m.wikipedia.org/wiki/Lambda_calculus) Interpreter, implemented in Python 3.10+. Designed for
-messing around. Not intended for production use, unless your production
-involves demolishing call stacks or pretending you understanding functional
-programming.
+Yet another [λ-calculus](https://en.m.wikipedia.org/wiki/Lambda_calculus)
+Interpreter, implemented in Python 3.10+. Designed for messing around. Not
+intended for production use, unless your production involves demolishing call
+stacks or pretending you understanding functional programming.
 
 ---
 
@@ -16,8 +16,8 @@ programming.
 
 - **Practical Demonstration**
 
-  Show parsing, AST manipulation, β- and δ-reduction to practice
-  interpreter design for when I make big boy compilers later.
+  Show parsing, AST manipulation, β- and δ-reduction to practice interpreter
+  design for when I make big boy compilers later.
 
 - **Extensibility**
 
@@ -53,7 +53,11 @@ programming.
   Step 0: (...)
   ```
 
-Note: all of the math needs to be in prefix notation and surrounded by parentheses (except the outermost term) to work like actual math. I wish I made it so that you could write it without parentheses the way that it works in real life, but unfortunately it do not be like that. Also, you can theoretically pull off shenanigans like `"* + *"`, but it won't be mathematically useful.
+Note: all of the math needs to be in prefix notation and surrounded by
+parentheses (except the outermost term) to work like actual math. I wish I made
+it so that you could write it without parentheses the way that it works in real
+life, but unfortunately it do not be like that. Also, you can theoretically
+pull off shenanigans like `"* + *"`, but it won't be mathematically useful.
 
 Some of the following are my personal favorites:
 
@@ -150,3 +154,4 @@ Contributions welcome.
 ## License
 
 This project is licensed under the MIT License. See `LICENSE` for details.
+
