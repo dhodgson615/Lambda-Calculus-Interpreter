@@ -36,7 +36,7 @@ class TestAnsiHelpers:
         complex_text = f"{ESC}1m{ESC}31mBold Red{ESC}0m"
         assert strip_ansi(complex_text) == "Bold Red"
 
-        # Test with no ANSI codes
+        # Test without ANSI codes
         plain_text = "Plain text"
         assert strip_ansi(plain_text) == plain_text
 
@@ -125,8 +125,6 @@ class TestParser:
             assert numeral.param == "f"
             assert isinstance(numeral.body, Abstraction)
             assert numeral.body.param == "x"
-
-            # Count applications to verify the number
             count = 0
             current = numeral.body.body
             while isinstance(current, Application):
@@ -240,19 +238,14 @@ class TestReduction:
 
     def test_nested_beta_reduction(self):
         """Test beta reduction with nested expressions."""
-        # Test beta reduction with nested expressions
         expr = Parser("(λx.λy.x y) a b").parse()
 
-        # The first reduction should apply λx to 'a'
         result1, type1 = reduce_once(expr, {})
         assert type1 == "β"
         assert isinstance(result1, Application)
 
-        # The second reduction should apply λy to 'b'
         result2, type2 = reduce_once(result1, {})
         assert type2 == "β"
-
-        # The final result should be 'a b'
         assert str(result2) == "a b"
 
     def test_delta_reduction_with_nested(self):
@@ -347,14 +340,12 @@ class TestMainModule:
         expr = Parser("(λx.x) (λy.y)").parse()
         normalize(expr)
 
-        # Check if print was called with the right arguments
         assert mock_print.call_count >= 2
 
-        # Test with delta abstraction
         with patch("main.DELTA_ABSTRACT", True):
             expr2 = Parser("(λf.λx.f (f x))").parse()
             normalize(expr2)
-            # Should print the abstracted form
+
             assert any("2" in call[0][0] for call in mock_print.call_args_list)
 
     @patch("builtins.input", return_value="λx.x")
@@ -365,13 +356,9 @@ class TestMainModule:
         """
         with patch("sys.argv", ["main.py"]):
             from main import main
-
             main()
 
-        # Should call normalize which prints results
         assert mock_print.call_count > 0
-
-        # Test main with command line arguments
         with patch("sys.argv", ["main.py", "λx.x", "y"]):
             mock_print.reset_mock()
             from main import main
@@ -391,30 +378,31 @@ class TestNumericAbstraction:
             assert str(result) == str(i)
 
     def test_addition(self):
-        """Test addition operations"""
+        """Test simple addition operations"""
         test_cases = [
             ("+ 0 0", "0"),
             ("+ 1 1", "2"),
             ("+ 2 3", "5"),
             ("+ 3 4", "7"),
             ("+ 5 7", "12"),
+            ("+ 500 500", "1000"),
         ]
 
         for expr_str, expected in test_cases:
             expr = Parser(expr_str).parse()
-            # Normalize first to perform the calculation
+
             normal_expr = expr
             while True:
                 result = reduce_once(normal_expr, DEFS)
                 if not result:
                     break
                 normal_expr = result[0]
-            # Then abstract the result
+
             abstracted = abstract_numerals(normal_expr)
             assert str(abstracted) == expected
 
     def test_multiplication(self):
-        """Test multiplication operations"""
+        """Test simple multiplication operations"""
         test_cases = [
             ("* 0 5", "0"),
             ("* 1 7", "7"),
@@ -422,18 +410,19 @@ class TestNumericAbstraction:
             ("* 3 4", "12"),
             ("* 5 5", "25"),
             ("* 8 8", "64"),
+            ("* 10 10", "100")
         ]
 
         for expr_str, expected in test_cases:
             expr = Parser(expr_str).parse()
-            # Normalize first
+
             normal_expr = expr
             while True:
                 result = reduce_once(normal_expr, DEFS)
                 if not result:
                     break
                 normal_expr = result[0]
-            # Then abstract
+
             abstracted = abstract_numerals(normal_expr)
             assert str(abstracted) == expected
 
@@ -448,21 +437,20 @@ class TestNumericAbstraction:
             ("* (+ 1 1) (+ 2 2)", "8"),
             ("+ (* 2 3) (+ 4 5)", "15"),
             ("* (+ 1 2) (+ 3 4)", "21"),
-            ("* 20 20", "400"),
             ("* (+ 1 1) (+ 2 2)", "8"),
             ("* 50 (* 2 3)", "300"),
         ]
 
         for expr_str, expected in test_cases:
             expr = Parser(expr_str).parse()
-            # Normalize completely
+
             normal_expr = expr
             while True:
                 result = reduce_once(normal_expr, DEFS)
                 if not result:
                     break
                 normal_expr = result[0]
-            # Then abstract
+
             abstracted = abstract_numerals(normal_expr)
             assert str(abstracted) == expected
 
@@ -478,14 +466,13 @@ class TestNumericAbstraction:
         """Test addition with parametrized values"""
         expr_str = f"+ {a} {b}"
         expr = Parser(expr_str).parse()
-        # Normalize
         normal_expr = expr
         while True:
             result = reduce_once(normal_expr, DEFS)
             if not result:
                 break
             normal_expr = result[0]
-        # Abstract
+
         abstracted = abstract_numerals(normal_expr)
         assert str(abstracted) == expected
 
@@ -504,14 +491,13 @@ class TestBooleanOperations:
     def test_comparisons(self):
         """Test comparison operations"""
         test_cases = [
-            ("≤ 2 5", True),  # 2 ≤ 5 should be true
-            ("≤ 5 2", False),  # 5 ≤ 2 should be false
-            ("≤ 3 3", True),  # 3 ≤ 3 should be true
+            ("≤ 2 5", True),
+            ("≤ 5 2", False),
+            ("≤ 3 3", True),
         ]
 
         for expr_str, expected in test_cases:
             expr = Parser(expr_str).parse()
-            # Normalize expression to get a boolean result
             normal_expr = expr
             while True:
                 result = reduce_once(normal_expr, DEFS)
@@ -519,7 +505,6 @@ class TestBooleanOperations:
                     break
                 normal_expr = result[0]
 
-            # Check if the result matches true or false
             true_repr = str(DEFS["⊤"])
             false_repr = str(DEFS["⊥"])
 
@@ -542,16 +527,14 @@ class TestBooleanOperations:
         """Test comparisons with parametrized values"""
         expr_str = f"≤ {a} {b}"
         expr = Parser(expr_str).parse()
-
-        # Normalize to get a result
         normal_expr = expr
         while True:
             result = reduce_once(normal_expr, DEFS)
             if not result:
                 break
+
             normal_expr = result[0]
 
-        # Check against expected boolean value
         true_repr = str(DEFS["⊤"])
         false_repr = str(DEFS["⊥"])
 
