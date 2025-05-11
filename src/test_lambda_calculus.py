@@ -19,26 +19,21 @@ class TestAnsiHelpers:
     """Test ANSI helpers for color and string manipulation."""
 
     def test_rgb(self):
-        """Test RGB color generation."""
-        color = rgb(255, 0, 0)
-        assert color == f"{ESC}38;2;255;0;0m"
-
-        # Test caching
+        """Test RGB color1 generation."""
+        color1 = rgb(255, 0, 0)
         color2 = rgb(255, 0, 0)
-        assert color2 is color  # Same object due to lru_cache
+        assert color1 == f"{ESC}38;2;255;0;0m"
+        assert color2 is color1  # Same object due to lru_cache
 
     def test_strip_ansi(self):
         """Test stripping ANSI codes from strings."""
-        text = f"{ESC}38;2;255;0;0mHello{RESET}"
-        assert strip_ansi(text) == "Hello"
+        assert strip_ansi(f"{ESC}38;2;255;0;0mHello{RESET}") == "Hello"
 
         # Test with multiple ANSI codes
-        complex_text = f"{ESC}1m{ESC}31mBold Red{ESC}0m"
-        assert strip_ansi(complex_text) == "Bold Red"
+        assert strip_ansi(f"{ESC}1m{ESC}31mBold Red{ESC}0m") == "Bold Red"
 
         # Test without ANSI codes
-        plain_text = "Plain text"
-        assert strip_ansi(plain_text) == plain_text
+        assert strip_ansi("Plain text") == "Plain text"
 
     def test_ansi_regex(self):
         """Test that the ANSI regex matches escape sequences."""
@@ -50,7 +45,7 @@ class TestConfig:
     """Test configuration settings."""
 
     def test_recursion_limit(self):
-		"""Test that the recursion limit is set correctly."""
+        """Test that the recursion limit is set correctly."""
         if RECURSION_LIMIT > 0:
             assert sys.getrecursionlimit() == RECURSION_LIMIT
         else:
@@ -79,39 +74,43 @@ class TestExpressions:
 
     def test_variable_creation(self):
         """Test variable creation and string representation."""
-        var = Variable("x")
-        assert var.name == "x"
-        assert str(var) == "x"
-        assert hash(var) == hash("x")
+        assert Variable("x").name == "x"
+        assert str(Variable("x")) == "x"
+        assert hash(Variable("x")) == hash("x")
 
     def test_abstraction_creation(self):
         """Test abstraction creation and string representation."""
-        var = Variable("x")
-        abs_expr = Abstraction("x", var)
-        assert abs_expr.param == "x"
-        assert abs_expr.body == var
-        assert str(abs_expr) == "λx.x"
-        assert hash(abs_expr) == hash(("x", var))
+        assert Abstraction("x", Variable("x")).param == "x"
+        assert Abstraction("x", Variable("x")).body == Variable("x")
+        assert str(Abstraction("x", Variable("x"))) == "λx.x"
+        assert hash(Abstraction("x", Variable("x"))) == hash(
+            ("x", Variable("x"))
+        )
 
     def test_application_creation(self):
         """Test application creation and string representation."""
-        var1 = Variable("x")
-        var2 = Variable("y")
-        app = Application(var1, var2)
-        assert app.fn == var1
-        assert app.arg == var2
-        assert str(app) == "x y"
-        assert hash(app) == hash((var1, var2))
+        assert Application(Variable("x"), Variable("y")).fn == Variable("x")
+        assert Application(Variable("x"), Variable("y")).arg == Variable("y")
+        assert str(Application(Variable("x"), Variable("y"))) == "x y"
+        assert hash(Application(Variable("x"), Variable("y"))) == hash(
+            (Variable("x"), Variable("y"))
+        )
 
     def test_nested_expression_str(self):
         """Test string representation of nested expressions."""
-        var = Variable("x")
-        abs1 = Abstraction("y", var)
-        abs2 = Abstraction("z", abs1)
-        assert str(abs2) == "λz.(λy.x)"
-        app1 = Application(var, var)
-        app2 = Application(abs1, app1)
-        assert str(app2) == "(λy.x) (x x)"
+        assert (
+            str(Abstraction("z", Abstraction("y", Variable("x"))))
+            == "λz.(λy.x)"
+        )
+        assert (
+            str(
+                Application(
+                    Abstraction("y", Variable("x")),
+                    Application(Variable("x"), Variable("x")),
+                )
+            )
+            == "(λy.x) (x x)"
+        )
 
 
 class TestParser:
@@ -132,30 +131,33 @@ class TestParser:
                 current = current.arg
             assert count == i
 
-    def test_parser_methods(self):
-        """Test various parser methods."""
+    def test_peek_and_consume(self):
+        """Test peek and consume methods."""
         parser = Parser("λx.x y")
-
-        # Test peek and consume
         assert parser.peek() == "λ"
         assert parser.consume() == "λ"
         assert parser.peek() == "x"
 
-        # Test skip_whitespace
-        parser = Parser("  x  ")
+    def test_skip_whitespace(self):
+        """Test skip_whitespace method."""
+        parser = Parser("  λx.x  ")
         parser.skip_whitespace()
         assert parser.i == 2
-        assert parser.peek() == "x"
+        assert parser.peek() == "λ"
 
-        # Test parse_varname
+    def test_parse_varname(self):
+        """Test parse_varname method."""
         parser = Parser("xyz")
         name = parser.parse_varname()
         assert name == "xyz"
+        assert parser.i == 3
 
-        # Test parse_number
+    def test_parse_number(self):
+        """Test parse_number method."""
         parser = Parser("123")
-        num = parser.parse_number()
-        assert num == 123
+        number = parser.parse_number()
+        assert number == 123
+        assert parser.i == 3
 
     def test_error_handling(self):
         """Test error handling in the parser."""
@@ -291,7 +293,7 @@ class TestVariables:
 
     def test_fresh_var_extended(self):
         """Test fresh_var with extended scenarios"""
-        used = set(["a", "b", "c"])
+        used = {"a", "b", "c"}
         assert fresh_var(used) == "d"
 
         # Test with all lowercase letters used
@@ -356,6 +358,7 @@ class TestMainModule:
         """
         with patch("sys.argv", ["main.py"]):
             from main import main
+
             main()
 
         assert mock_print.call_count > 0
@@ -410,7 +413,7 @@ class TestNumericAbstraction:
             ("* 3 4", "12"),
             ("* 5 5", "25"),
             ("* 8 8", "64"),
-            ("* 10 10", "100")
+            ("* 10 10", "100"),
         ]
 
         for expr_str, expected in test_cases:
@@ -464,8 +467,7 @@ class TestNumericAbstraction:
     )
     def test_parametrized_addition(self, a, b, expected):
         """Test addition with parametrized values"""
-        expr_str = f"+ {a} {b}"
-        expr = Parser(expr_str).parse()
+        expr = Parser(f"+ {a} {b}").parse()
         normal_expr = expr
         while True:
             result = reduce_once(normal_expr, DEFS)
@@ -494,11 +496,16 @@ class TestBooleanOperations:
             ("≤ 2 5", True),
             ("≤ 5 2", False),
             ("≤ 3 3", True),
+            ("≤ 0 1", True),
+            ("≤ 10 0", False),
+            ("≤ 2 2", True),
+            ("≤ 5 5", True),
+            ("≤ 3 4", True),
+            ("≤ 4 3", False),
         ]
 
         for expr_str, expected in test_cases:
-            expr = Parser(expr_str).parse()
-            normal_expr = expr
+            normal_expr = Parser(expr_str).parse()
             while True:
                 result = reduce_once(normal_expr, DEFS)
                 if not result:
@@ -526,8 +533,7 @@ class TestBooleanOperations:
     def test_parametrized_comparisons(self, a, b, expected):
         """Test comparisons with parametrized values"""
         expr_str = f"≤ {a} {b}"
-        expr = Parser(expr_str).parse()
-        normal_expr = expr
+        normal_expr = Parser(expr_str).parse()
         while True:
             result = reduce_once(normal_expr, DEFS)
             if not result:
