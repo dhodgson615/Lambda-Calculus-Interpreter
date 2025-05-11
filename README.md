@@ -35,19 +35,21 @@ programming.
 
 2. **Run**
 
-    - **One-off evaluation**
+  **One-off evaluation**
 
-      ```bash
-      python3 main.py "(λx.x) (λy.y)"
-      ```
+  ```bash
+  python3 main.py "(λx.x) (λy.y)"
+  ```
 
-   - **Interactive REPL**
+  **Interactive REPL**
 
-     ```text
-     python3 main.py
-     λ-expr> * 2 3
-     Step 0: (...)
-     ```
+  ```bash
+  python3 main.py
+  ```
+  ```text
+  λ-expr> * 2 3
+  Step 0: (...)
+  ```
 
 Note: all of the math needs to be in prefix notation and surrounded by parentheses (except the outermost term) to work like actual math.
 
