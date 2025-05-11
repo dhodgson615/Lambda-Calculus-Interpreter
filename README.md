@@ -11,16 +11,18 @@ programming.
 
 - **Educational Clarity**
 
-  Walk through λ-calculus parsing and reduction step by step.
+  Walk through λ-calculus parsing and reduction step by step in its full
+  inefficient glory.
 
 - **Practical Demonstration**
 
-  Show parsing, AST manipulation, β- and δ-reduction.
+  Show parsing, AST manipulation, β- and δ-reduction to practice
+  interpreter design for when I make big boy compilers later.
 
 - **Extensibility**
 
   Modular codebase ready for typed λ-calculus, custom reduction strategies, or
-  new primitives.
+  new primitives, assuming I have time to get around to those.
 
 ---
 
@@ -51,7 +53,7 @@ programming.
   Step 0: (...)
   ```
 
-Note: all of the math needs to be in prefix notation and surrounded by parentheses (except the outermost term) to work like actual math. You can theoretically pull off shenanigans like `"* + *"`, but it won't be mathematically useful.
+Note: all of the math needs to be in prefix notation and surrounded by parentheses (except the outermost term) to work like actual math. I wish I made it so that you could write it without parentheses the way that it works in real life, but unfortunately it do not be like that. Also, you can theoretically pull off shenanigans like `"* + *"`, but it won't be mathematically useful.
 
 Some of the following are my personal favorites:
 
