@@ -51,6 +51,14 @@ functional programming.
 
 Note: all of the math needs to be in prefix notation and surrounded by parentheses (except the outermost term) to work like actual math.
 
+Some of the following are my personal favorites:
+
+```bash
+python3 main.py "* 50 49"  # one of the largest multiplications without getting a RecursionError
+python3 main.py "* 49 50"  # note that it's the same as above but runs with a different number of steps
+python3 main.py "* 2 (* 2 (* 2 (* 2 (* 2 (* 2 (* 2 (* 2 (* 2 2))))))))"  # 2^10
+```
+
 ---
 
 ## Config
