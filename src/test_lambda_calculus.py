@@ -28,11 +28,7 @@ class TestAnsiHelpers:
     def test_strip_ansi(self):
         """Test stripping ANSI codes from strings."""
         assert strip_ansi(f"{ESC}38;2;255;0;0mHello{RESET}") == "Hello"
-
-        # Test with multiple ANSI codes
         assert strip_ansi(f"{ESC}1m{ESC}31mBold Red{ESC}0m") == "Bold Red"
-
-        # Test without ANSI codes
         assert strip_ansi("Plain text") == "Plain text"
 
     def test_ansi_regex(self):
@@ -66,8 +62,6 @@ class TestDefinitions:
         assert "↑" in DEFS_SRC
         assert "↓" in DEFS_SRC
         assert "is_zero" in DEFS_SRC
-        #assert "fst" in DEFS_SRC
-        #assert "snd" in DEFS_SRC
 
     def test_defs_parsing(self):
         """Test that DEFS are parsed correctly."""
@@ -189,11 +183,11 @@ class TestPrinter:
 
     def test_strip_spaces_with_config(self):
         """Test strip_spaces with different COMPACT settings."""
-        strip_spaces.cache_clear()  # Clear cache before first test
+        strip_spaces.cache_clear()
         with patch("_printer.COMPACT", True):
             assert strip_spaces("a b c") == "abc"
 
-        strip_spaces.cache_clear()  # Clear cache before second test
+        strip_spaces.cache_clear()
         with patch("_printer.COMPACT", False):
             assert strip_spaces("a b c") == "a b c"
 
@@ -203,7 +197,6 @@ class TestPrinter:
         color2 = apply_color(5, 10, "(")
         color3 = apply_color(10, 10, "(")
 
-        # Colors should be different based on depth
         assert color1 != color2
         assert color2 != color3
 
@@ -235,7 +228,6 @@ class TestPrinter:
             result = highlight_diff("abc", "abd")
             assert result == "abd"
 
-        # Test with ANSI codes in input
         colored_old = f"a{ESC}31mb{RESET}c"
         colored_new = f"a{ESC}31mb{RESET}d"
         result = highlight_diff(colored_old, colored_new)
