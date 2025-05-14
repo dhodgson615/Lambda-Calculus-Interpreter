@@ -106,20 +106,20 @@ All runtime flags are in ` _config.py`. Edit it to customize:
 
 ## Code Overview
 
-### 1. AST (`_expressions.py`)
+### 1. AST
 
 - `Var`, `Abs`, `App` classes with `__str__` printing.
 
-### 2. Parser (`_parser.py`)
+### 2. Parser
 
 - Recursive-descent parser for variables, abstractions, applications,
   parentheses, and integer literals to Church numerals.
 
-### 3. Reduction Engine (`main.py`)
+### 3. Reduction Engine
 
-- `reduce_once(e)` for a single β or δ step.
+- `reduce_once(expression)` for a single β or δ step.
 
-- `normalize(expr)` to iterate until normal form, logging each step.
+- `normalize(expression)` to iterate until normal form, logging each step.
 
 ### 4. Variable Management
 
@@ -131,7 +131,7 @@ All runtime flags are in ` _config.py`. Edit it to customize:
 
 - `church(n)` encodes Python integers as λ-terms.
 
-### 6. Display & Diffing (`_printer.py`, `_ansi_helpers.py`)
+### 6. Display & Diffing
 
 - ANSI coloring for parentheses and diff highlighting.
 
