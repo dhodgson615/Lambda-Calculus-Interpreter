@@ -54,9 +54,9 @@ stacks or pretending you understanding functional programming.
   ```
 
 Note: all of the math needs to be in prefix notation and surrounded by
-parentheses (except the outermost term) to work like actual math. I wish I made
-it so that you could write it without parentheses the way that it works in real
-life, but unfortunately it do not be like that. Also, you can theoretically
+parentheses (except the outermost term) to work like actual math. I wish I had
+made it so that you could write it without parentheses the way that it works in
+real life, but unfortunately it do not be like that. Also, you can theoretically
 pull off shenanigans like `"* + *"`, but it won't be mathematically useful.
 
 Some of the following are my personal favorites:
