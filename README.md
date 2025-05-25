@@ -3,7 +3,9 @@
 Yet another [λ-calculus](https://en.m.wikipedia.org/wiki/Lambda_calculus)
 Interpreter, implemented in Python 3.10+. Designed for messing around. Not
 intended for production use, unless your production involves demolishing call
-stacks or pretending you understanding functional programming.
+stacks or pretending you understanding functional programming. [Now imagine if
+it wasn't so
+slow.](https://github.com/dhodgson615/Lambda-Calculus-Interpreter-C/tree/master)
 
 ---
 
