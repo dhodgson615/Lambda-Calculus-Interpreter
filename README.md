@@ -26,6 +26,11 @@ slow.](https://github.com/dhodgson615/Lambda-Calculus-Interpreter-C/tree/master)
   Modular codebase ready for typed λ-calculus, custom reduction strategies, or
   new primitives, assuming I have time to get around to those.
 
+- **Prototyping**
+
+  Developing this in Python was arguably way easier than in C, which I eventually
+  rewrote it in.
+
 ---
 
 ## Installation & Usage
