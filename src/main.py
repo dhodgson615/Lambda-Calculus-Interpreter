@@ -86,6 +86,7 @@ def normalize(expression: Expression) -> None:
     step = 0
     previous_render: str = format_expr(expression)
     print(f"Step {step}: {previous_render}")
+
     while True:
         result: tuple[Expression, str] | None = reduce_once(expression, DEFS)
         if not result:
