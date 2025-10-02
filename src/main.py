@@ -46,6 +46,7 @@ def count_applications(
     ):
         return 0
 
+    count = 0
     current = expression.body.body
 
     while (
