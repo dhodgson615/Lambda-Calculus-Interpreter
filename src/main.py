@@ -91,7 +91,7 @@ def normalize(expression: Expression) -> None:
     print(f"Step {step}: {prev}")
 
     while True:
-        result: tuple[Expression, str] | None = reduce_once(expression, DEFS)
+        result = reduce_once(expression, DEFS)
 
         if not result:
             print("→ normal form reached.")
