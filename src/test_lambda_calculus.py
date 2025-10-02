@@ -5,8 +5,8 @@ from pytest import mark, raises
 
 from _ansi_helpers import _ANSI_RE, ESC, HIGHLIGHT, RESET, rgb, strip_ansi
 from _config import RECURSION_LIMIT
-from _defs import DEFS, DEFS_SRC
-from _expressions import Abstraction, Application, Expression, Variable
+from _defs import DEFS
+from _expressions import Abstraction, Application, Variable
 from _parser import Parser, church
 from _printer import apply_color, color_parens, highlight_diff, strip_spaces
 from _reduce import reduce_once
