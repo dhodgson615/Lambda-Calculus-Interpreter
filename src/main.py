@@ -23,6 +23,7 @@ def is_church_numeral(
         body_param = expression.body.param
         body = expression.body.body
         current = body
+
         while (
             isinstance(current, Application)
             and isinstance(current.fn, Variable)
