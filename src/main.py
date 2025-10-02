@@ -44,7 +44,7 @@ def count_applications(
         isinstance(expression, Abstraction)
         and isinstance(expression.body, Abstraction)
     ):
-        return count
+        return 0
 
     current = expression.body.body
 
