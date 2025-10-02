@@ -79,9 +79,9 @@ def highlight_diff(old: str, new: str) -> str:
     while j < (l - i) and o[-1 - j] == n[-1 - j]:
         j += 1
 
-    start: str = new[:i]
-    mid: str = new[i:len(new) - j]
-    end: str = new[len(new) - j:]
+    start = new[:i]
+    mid = new[i : len(new) - j]
+    end = new[len(new) - j :]
 
     return f"{start}{HIGHLIGHT}{mid}{RESET}{end}"
 
