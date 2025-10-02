@@ -127,7 +127,8 @@ def main() -> None:
         tree = Parser(user_input).parse()
 
     except SyntaxError as e:
-        sys.exit(f"Parse error: {e}")
+        exit(f"Parse error: {e}")
+        tree = None
 
     normalize(tree)
 
