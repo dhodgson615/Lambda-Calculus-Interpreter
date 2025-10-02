@@ -29,7 +29,8 @@ def fresh_var(used: set[str]) -> str:
         if base not in used:
             return base
 
-    i: int = 1
+    i = 1
+
     while True:
         for base in string.ascii_lowercase:
             candidate = f"{base}{i}"
