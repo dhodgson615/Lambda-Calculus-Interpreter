@@ -18,20 +18,20 @@ from main import (abstract_numerals, count_applications, is_church_numeral,
 class TestAnsiHelpers:
     """Test ANSI helpers for color and string manipulation."""
 
-    def test_rgb(self):
+    def test_rgb(self) -> None:
         """Test RGB color1 generation."""
         color1 = rgb(255, 0, 0)
         color2 = rgb(255, 0, 0)
         assert color1 == f"{ESC}38;2;255;0;0m"
         assert color2 is color1  # Same object due to lru_cache
 
-    def test_strip_ansi(self):
+    def test_strip_ansi(self) -> None:
         """Test stripping ANSI codes from strings."""
         assert strip_ansi(f"{ESC}38;2;255;0;0mHello{RESET}") == "Hello"
         assert strip_ansi(f"{ESC}1m{ESC}31mBold Red{ESC}0m") == "Bold Red"
         assert strip_ansi("Plain text") == "Plain text"
 
-    def test_ansi_regex(self):
+    def test_ansi_regex(self) -> None:
         """Test that the ANSI regex matches escape sequences."""
         assert _ANSI_RE.match(f"{ESC}38;2;255;0;0m") is not None
         assert _ANSI_RE.match("regular text") is None
@@ -40,7 +40,7 @@ class TestAnsiHelpers:
 class TestConfig:
     """Test configuration settings."""
 
-    def test_recursion_limit(self):
+    def test_recursion_limit(self) -> None:
         """Test that the recursion limit is set correctly."""
         if RECURSION_LIMIT > 0:
             assert sys.getrecursionlimit() == RECURSION_LIMIT
@@ -51,7 +51,7 @@ class TestConfig:
 class TestDefinitions:
     """Test definitions and their parsing."""
 
-    def test_defs_src_contents(self):
+    def test_defs_src_contents(self) -> None:
         """Test that DEFS_SRC contains expected definitions."""
         assert "⊤" in DEFS_SRC
         assert "⊥" in DEFS_SRC
@@ -63,7 +63,7 @@ class TestDefinitions:
         assert "↓" in DEFS_SRC
         assert "is_zero" in DEFS_SRC
 
-    def test_defs_parsing(self):
+    def test_defs_parsing(self) -> None:
         """Test that DEFS are parsed correctly."""
         for name in DEFS_SRC:
             assert name in DEFS
@@ -73,13 +73,13 @@ class TestDefinitions:
 class TestExpressions:
     """Test expression creation and string representation."""
 
-    def test_variable_creation(self):
+    def test_variable_creation(self) -> None:
         """Test variable creation and string representation."""
         assert Variable("x").name == "x"
         assert str(Variable("x")) == "x"
         assert hash(Variable("x")) == hash("x")
 
-    def test_abstraction_creation(self):
+    def test_abstraction_creation(self) -> None:
         """Test abstraction creation and string representation."""
         assert Abstraction("x", Variable("x")).param == "x"
         assert Abstraction("x", Variable("x")).body == Variable("x")
@@ -88,7 +88,7 @@ class TestExpressions:
             ("x", Variable("x"))
         )
 
-    def test_application_creation(self):
+    def test_application_creation(self) -> None:
         """Test application creation and string representation."""
         assert Application(Variable("x"), Variable("y")).fn == Variable("x")
         assert Application(Variable("x"), Variable("y")).arg == Variable("y")
@@ -97,7 +97,7 @@ class TestExpressions:
             (Variable("x"), Variable("y"))
         )
 
-    def test_nested_expression_str(self):
+    def test_nested_expression_str(self) -> None:
         """Test string representation of nested expressions."""
         assert (
             str(Abstraction("z", Abstraction("y", Variable("x"))))
@@ -117,7 +117,7 @@ class TestExpressions:
 class TestParser:
     """Test the parser for λ calculus expressions."""
 
-    def test_church_function(self):
+    def test_church_function(self) -> None:
         """Test that church numerals are parsed correctly."""
         for i in range(5):
             numeral = church(i)
@@ -132,35 +132,35 @@ class TestParser:
                 current = current.arg
             assert count == i
 
-    def test_peek_and_consume(self):
+    def test_peek_and_consume(self) -> None:
         """Test peek and consume methods."""
         parser = Parser("λx.x y")
         assert parser.peek() == "λ"
         assert parser.consume() == "λ"
         assert parser.peek() == "x"
 
-    def test_skip_whitespace(self):
+    def test_skip_whitespace(self) -> None:
         """Test skip_whitespace method."""
         parser = Parser("  λx.x  ")
         parser.skip_whitespace()
         assert parser.i == 2
         assert parser.peek() == "λ"
 
-    def test_parse_varname(self):
+    def test_parse_varname(self) -> None:
         """Test parse_varname method."""
         parser = Parser("xyz")
         name = parser.parse_varname()
         assert name == "xyz"
         assert parser.i == 3
 
-    def test_parse_number(self):
+    def test_parse_number(self) -> None:
         """Test parse_number method."""
         parser = Parser("123")
         number = parser.parse_number()
         assert number == 123
         assert parser.i == 3
 
-    def test_error_handling(self):
+    def test_error_handling(self) -> None:
         """Test error handling in the parser."""
         with pytest.raises(SyntaxError):
             Parser("λ").parse()
@@ -181,7 +181,7 @@ class TestParser:
 class TestPrinter:
     """Test the printer for λ calculus expressions."""
 
-    def test_strip_spaces_with_config(self):
+    def test_strip_spaces_with_config(self) -> None:
         """Test strip_spaces with different COMPACT settings."""
         strip_spaces.cache_clear()
         with patch("_printer.COMPACT", True):
@@ -191,7 +191,7 @@ class TestPrinter:
         with patch("_printer.COMPACT", False):
             assert strip_spaces("a b c") == "a b c"
 
-    def test_apply_color(self):
+    def test_apply_color(self) -> None:
         """Test the apply_color function for coloring characters."""
         color1 = apply_color(1, 10, "(")
         color2 = apply_color(5, 10, "(")
@@ -204,7 +204,7 @@ class TestPrinter:
         single_depth = apply_color(1, 1, "(")
         assert single_depth.startswith(rgb(0, 128, 128))
 
-    def test_color_parens_with_config(self):
+    def test_color_parens_with_config(self) -> None:
         """Test the color_parens function with different COLOR_PARENS
         settings.
         """
@@ -216,7 +216,7 @@ class TestPrinter:
             result = color_parens("(a(b)c)")
             assert result == "(a(b)c)"  # No ANSI codes
 
-    def test_highlight_diff_with_config(self):
+    def test_highlight_diff_with_config(self) -> None:
         """Test the highlight_diff function with different COLOR_DIFF
         settings.
         """
@@ -237,7 +237,7 @@ class TestPrinter:
 class TestReduction:
     """Test reduction functions for λ calculus expressions."""
 
-    def test_nested_beta_reduction(self):
+    def test_nested_beta_reduction(self) -> None:
         """Test beta reduction with nested expressions."""
         expr = Parser("(λx.λy.x y) a b").parse()
 
@@ -249,7 +249,7 @@ class TestReduction:
         assert type2 == "β"
         assert str(result2) == "a b"
 
-    def test_delta_reduction_with_nested(self):
+    def test_delta_reduction_with_nested(self) -> None:
         """Test delta reduction with nested expressions"""
         expr = Parser("(λx.⊤) y").parse()
 
@@ -260,7 +260,7 @@ class TestReduction:
         assert type2 == "δ"
         assert str(result2) == "λx.(λy.x)"
 
-    def test_reduce_once_inside_abstraction(self):
+    def test_reduce_once_inside_abstraction(self) -> None:
         """Test reduce_once inside an abstraction."""
         expr = Parser("λx.(λy.y) x").parse()
 
@@ -272,7 +272,7 @@ class TestReduction:
 class TestVariables:
     """Test variable handling functions."""
 
-    def test_free_vars_complex(self):
+    def test_free_vars_complex(self) -> None:
         """Test free_vars with complex expressions"""
         expr = Parser("λx.λy.x y z").parse()
         assert free_vars(expr) == frozenset(["z"])
@@ -280,7 +280,7 @@ class TestVariables:
         expr2 = Parser("λx.(λy.x y) z").parse()
         assert free_vars(expr2) == frozenset(["z"])
 
-    def test_substitute_with_name_clash(self):
+    def test_substitute_with_name_clash(self) -> None:
         """Test substitution with name clashes"""
         expr = Parser("λy.x y").parse()
         result = substitute(expr, "x", Variable("y"))
@@ -290,7 +290,7 @@ class TestVariables:
         assert isinstance(result, Abstraction)
         assert result.param != "y"  # Should be renamed
 
-    def test_fresh_var_extended(self):
+    def test_fresh_var_extended(self) -> None:
         """Test fresh_var with extended scenarios"""
         used = {"a", "b", "c"}
         assert fresh_var(used) == "d"
@@ -306,7 +306,7 @@ class TestVariables:
 class TestMainModule:
     """Test the main module functions."""
 
-    def test_is_church_numeral_edge_cases(self):
+    def test_is_church_numeral_edge_cases(self) -> None:
         """Test is_church_numeral with edge cases"""
         not_church1 = Parser("λf.λx.y").parse()  # Free variable
         assert not is_church_numeral(not_church1)
@@ -317,14 +317,14 @@ class TestMainModule:
         not_church3 = Parser("λf.λx.g x").parse()  # Wrong function
         assert not is_church_numeral(not_church3)
 
-    def test_count_applications_edge_cases(self):
+    def test_count_applications_edge_cases(self) -> None:
         """Test count_applications with edge cases"""
         church3_alt = Parser("λf.λx.f (f (f x))").parse()
         assert count_applications(church3_alt) == 3
         malformed = Parser("λf.λx.f (g x)").parse()
         assert count_applications(malformed) == 1
 
-    def test_abstract_numerals_complex(self):
+    def test_abstract_numerals_complex(self) -> None:
         """Test abstract_numerals with complex expressions"""
         expr = Parser("(λf.λx.f (f x)) (λf.λx.f x)").parse()
         result = abstract_numerals(expr)
@@ -336,7 +336,7 @@ class TestMainModule:
         assert str(result2) == "λz.z 2"
 
     @patch("builtins.print")
-    def test_normalize(self, mock_print):
+    def test_normalize(self, mock_print) -> None:
         """Test normalization process"""
         expr = Parser("(λx.x) (λy.y)").parse()
         normalize(expr)
@@ -351,7 +351,7 @@ class TestMainModule:
 
     @patch("builtins.input", return_value="λx.x")
     @patch("builtins.print")
-    def test_main(self, mock_print, mock_input):
+    def test_main(self, mock_print, mock_input) -> None:
         """Test the main function with input and command line
         arguments.
         """
@@ -372,14 +372,14 @@ class TestMainModule:
 class TestNumericAbstraction:
     """Test numeric abstraction functions."""
 
-    def test_simple_abstraction(self):
+    def test_simple_abstraction(self) -> None:
         """Test simple abstraction of Church numerals"""
         for i in range(5):
             expr = church(i)
             result = abstract_numerals(expr)
             assert str(result) == str(i)
 
-    def test_addition(self):
+    def test_addition(self) -> None:
         """Test simple addition operations"""
         test_cases = [
             ("+ 0 0", "0"),
@@ -403,7 +403,7 @@ class TestNumericAbstraction:
             abstracted = abstract_numerals(normal_expr)
             assert str(abstracted) == expected
 
-    def test_multiplication(self):
+    def test_multiplication(self) -> None:
         """Test simple multiplication operations"""
         test_cases = [
             ("* 0 5", "0"),
@@ -428,7 +428,7 @@ class TestNumericAbstraction:
             abstracted = abstract_numerals(normal_expr)
             assert str(abstracted) == expected
 
-    def test_complex_expressions(self):
+    def test_complex_expressions(self) -> None:
         """Test more complex arithmetic expressions"""
         test_cases = [
             ("+ (* 2 3) 4", "10"),
@@ -471,7 +471,7 @@ class TestNumericAbstraction:
             (9, 1, "10"),
         ],
     )
-    def test_parametrized_addition(self, a, b, expected):
+    def test_parametrized_addition(self, a, b, expected) -> None:
         """Test addition with parametrized values"""
         expr = Parser(f"+ {a} {b}").parse()
         normal_expr = expr
@@ -484,7 +484,7 @@ class TestNumericAbstraction:
         abstracted = abstract_numerals(normal_expr)
         assert str(abstracted) == expected
 
-    #def test_recursion_error_for_large_input(self):
+    # def test_recursion_error_for_large_input(self):
     #    with pytest.raises(RecursionError):
     #        expr = Parser("* 1000 1000").parse()
     #        while True:
@@ -498,7 +498,7 @@ class TestNumericAbstraction:
 class TestBooleanOperations:
     """Test boolean operations and comparisons."""
 
-    def test_boolean_values(self):
+    def test_boolean_values(self) -> None:
         """Test true and false values from definitions"""
         true_expr = DEFS["⊤"]
         false_expr = DEFS["⊥"]
@@ -526,7 +526,7 @@ class TestBooleanOperations:
             (10, 9, False),
         ],
     )
-    def test_all_comparisons(self, a, b, expected):
+    def test_all_comparisons(self, a, b, expected) -> None:
         normal_expr = Parser(f"≤ {a} {b}").parse()
         while True:
             result = reduce_once(normal_expr, DEFS)
