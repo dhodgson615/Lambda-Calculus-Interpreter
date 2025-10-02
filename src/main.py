@@ -83,7 +83,7 @@ def normalize(e: Expression) -> None:
     print(f"Step {step}: {prev}")
 
     while True:
-        result = reduce_once(expression, DEFS)
+        result = reduce_once(e, DEFS)
 
         if not result:
             print("→ normal form reached.")
