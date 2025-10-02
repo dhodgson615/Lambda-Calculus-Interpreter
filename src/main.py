@@ -57,9 +57,9 @@ def abstract_numerals(
     e: Expression,
 ) -> Expression:
     """Abstract Church numerals to digits."""
-    if is_church_numeral(expression):
-        count = count_applications(expression)
-        return Variable(str(count))
+    if is_church_numeral(e):
+        c = count_applications(e)
+        return Variable(str(c))
 
     if isinstance(expression, Abstraction):
         return Abstraction(
