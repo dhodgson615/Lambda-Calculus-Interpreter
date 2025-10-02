@@ -46,6 +46,7 @@ def count_applications(
         return count
 
     current = expression.body.body
+
     while (
         isinstance(current, Application)
         and isinstance(current.fn, Variable)
