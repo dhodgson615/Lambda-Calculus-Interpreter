@@ -1,4 +1,4 @@
-import sys
+from sys import setrecursionlimit
 
 COLOR_PARENS: bool = True  # color‑matched parentheses by nesting level
 COLOR_DIFF: bool = False  # highlight the subterm(s) that changed
