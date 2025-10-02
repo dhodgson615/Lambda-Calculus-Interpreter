@@ -31,7 +31,7 @@ def beta_reduce(
             ),
             "β",
         )
-    
+
     return None
 
 
