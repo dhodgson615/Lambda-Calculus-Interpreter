@@ -67,8 +67,9 @@ def substitute(
                 | {expression.param, variable}
             )
 
-            new_param: str = fresh_var(used)
-            renamed: Expression = substitute(
+            new_param = fresh_var(used)
+
+            renamed = substitute(
                 expression.body,
                 expression.param,
                 Variable(new_param),
