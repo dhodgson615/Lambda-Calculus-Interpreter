@@ -78,7 +78,7 @@ def reduce_once(
             new_body, reduction_type = body_result
 
             return (
-                Abstraction(expression.param, new_body),
+                Abstraction(e.param, new_body),
                 reduction_type,
             )
 
