@@ -100,8 +100,7 @@ def normalize(expression: Expression) -> None:
         expression = result[0]
         stype = result[1]
         step += 1
-        rend = format_expr(expression)
-        rend = highlight_diff(previous_render, rend)
+        rend = highlight_diff(previous_render, format_expr(expression))
         label = f" ({stype})" if SHOW_STEP_TYPE else ""
         print(f"Step {step}{label}: {rend}")
         previous_render = rend
