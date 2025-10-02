@@ -19,7 +19,7 @@ DEFS_SRC: dict[str, str] = {
     "pair": "λx.λy.λf.f x y",
 }
 
-DEFS: dict[str | Expression, str | Expression] = {}  # δ‑definitions
+DEFS: dict[str, Expression] = {}  # δ‑definitions
 
 for name, src in DEFS_SRC.items():
     DEFS[name] = Parser(src).parse()
