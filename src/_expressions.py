@@ -54,8 +54,10 @@ class Application(Expression):
             else str(self.fn)
         )
 
-        if isinstance(self.arg, (Abstraction, Application)):
-            arg_s = f"({self.arg})"
-        else:
-            arg_s = str(self.arg)
+        arg_s = (
+            f"({self.arg})"
+            if isinstance(self.arg, (Abstraction, Application))
+            else str(self.arg)
+        )
+
         return f"{fn_s} {arg_s}"
