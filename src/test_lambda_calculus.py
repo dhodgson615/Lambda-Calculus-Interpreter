@@ -1,7 +1,7 @@
 import sys
-from unittest.mock import patch
+from unittest.mock import MagicMock, Mock, patch
 
-import pytest
+from pytest import mark, raises
 
 from _ansi_helpers import _ANSI_RE, ESC, HIGHLIGHT, RESET, rgb, strip_ansi
 from _config import RECURSION_LIMIT
@@ -162,19 +162,19 @@ class TestParser:
 
     def test_error_handling(self) -> None:
         """Test error handling in the parser."""
-        with pytest.raises(SyntaxError):
+        with raises(SyntaxError):
             Parser("λ").parse()
 
-        with pytest.raises(SyntaxError):
+        with raises(SyntaxError):
             Parser("λx").parse()
 
-        with pytest.raises(SyntaxError):
+        with raises(SyntaxError):
             Parser("λx x").parse()
 
-        with pytest.raises(SyntaxError):
+        with raises(SyntaxError):
             Parser("(λx.x").parse()
 
-        with pytest.raises(SyntaxError):
+        with raises(SyntaxError):
             Parser("").parse_varname()
 
 
@@ -241,11 +241,15 @@ class TestReduction:
         """Test beta reduction with nested expressions."""
         expr = Parser("(λx.λy.x y) a b").parse()
 
-        result1, type1 = reduce_once(expr, {})
+        result1, type1 = reduce_once(
+            expr, {}
+        )  # FIXME: "None" object is not iterable
         assert type1 == "β"
         assert isinstance(result1, Application)
 
-        result2, type2 = reduce_once(result1, {})
+        result2, type2 = reduce_once(
+            result1, {}
+        )  # FIXME: "None" object is not iterable
         assert type2 == "β"
         assert str(result2) == "a b"
 
@@ -253,10 +257,14 @@ class TestReduction:
         """Test delta reduction with nested expressions"""
         expr = Parser("(λx.⊤) y").parse()
 
-        result1, type1 = reduce_once(expr, DEFS)
+        result1, type1 = reduce_once(
+            expr, DEFS
+        )  # FIXME: "None" object is not iterable
         assert type1 == "β"
 
-        result2, type2 = reduce_once(result1, DEFS)
+        result2, type2 = reduce_once(
+            result1, DEFS
+        )  # FIXME: "None" object is not iterable
         assert type2 == "δ"
         assert str(result2) == "λx.(λy.x)"
 
@@ -336,7 +344,7 @@ class TestMainModule:
         assert str(result2) == "λz.z 2"
 
     @patch("builtins.print")
-    def test_normalize(self, mock_print) -> None:
+    def test_normalize(self, mock_print: MagicMock) -> None:
         """Test normalization process"""
         expr = Parser("(λx.x) (λy.y)").parse()
         normalize(expr)
@@ -351,7 +359,7 @@ class TestMainModule:
 
     @patch("builtins.input", return_value="λx.x")
     @patch("builtins.print")
-    def test_main(self, mock_print, mock_input) -> None:
+    def test_main(self, mock_print: MagicMock, mock_input: MagicMock) -> None:
         """Test the main function with input and command line
         arguments.
         """
@@ -456,7 +464,7 @@ class TestNumericAbstraction:
             abstracted = abstract_numerals(normal_expr)
             assert str(abstracted) == expected
 
-    @pytest.mark.parametrize(
+    @mark.parametrize(
         "a,b,expected",
         [
             (2, 2, "4"),
@@ -471,7 +479,9 @@ class TestNumericAbstraction:
             (9, 1, "10"),
         ],
     )
-    def test_parametrized_addition(self, a, b, expected) -> None:
+    def test_parametrized_addition(
+        self, a: int, b: int, expected: str
+    ) -> None:
         """Test addition with parametrized values"""
         expr = Parser(f"+ {a} {b}").parse()
         normal_expr = expr
@@ -506,7 +516,7 @@ class TestBooleanOperations:
         assert str(true_expr) == "λx.(λy.x)"
         assert str(false_expr) == "λx.(λy.y)"
 
-    @pytest.mark.parametrize(
+    @mark.parametrize(
         "a,b,expected",
         [
             (2, 5, True),
@@ -526,7 +536,7 @@ class TestBooleanOperations:
             (10, 9, False),
         ],
     )
-    def test_all_comparisons(self, a, b, expected) -> None:
+    def test_all_comparisons(self, a: int, b: int, expected: bool) -> None:
         normal_expr = Parser(f"≤ {a} {b}").parse()
         while True:
             result = reduce_once(normal_expr, DEFS)
