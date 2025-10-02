@@ -51,8 +51,7 @@ def reduce_once(
         if result:
             return Application(result[0], e.arg), result[1]
 
-        # Try recursive reduction in the argument part
-        arg_result = reduce_once(e.arg, defs)
+        result = reduce_once(e.arg, defs)
 
         if arg_result:
             new_arg, reduction_type = arg_result
