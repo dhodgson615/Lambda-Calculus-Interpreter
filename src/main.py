@@ -115,10 +115,9 @@ def main() -> None:
     """Main function to run the λ calculus interpreter. Can take an
     argument or prompt for input.
     """
-    if len(sys.argv) > 1:
-        user_input: str = " ".join(sys.argv[1:])
-    else:
-        user_input: str = input("λ‑expr> ")
+    user_input: str = (
+        " ".join(sys.argv[1:]) if len(sys.argv) > 1 else input("λ‑expr> ")
+    )
 
     try:
         tree: Expression = Parser(user_input).parse()
