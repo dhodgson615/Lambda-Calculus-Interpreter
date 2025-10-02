@@ -1,5 +1,5 @@
 import sys
-from unittest.mock import MagicMock, Mock, patch
+from unittest.mock import MagicMock, patch
 
 from pytest import mark, raises
 
