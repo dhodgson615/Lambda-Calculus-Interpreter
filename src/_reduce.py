@@ -70,9 +70,7 @@ def reduce_once(
                 reduction_type,
             )
 
-    elif isinstance(
-        expression, Abstraction
-    ):  # Using elif improves branch prediction
+    elif isinstance(e, Abstraction):  # Using elif improves branch prediction
         # Try recursive reduction in the body
         body_result = reduce_once(expression.body, defs)
         if body_result:
