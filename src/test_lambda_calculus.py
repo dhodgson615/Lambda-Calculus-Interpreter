@@ -240,10 +240,9 @@ class TestReduction:
     def test_nested_beta_reduction(self) -> None:
         """Test beta reduction with nested expressions."""
         expr = Parser("(λx.λy.x y) a b").parse()
-
-        result1, type1 = reduce_once(
-            expr, {}
-        )  # FIXME: "None" object is not iterable
+        result1 = reduce_once(expr, {})
+        assert result1 is not None
+        expr1, type1 = result1
         assert type1 == "β"
         assert isinstance(result1, Application)
 
