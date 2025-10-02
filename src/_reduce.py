@@ -60,7 +60,8 @@ def reduce_once(
             )
 
         # Try recursive reduction in the argument part
-        arg_result = reduce_once(expression.arg, defs)
+        arg_result = reduce_once(e.arg, defs)
+
         if arg_result:
             new_arg, reduction_type = arg_result
             return (
