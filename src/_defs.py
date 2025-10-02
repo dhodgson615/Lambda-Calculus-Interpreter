@@ -20,8 +20,3 @@ DEFS: dict[str, Expression] = {
         "pair": "λx.λy.λf.f x y",
     }.items()
 }
-
-DEFS: dict[str, Expression] = {}  # δ‑definitions
-
-for name, src in DEFS_SRC.items():
-    DEFS[name] = Parser(src).parse()
