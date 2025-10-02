@@ -43,8 +43,8 @@ def reduce_once(
     elif isinstance(e, Application):
         result = beta_reduce(e)
 
-        # Try recursive reduction in the function part
-        fn_result = reduce_once(e.fn, defs)
+        if result:
+            return result
 
         if fn_result:
             new_fn, reduction_type = fn_result
