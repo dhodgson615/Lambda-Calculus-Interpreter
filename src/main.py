@@ -19,8 +19,8 @@ def is_church_numeral(
     if isinstance(expression, Abstraction) and isinstance(
         expression.body, Abstraction
     ):
-        fn_param: str = expression.param
-        body_param: str = expression.body.param
+        fn_param = expression.param
+        body_param = expression.body.param
         body = expression.body.body
         current = body
         while (
