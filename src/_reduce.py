@@ -19,7 +19,7 @@ def delta_reduce(
 
 
 def beta_reduce(
-    expression: Expression,
+    e: Expression,
 ) -> Optional[tuple[Expression, str]]:
     """Perform β-reduction if applicable."""
     if isinstance(expression, Application) and isinstance(
