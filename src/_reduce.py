@@ -52,6 +52,7 @@ def reduce_once(
 
         if fn_result:
             new_fn, reduction_type = fn_result
+
             # Create a new Application directly
             return (
                 Application(new_fn, expression.arg),
