@@ -67,7 +67,7 @@ def abstract_numerals(
             abstract_numerals(e.body),
         )
 
-    if isinstance(expression, Application):
+    if isinstance(e, Application):
         return Application(
             abstract_numerals(expression.fn),
             abstract_numerals(expression.arg),
