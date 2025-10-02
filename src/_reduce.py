@@ -22,15 +22,9 @@ def beta_reduce(
     e: Expression,
 ) -> Optional[tuple[Expression, str]]:
     """Perform β-reduction if applicable."""
-    if isinstance(expression, Application) and isinstance(
-        expression.fn, Abstraction
-    ):
-        return (
-            substitute(
-                expression.fn.body,
-                expression.fn.param,
-                expression.arg,
-            ),
+    return (
+        (
+            substitute(e.fn.body, e.fn.param, e.arg),
             "β",
         )
 
