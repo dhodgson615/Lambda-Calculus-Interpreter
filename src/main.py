@@ -17,8 +17,8 @@ def is_church_numeral(
 ) -> bool:
     """Check if the expression is a Church numeral."""
     if isinstance(e, Abstraction) and isinstance(e.body, Abstraction):
-        fparam = e.param
-        bparam = e.body.param
+        fpar = e.param
+        bpar = e.body.param
         b = e.body.body
         curr = b
 
