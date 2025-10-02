@@ -56,10 +56,7 @@ def reduce_once(
         if result:
             return Application(e.fn, result[0]), result[1]
 
-            return (
-                Application(e.fn, new_arg),
-                reduction_type,
-            )
+        return None
 
     elif isinstance(e, Abstraction):  # Using elif improves branch prediction
         # Try recursive reduction in the body
