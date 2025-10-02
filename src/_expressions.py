@@ -31,6 +31,7 @@ class Abstraction(Expression):
 
     def __str__(self) -> str:
         b = str(self.body)
+
         if isinstance(self.body, Abstraction):
             b = f"({b})"
 
