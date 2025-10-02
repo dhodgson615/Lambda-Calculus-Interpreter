@@ -73,7 +73,7 @@ def abstract_numerals(
             abstract_numerals(e.arg),
         )
 
-    return expression
+    return e
 
 
 def normalize(expression: Expression) -> None:
