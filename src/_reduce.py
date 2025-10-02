@@ -46,8 +46,7 @@ def reduce_once(
         if result:
             return result
 
-        if fn_result:
-            new_fn, reduction_type = fn_result
+        result = reduce_once(e.fn, defs)
 
             # Create a new Application directly
             return (
