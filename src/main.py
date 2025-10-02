@@ -101,8 +101,8 @@ def normalize(expression: Expression) -> None:
         step += 1
         curr = highlight_diff(prev, format_expr(expression))
         label = f" ({stype})" if SHOW_STEP_TYPE else ""
-        print(f"Step {step}{label}: {rend}")
-        previous_render = rend
+        print(f"Step {step}{label}: {curr}")
+        prev = curr
 
     if DELTA_ABSTRACT:
         abstracted: Expression = abstract_numerals(expression)
