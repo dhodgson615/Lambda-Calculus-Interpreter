@@ -53,11 +53,7 @@ def substitute(
     expression with value.
     """
     if isinstance(expression, Variable):
-        if expression.name == variable:
-            return value
-
-        else:
-            return expression
+        return value if expression.name == variable else expression
 
     if isinstance(expression, Abstraction):
         if expression.param == variable:
