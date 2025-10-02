@@ -91,7 +91,7 @@ def normalize(e: Expression) -> None:
 
         e, stype = result
         step += 1
-        curr = highlight_diff(prev, format_expr(expression))
+        curr = highlight_diff(prev, format_expr(e))
         label = f" ({stype})" if SHOW_STEP_TYPE else ""
         print(f"Step {step}{label}: {curr}")
         prev = curr
