@@ -140,6 +140,7 @@ class Parser:
             )
 
         chars: list[Any] = []
+
         while True:
             char: str = self.peek()
 
