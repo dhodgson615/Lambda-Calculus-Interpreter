@@ -48,10 +48,11 @@ class Application(Expression):
         return hash((self.fn, self.arg))
 
     def __str__(self) -> str:
-        if isinstance(self.fn, Abstraction):
-            fn_s = f"({self.fn})"
-        else:
-            fn_s = str(self.fn)
+        fn_s = (
+            f"({self.fn})"
+            if isinstance(self.fn, Abstraction)
+            else str(self.fn)
+        )
 
         if isinstance(self.arg, (Abstraction, Application)):
             arg_s = f"({self.arg})"
