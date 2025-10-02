@@ -98,7 +98,7 @@ def normalize(expression: Expression) -> None:
             break
 
         expression = result[0]
-        stype: str = result[1]
+        stype = result[1]
         step += 1
         rend: str = format_expr(expression)
         rend = highlight_diff(previous_render, rend)
