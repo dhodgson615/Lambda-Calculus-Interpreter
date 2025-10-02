@@ -13,7 +13,7 @@ from _reduce import reduce_once
 
 @lru_cache(maxsize=None)
 def is_church_numeral(
-    expression: Expression,
+    e: Expression,
 ) -> bool:
     """Check if the expression is a Church numeral."""
     if isinstance(expression, Abstraction) and isinstance(
