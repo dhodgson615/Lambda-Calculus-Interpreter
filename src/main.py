@@ -124,7 +124,8 @@ def main() -> None:
     user_input = " ".join(argv[1:]) if len(argv) > 1 else input("λ‑expr> ")
 
     try:
-        tree: Expression = Parser(user_input).parse()
+        tree = Parser(user_input).parse()
+
     except SyntaxError as e:
         sys.exit(f"Parse error: {e}")
 
