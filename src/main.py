@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import sys
 from functools import lru_cache
 
 from _config import DELTA_ABSTRACT, SHOW_STEP_TYPE
