@@ -105,6 +105,7 @@ def normalize(expression: Expression) -> None:
 
         if SHOW_STEP_TYPE:
             label: str = f" ({stype})"
+
         else:
             label = ""
 
