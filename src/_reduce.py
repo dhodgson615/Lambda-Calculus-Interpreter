@@ -40,7 +40,6 @@ def reduce_once(
 ) -> Optional[tuple[Expression, str]]:
     """Reduce a single step of the expression."""
     if isinstance(expression, Variable):
-        # Only Variables can have delta reduction
         return delta_reduce(expression, defs)
 
     if isinstance(expression, Application):
