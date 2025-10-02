@@ -38,6 +38,13 @@ def count_applications(
 ) -> int:
     """Count the number of applications in a Church numeral."""
     count = 0
+
+    if not (
+        isinstance(expression, Abstraction)
+        and isinstance(expression.body, Abstraction)
+    ):
+        return count
+
     current = expression.body.body
     while (
         isinstance(current, Application)
