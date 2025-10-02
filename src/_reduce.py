@@ -33,7 +33,7 @@ def beta_reduce(
 
 
 def reduce_once(
-    expression: Expression,
+    e: Expression,
     defs: dict[str, Expression],
 ) -> Optional[tuple[Expression, str]]:
     """Reduce a single step of the expression."""
