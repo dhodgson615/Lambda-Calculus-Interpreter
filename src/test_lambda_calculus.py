@@ -271,7 +271,7 @@ class TestReduction:
         assert result is not None
         expr1, type_red = result
         assert type_red == "β"
-        assert str(result) == "λx.x"
+        assert str(expr1) == "λx.x"
 
 
 class TestVariables:
