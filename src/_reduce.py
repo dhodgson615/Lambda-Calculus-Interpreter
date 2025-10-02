@@ -7,7 +7,7 @@ from _vars import substitute
 
 
 def delta_reduce(
-    expression: Expression,
+    e: Expression,
     defs: dict[str, Expression],
 ) -> Optional[tuple[Expression, str]]:
     """Perform δ-reduction if applicable."""
