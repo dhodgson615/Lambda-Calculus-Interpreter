@@ -54,7 +54,7 @@ def count_applications(e: Expression) -> int:
 
 
 def abstract_numerals(
-    expression: Expression,
+    e: Expression,
 ) -> Expression:
     """Abstract Church numerals to digits."""
     if is_church_numeral(expression):
