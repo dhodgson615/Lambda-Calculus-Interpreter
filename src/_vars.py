@@ -61,7 +61,7 @@ def substitute(
             return Abstraction(expression.param, expression.body)
 
         if expression.param in free_vars(value):
-            used: set[str] = (
+            used = (
                 set(free_vars(expression.body))
                 | set(free_vars(value))
                 | {expression.param, variable}
