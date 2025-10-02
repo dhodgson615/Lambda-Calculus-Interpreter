@@ -53,8 +53,8 @@ def reduce_once(
 
         result = reduce_once(e.arg, defs)
 
-        if arg_result:
-            new_arg, reduction_type = arg_result
+        if result:
+            return Application(e.fn, result[0]), result[1]
 
             return (
                 Application(e.fn, new_arg),
