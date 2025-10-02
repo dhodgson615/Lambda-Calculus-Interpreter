@@ -244,11 +244,10 @@ class TestReduction:
         assert result1 is not None
         expr1, type1 = result1
         assert type1 == "β"
-        assert isinstance(result1, Application)
-
-        result2, type2 = reduce_once(
-            result1, {}
-        )  # FIXME: "None" object is not iterable
+        assert isinstance(expr1, Application)
+        result2 = reduce_once(expr1, {})
+        assert result2 is not None
+        expr2, type2 = result2
         assert type2 == "β"
         assert str(result2) == "a b"
 
