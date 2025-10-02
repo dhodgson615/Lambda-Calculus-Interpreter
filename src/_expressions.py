@@ -30,10 +30,11 @@ class Abstraction(Expression):
         return hash((self.param, self.body))
 
     def __str__(self) -> str:
-        b = str(self.body)
-
-        if isinstance(self.body, Abstraction):
-            b = f"({b})"
+        b = (
+            f"({self.body})"
+            if isinstance(self.body, Abstraction)
+            else str(self.body)
+        )
 
         return f"λ{self.param}.{b}"
 
