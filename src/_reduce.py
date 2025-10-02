@@ -27,8 +27,9 @@ def beta_reduce(
             substitute(e.fn.body, e.fn.param, e.arg),
             "β",
         )
-
-    return None
+        if isinstance(e, Application) and isinstance(e.fn, Abstraction)
+        else None
+    )
 
 
 def reduce_once(
