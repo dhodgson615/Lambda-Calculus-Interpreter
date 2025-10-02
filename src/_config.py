@@ -9,5 +9,6 @@ RECURSION_LIMIT: int = -1  # recursion limit for deep reductions
 
 if RECURSION_LIMIT > 0:
     sys.setrecursionlimit(RECURSION_LIMIT)
+
 else:
     sys.setrecursionlimit(2**31 - 1)  # max recursion limit
