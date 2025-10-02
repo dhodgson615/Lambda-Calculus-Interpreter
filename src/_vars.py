@@ -52,6 +52,7 @@ def substitute(
     if isinstance(expression, Variable):
         if expression.name == variable:
             return value
+
         else:
             return expression
 
