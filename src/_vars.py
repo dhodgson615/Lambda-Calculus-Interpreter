@@ -79,6 +79,7 @@ def substitute(
                 new_param,
                 substitute(renamed, variable, value),
             )
+
         else:
             return Abstraction(
                 expression.param,
