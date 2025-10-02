@@ -63,8 +63,8 @@ def abstract_numerals(
 
     if isinstance(e, Abstraction):
         return Abstraction(
-            expression.param,
-            abstract_numerals(expression.body),
+            e.param,
+            abstract_numerals(e.body),
         )
 
     if isinstance(expression, Application):
