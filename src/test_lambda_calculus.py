@@ -267,8 +267,9 @@ class TestReduction:
     def test_reduce_once_inside_abstraction(self) -> None:
         """Test reduce_once inside an abstraction."""
         expr = Parser("λx.(λy.y) x").parse()
-
-        result, type_red = reduce_once(expr, {})
+        result = reduce_once(expr, {})
+        assert result is not None
+        expr1, type_red = result
         assert type_red == "β"
         assert str(result) == "λx.x"
 
