@@ -76,7 +76,7 @@ def abstract_numerals(
     return e
 
 
-def normalize(expression: Expression) -> None:
+def normalize(e: Expression) -> None:
     """Normalize the expression to its normal form."""
     step = 0
     prev = format_expr(expression)
