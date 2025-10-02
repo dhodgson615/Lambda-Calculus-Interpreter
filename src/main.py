@@ -29,7 +29,7 @@ def is_church_numeral(
         ):
             curr = curr.arg
 
-        return isinstance(curr, Variable) and curr.name == bparam
+        return isinstance(curr, Variable) and curr.name == bpar
 
     return False
 
