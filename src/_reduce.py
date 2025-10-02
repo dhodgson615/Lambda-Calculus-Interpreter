@@ -42,7 +42,8 @@ def reduce_once(
 
     if isinstance(e, Application):
         # Try beta reduction first
-        beta_result = beta_reduce(expression)
+        beta_result = beta_reduce(e)
+
         if beta_result:
             return beta_result
 
