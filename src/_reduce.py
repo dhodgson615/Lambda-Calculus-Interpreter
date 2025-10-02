@@ -11,9 +11,11 @@ def delta_reduce(
     defs: dict[str, Expression],
 ) -> Optional[tuple[Expression, str]]:
     """Perform δ-reduction if applicable."""
-    if isinstance(expression, Variable) and expression.name in defs:
-        return defs[expression.name], "δ"
-    return None
+    return (
+        (defs[e.name], "δ")
+        if isinstance(e, Variable) and e.name in defs
+        else None
+    )
 
 
 def beta_reduce(
