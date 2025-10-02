@@ -27,7 +27,7 @@ def is_church_numeral(
             and isinstance(curr.fn, Variable)
             and curr.fn.name == fparam
         ):
-            current = current.arg
+            curr = curr.arg
 
         return isinstance(current, Variable) and current.name == body_param
 
