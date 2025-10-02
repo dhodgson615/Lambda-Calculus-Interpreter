@@ -23,9 +23,9 @@ def is_church_numeral(
         curr = b
 
         while (
-            isinstance(current, Application)
-            and isinstance(current.fn, Variable)
-            and current.fn.name == fn_param
+            isinstance(curr, Application)
+            and isinstance(curr.fn, Variable)
+            and curr.fn.name == fparam
         ):
             current = current.arg
 
