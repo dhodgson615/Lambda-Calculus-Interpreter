@@ -37,8 +37,8 @@ def reduce_once(
     defs: dict[str, Expression],
 ) -> Optional[tuple[Expression, str]]:
     """Reduce a single step of the expression."""
-    if isinstance(expression, Variable):
-        return delta_reduce(expression, defs)
+    if isinstance(e, Variable):
+        return delta_reduce(e, defs)
 
     if isinstance(expression, Application):
         # Try beta reduction first
