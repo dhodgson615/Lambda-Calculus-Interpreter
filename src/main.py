@@ -79,7 +79,7 @@ def abstract_numerals(
 def normalize(e: Expression) -> None:
     """Normalize the expression to its normal form."""
     step = 0
-    prev = format_expr(expression)
+    prev = format_expr(e)
     print(f"Step {step}: {prev}")
 
     while True:
