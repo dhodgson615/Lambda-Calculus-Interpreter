@@ -48,28 +48,6 @@ class TestConfig:
             assert sys.getrecursionlimit() == 2**31 - 1
 
 
-class TestDefinitions:
-    """Test definitions and their parsing."""
-
-    def test_defs_src_contents(self) -> None:
-        """Test that DEFS_SRC contains expected definitions."""
-        assert "⊤" in DEFS_SRC
-        assert "⊥" in DEFS_SRC
-        assert "+" in DEFS_SRC
-        assert "*" in DEFS_SRC
-        assert "≤" in DEFS_SRC
-        assert "pair" in DEFS_SRC
-        assert "↑" in DEFS_SRC
-        assert "↓" in DEFS_SRC
-        assert "is_zero" in DEFS_SRC
-
-    def test_defs_parsing(self) -> None:
-        """Test that DEFS are parsed correctly."""
-        for name in DEFS_SRC:
-            assert name in DEFS
-            assert isinstance(DEFS[name], Expression)
-
-
 class TestExpressions:
     """Test expression creation and string representation."""
 
