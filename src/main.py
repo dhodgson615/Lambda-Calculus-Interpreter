@@ -52,7 +52,7 @@ def count_applications(e: Expression) -> int:
         n += 1
         curr = curr.arg
 
-    return count
+    return n
 
 
 def abstract_numerals(
