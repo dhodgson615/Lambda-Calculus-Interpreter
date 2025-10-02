@@ -258,10 +258,9 @@ class TestReduction:
         assert result1 is not None
         expr1, type1 = result1
         assert type1 == "β"
-
-        result2, type2 = reduce_once(
-            result1, DEFS
-        )  # FIXME: "None" object is not iterable
+        result2 = reduce_once(expr1, DEFS)
+        assert result2 is not None
+        expr2, type2 = result2
         assert type2 == "δ"
         assert str(result2) == "λx.(λy.x)"
 
