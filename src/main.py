@@ -61,7 +61,7 @@ def abstract_numerals(
         c = count_applications(e)
         return Variable(str(c))
 
-    if isinstance(expression, Abstraction):
+    if isinstance(e, Abstraction):
         return Abstraction(
             expression.param,
             abstract_numerals(expression.body),
