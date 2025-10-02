@@ -254,10 +254,9 @@ class TestReduction:
     def test_delta_reduction_with_nested(self) -> None:
         """Test delta reduction with nested expressions"""
         expr = Parser("(λx.⊤) y").parse()
-
-        result1, type1 = reduce_once(
-            expr, DEFS
-        )  # FIXME: "None" object is not iterable
+        result1 = reduce_once(expr, DEFS)
+        assert result1 is not None
+        expr1, type1 = result1
         assert type1 == "β"
 
         result2, type2 = reduce_once(
