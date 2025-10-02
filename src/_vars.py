@@ -60,8 +60,8 @@ def substitute(
 
         if expression.param in free_vars(value):
             used: set[str] = (
-                free_vars(expression.body)
-                | free_vars(value)
+                set(free_vars(expression.body))
+                | set(free_vars(value))
                 | {expression.param, variable}
             )
 
