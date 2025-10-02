@@ -262,7 +262,7 @@ class TestReduction:
         assert result2 is not None
         expr2, type2 = result2
         assert type2 == "δ"
-        assert str(result2) == "λx.(λy.x)"
+        assert str(expr2) == "λx.(λy.x)"
 
     def test_reduce_once_inside_abstraction(self) -> None:
         """Test reduce_once inside an abstraction."""
