@@ -38,10 +38,7 @@ def is_church_numeral(
 
 def count_applications(e: Expression) -> int:
     """Count the number of applications in a Church numeral."""
-    if not (
-        isinstance(expression, Abstraction)
-        and isinstance(expression.body, Abstraction)
-    ):
+    if not (isinstance(e, Abstraction) and isinstance(e.body, Abstraction)):
         return 0
 
     count = 0
