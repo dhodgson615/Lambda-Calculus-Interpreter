@@ -40,12 +40,8 @@ def reduce_once(
     if isinstance(e, Variable):
         return delta_reduce(e, defs)
 
-    if isinstance(e, Application):
-        # Try beta reduction first
-        beta_result = beta_reduce(e)
-
-        if beta_result:
-            return beta_result
+    elif isinstance(e, Application):
+        result = beta_reduce(e)
 
         # Try recursive reduction in the function part
         fn_result = reduce_once(e.fn, defs)
