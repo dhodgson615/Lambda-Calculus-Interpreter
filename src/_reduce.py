@@ -72,7 +72,8 @@ def reduce_once(
 
     elif isinstance(e, Abstraction):  # Using elif improves branch prediction
         # Try recursive reduction in the body
-        body_result = reduce_once(expression.body, defs)
+        body_result = reduce_once(e.body, defs)
+
         if body_result:
             new_body, reduction_type = body_result
             return (
