@@ -48,7 +48,8 @@ def reduce_once(
             return beta_result
 
         # Try recursive reduction in the function part
-        fn_result = reduce_once(expression.fn, defs)
+        fn_result = reduce_once(e.fn, defs)
+
         if fn_result:
             new_fn, reduction_type = fn_result
             # Create a new Application directly
