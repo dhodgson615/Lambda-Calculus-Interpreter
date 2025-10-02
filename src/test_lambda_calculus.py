@@ -249,7 +249,7 @@ class TestReduction:
         assert result2 is not None
         expr2, type2 = result2
         assert type2 == "β"
-        assert str(result2) == "a b"
+        assert str(expr2) == "a b"
 
     def test_delta_reduction_with_nested(self) -> None:
         """Test delta reduction with nested expressions"""
