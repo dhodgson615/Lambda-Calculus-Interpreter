@@ -1,9 +1,11 @@
 # λ-Calculus Interpreter
 
-Yet another [λ-calculus](https://en.m.wikipedia.org/wiki/Lambda_calculus) Interpreter, implemented in Python 3.10+. Designed for
-messing around. Not intended for production use, unless your production
-involves demolishing call stacks or pretending you understanding functional
-programming.
+Yet another [λ-calculus](https://en.m.wikipedia.org/wiki/Lambda_calculus)
+Interpreter, implemented in Python 3.10+. Designed for messing around. Not
+intended for production use, unless your production involves demolishing call
+stacks or pretending you understanding functional programming. [Now imagine if
+it wasn't so
+slow.](https://github.com/dhodgson615/Lambda-Calculus-Interpreter-C/tree/master)
 
 ---
 
@@ -16,13 +18,18 @@ programming.
 
 - **Practical Demonstration**
 
-  Show parsing, AST manipulation, β- and δ-reduction to practice
-  interpreter design for when I make big boy compilers later.
+  Show parsing, AST manipulation, β- and δ-reduction to practice interpreter
+  design for when I make big boy compilers later.
 
 - **Extensibility**
 
   Modular codebase ready for typed λ-calculus, custom reduction strategies, or
   new primitives, assuming I have time to get around to those.
+
+- **Prototyping**
+
+  Developing this in Python was arguably way easier than in C, which I eventually
+  rewrote it in.
 
 ---
 
@@ -53,7 +60,11 @@ programming.
   Step 0: (...)
   ```
 
-Note: all of the math needs to be in prefix notation and surrounded by parentheses (except the outermost term) to work like actual math. I wish I made it so that you could write it without parentheses the way that it works in real life, but unfortunately it do not be like that. Also, you can theoretically pull off shenanigans like `"* + *"`, but it won't be mathematically useful.
+Note: all of the math needs to be in prefix notation and surrounded by
+parentheses (except the outermost term) to work like actual math. I wish I had
+made it so that you could write it without parentheses the way that it works in
+real life, but unfortunately it do not be like that. Also, you can theoretically
+pull off shenanigans like `"* + *"`, but it won't be mathematically useful.
 
 Some of the following are my personal favorites:
 
@@ -102,20 +113,20 @@ All runtime flags are in ` _config.py`. Edit it to customize:
 
 ## Code Overview
 
-### 1. AST (`_expressions.py`)
+### 1. AST
 
 - `Var`, `Abs`, `App` classes with `__str__` printing.
 
-### 2. Parser (`_parser.py`)
+### 2. Parser
 
 - Recursive-descent parser for variables, abstractions, applications,
   parentheses, and integer literals to Church numerals.
 
-### 3. Reduction Engine (`main.py`)
+### 3. Reduction Engine
 
-- `reduce_once(e)` for a single β or δ step.
+- `reduce_once(expression)` for a single β or δ step.
 
-- `normalize(expr)` to iterate until normal form, logging each step.
+- `normalize(expression)` to iterate until normal form, logging each step.
 
 ### 4. Variable Management
 
@@ -127,7 +138,7 @@ All runtime flags are in ` _config.py`. Edit it to customize:
 
 - `church(n)` encodes Python integers as λ-terms.
 
-### 6. Display & Diffing (`_printer.py`, `_ansi_helpers.py`)
+### 6. Display & Diffing
 
 - ANSI coloring for parentheses and diff highlighting.
 
@@ -150,3 +161,4 @@ Contributions welcome.
 ## License
 
 This project is licensed under the MIT License. See `LICENSE` for details.
+
