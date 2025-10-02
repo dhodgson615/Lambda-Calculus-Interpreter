@@ -11,16 +11,19 @@ def free_vars(
     expression: Expression,
 ) -> frozenset[str]:
     """Return the set of free variables in the expression."""
-    if isinstance(expression, Variable):
-        return frozenset([expression.name])
-
-    if isinstance(expression, Abstraction):
-        return free_vars(expression.body) - frozenset([expression.param])
-
-    if isinstance(expression, Application):
-        return free_vars(expression.fn) | free_vars(expression.arg)
-
-    return frozenset()
+    return (
+        frozenset([expression.name])
+        if isinstance(expression, Variable)
+        else (
+            free_vars(expression.body) - frozenset([expression.param])
+            if isinstance(expression, Abstraction)
+            else (
+                free_vars(expression.fn) | free_vars(expression.arg)
+                if isinstance(expression, Application)
+                else frozenset()
+            )
+        )
+    )
 
 
 def fresh_var(used: set[str]) -> str:
