@@ -89,7 +89,7 @@ def normalize(e: Expression) -> None:
             print("→ normal form reached.")
             break
 
-        expression, stype = result
+        e, stype = result
         step += 1
         curr = highlight_diff(prev, format_expr(expression))
         label = f" ({stype})" if SHOW_STEP_TYPE else ""
