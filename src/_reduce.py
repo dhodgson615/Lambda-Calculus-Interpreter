@@ -48,11 +48,8 @@ def reduce_once(
 
         result = reduce_once(e.fn, defs)
 
-            # Create a new Application directly
-            return (
-                Application(new_fn, e.arg),
-                reduction_type,
-            )
+        if result:
+            return Application(result[0], e.arg), result[1]
 
         # Try recursive reduction in the argument part
         arg_result = reduce_once(e.arg, defs)
