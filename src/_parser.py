@@ -20,9 +20,7 @@ class Parser:
 
     def __init__(self, src: str) -> None:
         """Initialize the parser with the source string."""
-        self.src = src
-        self.i = 0
-        self.n = len(src)
+        self.src, self.i, self.n = src, 0, len(src)
 
     def peek(self) -> str:
         """Return the next character in the source string without
