@@ -105,8 +105,11 @@ def normalize(expression: Expression) -> None:
         prev = curr
 
     if DELTA_ABSTRACT:
-        abstracted: Expression = abstract_numerals(expression)
-        print("\nδ‑abstracted: " + format_expr(abstracted) + "\n")
+        print(
+            "\nδ‑abstracted: "
+            + format_expr(abstract_numerals(expression))
+            + "\n"
+        )
 
 
 def main() -> None:
