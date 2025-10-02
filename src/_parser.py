@@ -142,7 +142,7 @@ class Parser:
         chars: list[Any] = []
 
         while True:
-            char: str = self.peek()
+            char = self.peek()
 
             if not char or char.isspace() or char in "().λ":
                 break
