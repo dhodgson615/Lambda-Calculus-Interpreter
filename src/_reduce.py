@@ -62,13 +62,4 @@ def reduce_once(
         result = reduce_once(e.body, defs)
         return (Abstraction(e.param, result[0]), result[1]) if result else None
 
-        if body_result:
-            new_body, reduction_type = body_result
-
-            return (
-                Abstraction(e.param, new_body),
-                reduction_type,
-            )
-
-    # No reduction possible
     return None
