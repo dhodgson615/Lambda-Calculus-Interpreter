@@ -66,7 +66,7 @@ def reduce_once(
             new_arg, reduction_type = arg_result
 
             return (
-                Application(expression.fn, new_arg),
+                Application(e.fn, new_arg),
                 reduction_type,
             )
 
