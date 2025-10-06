@@ -302,8 +302,6 @@ class TestMainModule:
         not_church3 = Parser("λf.λx.g x").parse()  # Wrong function
         assert not is_church_numeral(not_church1)
         assert not is_church_numeral(not_church2)
-
-        not_church3 = Parser("λf.λx.g x").parse()  # Wrong function
         assert not is_church_numeral(not_church3)
 
     def test_count_applications_edge_cases(self) -> None:
