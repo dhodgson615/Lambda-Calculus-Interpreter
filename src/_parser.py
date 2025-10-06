@@ -85,7 +85,6 @@ class Parser:
             self.skip_whitespace()
 
         expression = atom
-        arg: Expression
 
         for arg in args:
             expression = Application(expression, arg)
