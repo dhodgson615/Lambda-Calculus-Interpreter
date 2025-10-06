@@ -37,9 +37,32 @@ def reduce_once(
     e: Expression,
     defs: dict[str, Expression],
 ) -> Optional[tuple[Expression, str]]:
-    """Perform one step of reduction (β or δ)."""
-    if isinstance(e, Variable):
-        return delta_reduce(e, defs)
+    """Perform one step of reduction (β or δ) using an iterative approach."""
+    stack: list[tuple[Expression, list[tuple[str, Expression]]]] = [(e, [])]
+
+    while stack:
+        expr, path = stack.pop()
+        result = None
+
+        if isinstance(expr, Application):
+            result = beta_reduce(expr)
+
+        if result is None and isinstance(expr, Variable):
+            result = delta_reduce(expr, defs)
+
+        if result:
+            reduced_expr, reduction_type = result
+            full_expr = reduced_expr
+
+            for direction, parent in reversed(path):
+                if direction == "fn" and isinstance(parent, Application):
+                    full_expr = apply(full_expr, parent.arg)
+
+                elif direction == "arg" and isinstance(parent, Application):
+                    full_expr = apply(parent.fn, full_expr)
+
+                elif direction == "body" and isinstance(parent, Abstraction):
+                    full_expr = abstract(parent.param, full_expr)
 
     if isinstance(e, Application):
         return beta_reduce(e) or (
