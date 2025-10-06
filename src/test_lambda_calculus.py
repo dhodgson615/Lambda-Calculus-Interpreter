@@ -1,4 +1,4 @@
-import sys
+from sys import getrecursionlimit
 from unittest.mock import MagicMock, patch
 
 from pytest import mark, raises
