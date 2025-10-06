@@ -128,7 +128,10 @@ class Parser:
         """Parse a variable name from the source string."""
         c = self.peek()
 
-        chars: list[Any] = []
+        if not c or c.isspace() or c in "().λ":
+            raise SyntaxError(f"Invalid var start '{c}' at pos {self.i}")
+
+        chars = []
 
         while True:
             char = self.peek()
