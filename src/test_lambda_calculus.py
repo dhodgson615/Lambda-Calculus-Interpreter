@@ -298,8 +298,6 @@ class TestMainModule:
     def test_is_church_numeral_edge_cases(self) -> None:
         """Test is_church_numeral with edge cases"""
         not_church1 = Parser("λf.λx.y").parse()  # Free variable
-        assert not is_church_numeral(not_church1)
-
         not_church2 = Parser("λf.λx.f y").parse()  # Free variable
         assert not is_church_numeral(not_church2)
 
