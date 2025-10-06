@@ -12,7 +12,6 @@ from _expressions import (Abstraction, Application, Expression, Variable,
 def free_vars(e: Expression) -> frozenset[str]:
     """Return the set of free variables in the expression."""
     stack: list[tuple[Expression, frozenset[str]]] = [(e, frozenset())]
-
     result: frozenset[str] = frozenset()
 
     while stack:
