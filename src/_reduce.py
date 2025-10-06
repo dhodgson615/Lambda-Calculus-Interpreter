@@ -25,7 +25,7 @@ def beta_reduce(
     """Perform β-reduction if applicable."""
     return (
         (
-            substitute(e.fn.body, e.fn.param, e.arg),
+            subst(e.fn.body, e.fn.param, e.arg),
             "β",
         )
         if isinstance(e, Application) and isinstance(e.fn, Abstraction)
