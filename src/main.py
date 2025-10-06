@@ -110,8 +110,9 @@ def main() -> None:
         tree = Parser(user_input).parse()
 
     except SyntaxError as e:
-        exit(f"Parse error: {e}")
-        tree = None
+        print(f"Parse error: {e}")
+        exit(1)
+        return
 
     normalize(tree)
 
