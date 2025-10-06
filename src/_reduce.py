@@ -54,9 +54,7 @@ def reduce_once(
         result = reduce_once(e.arg, defs)
         return (Application(e.fn, result[0]), result[1]) if result else None
 
-        return None
-
-    elif isinstance(e, Abstraction):
+    if isinstance(e, Abstraction):
         result = reduce_once(e.body, defs)
         return (Abstraction(e.param, result[0]), result[1]) if result else None
 
