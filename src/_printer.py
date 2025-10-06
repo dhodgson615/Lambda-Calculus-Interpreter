@@ -21,7 +21,7 @@ def apply_color(depth: int, max_depth: int, ch: str) -> str:
     return rgb(r, g, b) + ch + RESET
 
 
-def color_parens(string: str) -> str:
+def color_parens(s: str) -> str:
     """Color parentheses by nesting level."""
     if not COLOR_PARENS:
         return string
