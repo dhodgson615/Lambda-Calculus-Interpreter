@@ -1,4 +1,3 @@
-import re
 from functools import lru_cache
 from re import compile
 
