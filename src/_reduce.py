@@ -64,15 +64,7 @@ def reduce_once(
                 elif direction == "body" and isinstance(parent, Abstraction):
                     full_expr = abstract(parent.param, full_expr)
 
-    if isinstance(e, Application):
-        return beta_reduce(e) or (
-            (lambda r: (apply(r[0], e.arg), r[1]) if r else None)(
-                reduce_once(e.fn, defs)
-            )
-            or (lambda r: (apply(e.fn, r[0]), r[1]) if r else None)(
-                reduce_once(e.arg, defs)
-            )
-        )
+            return full_expr, reduction_type
 
     if isinstance(e, Abstraction):
         return (lambda r: (abstract(e.param, r[0]), r[1]) if r else None)(
