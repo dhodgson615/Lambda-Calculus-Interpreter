@@ -56,7 +56,7 @@ def subst(e: Expression, v: str, val: Expression) -> Expression:
             renamed = subst(e.body, e.param, var(new_param))
             return abstract(new_param, subst(renamed, v, val))
 
-        return abstract(e.param, substitute(e.body, v, val))
+        return abstract(e.param, subst(e.body, v, val))
 
     if isinstance(e, Application):
         return apply(substitute(e.fn, v, val), substitute(e.arg, v, val))
