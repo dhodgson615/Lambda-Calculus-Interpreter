@@ -63,6 +63,7 @@ class TestExpressions:
         assert Abstraction("x", Variable("x")).param == "x"
         assert Abstraction("x", Variable("x")).body == Variable("x")
         assert str(Abstraction("x", Variable("x"))) == "λx.x"
+
         assert hash(Abstraction("x", Variable("x"))) == hash(
             ("x", Variable("x"))
         )
