@@ -59,6 +59,6 @@ def subst(e: Expression, v: str, val: Expression) -> Expression:
         return abstract(e.param, subst(e.body, v, val))
 
     if isinstance(e, Application):
-        return apply(substitute(e.fn, v, val), substitute(e.arg, v, val))
+        return apply(subst(e.fn, v, val), subst(e.arg, v, val))
 
     raise TypeError("Unknown Expression in subst")
