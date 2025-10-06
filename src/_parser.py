@@ -10,7 +10,7 @@ def church(n: int) -> Abstraction:
     body: Expression = var("x")
 
     for _ in range(n):
-        body = Application(Variable("f"), body)
+        body = apply(var("f"), body)
 
     return Abstraction("f", Abstraction("x", body))
 
