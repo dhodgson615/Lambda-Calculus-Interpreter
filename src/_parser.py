@@ -99,7 +99,7 @@ class Parser:
 
         if c == "(":
             self.consume()
-            expression: Expression = self.parse_expr()
+            expr = self.parse_expr()
             self.skip_whitespace()
 
             if self.consume() != ")":
