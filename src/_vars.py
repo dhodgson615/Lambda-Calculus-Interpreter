@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import string
 from functools import lru_cache
 
 from _expressions import Abstraction, Application, Expression, Variable
