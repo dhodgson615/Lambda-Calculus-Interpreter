@@ -333,7 +333,6 @@ class TestMainModule:
         with patch("main.DELTA_ABSTRACT", True):
             expr2 = Parser("(λf.λx.f (f x))").parse()
             normalize(expr2)
-
             assert any("2" in call[0][0] for call in mock_print.call_args_list)
 
     @patch("builtins.input", return_value="λx.x")
