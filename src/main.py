@@ -46,8 +46,7 @@ def count_applications(e: Expression) -> int:
         and isinstance(curr.fn, Variable)
         and curr.fn.name == e.param
     ):
-        n += 1
-        curr = curr.arg
+        n, curr = n + 1, curr.arg
 
     return n
 
