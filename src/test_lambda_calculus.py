@@ -73,6 +73,7 @@ class TestExpressions:
         assert Application(Variable("x"), Variable("y")).fn == Variable("x")
         assert Application(Variable("x"), Variable("y")).arg == Variable("y")
         assert str(Application(Variable("x"), Variable("y"))) == "x y"
+
         assert hash(Application(Variable("x"), Variable("y"))) == hash(
             (Variable("x"), Variable("y"))
         )
