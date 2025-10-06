@@ -48,7 +48,7 @@ def color_parens(string: str) -> str:
             depth -= 1
 
         else:
-            result += char
+            result += c
 
     return result
 
