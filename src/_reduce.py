@@ -4,7 +4,7 @@ from typing import Optional
 
 from _expressions import (Abstraction, Application, Expression, Variable,
                           abstract, apply, var)
-from _vars import substitute
+from _vars import subst
 
 
 def delta_reduce(
