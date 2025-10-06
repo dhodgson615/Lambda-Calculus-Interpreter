@@ -95,7 +95,7 @@ class Parser:
     def parse_atom(self) -> Expression:
         """Parse an atomic expression from the source string."""
         self.skip_whitespace()
-        char = self.peek()
+        c = self.peek()
 
         if char == "(":
             self.consume()
