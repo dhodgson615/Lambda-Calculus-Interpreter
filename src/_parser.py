@@ -105,7 +105,7 @@ class Parser:
             if self.consume() != ")":
                 raise SyntaxError("Expected ')'")
 
-            return expression
+            return expr
 
         elif char.isdigit():
             num = self.parse_number()
