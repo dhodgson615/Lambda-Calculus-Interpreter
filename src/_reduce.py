@@ -42,18 +42,14 @@ def reduce_once(
         return delta_reduce(e, defs)
 
     if isinstance(e, Application):
-        result = beta_reduce(e)
-
-        if result:
-            return result
-
-        result = reduce_once(e.fn, defs)
-
-        if result:
-            return apply(result[0], e.arg), result[1]
-
-        result = reduce_once(e.arg, defs)
-        return (apply(e.fn, result[0]), result[1]) if result else None
+        return beta_reduce(e) or (
+            (lambda r: (apply(r[0], e.arg), r[1]) if r else None)(
+                reduce_once(e.fn, defs)
+            )
+            or (lambda r: (apply(e.fn, r[0]), r[1]) if r else None)(
+                reduce_once(e.arg, defs)
+            )
+        )
 
     if isinstance(e, Abstraction):
         result = reduce_once(e.body, defs)
