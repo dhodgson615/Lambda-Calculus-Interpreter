@@ -361,8 +361,6 @@ class TestMainModule:
 
         with patch("sys.argv", ["main.py", "λx.x", "y"]):
             mock_print.reset_mock()
-            from main import main
-
             main()
             assert mock_print.call_count > 0
 
