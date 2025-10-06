@@ -1,7 +1,7 @@
 from functools import lru_cache
 from typing import Any
 
-from _expressions import Abstraction, Application, Expression, Variable
+from _expressions import Abstraction, Expression, abstract, apply, var
 
 
 @lru_cache(maxsize=None)
