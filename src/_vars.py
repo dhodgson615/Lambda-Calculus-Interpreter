@@ -28,20 +28,12 @@ def free_vars(
 
 def fresh_var(used: set[str]) -> str:
     """Generate a fresh variable name not in the used set."""
-    for base in string.ascii_lowercase:
-        if base not in used:
-            return base
-
-    i = 1
-
-    while True:
-        for base in string.ascii_lowercase:
-            candidate = f"{base}{i}"
-
-            if candidate not in used:
-                return candidate
-
-        i += 1
+    return next(
+        base if i == 0 else f"{base}{i}"
+        for i in count()
+        for base in ascii_lowercase
+        if (base if i == 0 else f"{base}{i}") not in used
+    )
 
 
 @lru_cache(maxsize=None)
