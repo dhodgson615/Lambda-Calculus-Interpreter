@@ -446,6 +446,7 @@ class TestNumericAbstraction:
         for expr_str, expected in test_cases:
             expr = Parser(expr_str).parse()
             normal_expr = expr
+
             while True:
                 result = reduce_once(normal_expr, DEFS)
                 if not result:
