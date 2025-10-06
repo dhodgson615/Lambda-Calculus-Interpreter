@@ -117,12 +117,13 @@ class Parser:
 
     def parse_number(self) -> int:
         """Parse a number from the source string."""
-        digits: list[Any] = []
-
-        while self.peek().isdigit():
-            digits.append(self.consume())
-
-        return int("".join(digits))
+        return int(
+            "".join(
+                iter(
+                    lambda: self.consume() if self.peek().isdigit() else "", ""
+                )
+            )
+        )
 
     def parse_varname(self) -> str:
         """Parse a variable name from the source string."""
