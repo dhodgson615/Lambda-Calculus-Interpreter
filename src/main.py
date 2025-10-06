@@ -53,7 +53,9 @@ def count_applications(e: Expression) -> int:
 
 
 def abstract_numerals(e: Expression) -> Expression:
-    """Replace Church numerals with their integer equivalents using an iterative approach."""
+    """Replace Church numerals with their integer equivalents using an
+    iterative approach.
+    """
     stack: list[tuple[Expression, str]] = []
     result_map: dict[int, Expression] = {}
     stack.append((e, "visit"))
