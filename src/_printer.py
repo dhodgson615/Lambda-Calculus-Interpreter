@@ -85,12 +85,10 @@ def highlight_diff(old: str, new: str) -> str:
     return f"{start}{HIGHLIGHT}{mid}{RESET}{end}"
 
 
-def format_expr(expression: Expression) -> str:
-    """Format any expression for pretty printing."""
-    text = str(expression)
-    if COMPACT:
-        text = text.replace(" ", "")
-    if COLOR_PARENS:
-        text = color_parens(text)
-
-    return text
+def format_expr(e: Expression) -> str:
+    """Format the expression as a string, applying configuration
+    options.
+    """
+    text = str(e)
+    text = text.replace(" ", "") if COMPACT else text
+    return color_parens(text) if COLOR_PARENS else text
