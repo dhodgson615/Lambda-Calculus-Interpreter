@@ -63,3 +63,18 @@ class Application(Expression):
         )
 
         return f"{fn_s} {arg_s}"
+
+
+def var(name: str) -> Variable:
+    """Create a variable expression."""
+    return Variable(name)
+
+
+def abstract(param: str, body: Expression) -> Abstraction:
+    """Create an abstraction expression."""
+    return Abstraction(param, body)
+
+
+def apply(fn: Expression, arg: Expression) -> Application:
+    """Create an application expression."""
+    return Application(fn, arg)
