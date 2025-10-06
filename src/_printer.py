@@ -34,7 +34,7 @@ def color_parens(s: str) -> str:
 
     result, depth = "", 0
 
-    for c in string:
+    for c in s:
         result += (
             apply_color(depth + 1, max_depth, c)
             if c == "("
