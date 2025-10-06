@@ -182,7 +182,6 @@ class TestPrinter:
         color1 = apply_color(1, 10, "(")
         color2 = apply_color(5, 10, "(")
         color3 = apply_color(10, 10, "(")
-
         assert color1 != color2
         assert color2 != color3
 
