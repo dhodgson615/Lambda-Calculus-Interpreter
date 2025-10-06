@@ -46,6 +46,7 @@ def color_parens(string: str) -> str:
         if char == "(":
             depth += 1
             result += apply_color(depth, max_depth, char)
+
         elif char == ")":
             result += apply_color(depth, max_depth, char)
             depth -= 1
