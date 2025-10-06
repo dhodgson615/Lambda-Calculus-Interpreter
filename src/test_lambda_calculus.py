@@ -544,7 +544,7 @@ class TestBooleanOperations:
 
     @patch("builtins.input", return_value="λx.x")
     @patch("builtins.print")
-    @patch("main.Parser")  # Mock the parser to avoid syntax error
+    @patch("main.Parser")
     def test_main(
         self,
         mock_parser: MagicMock,
