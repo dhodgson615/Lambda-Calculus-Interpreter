@@ -89,6 +89,8 @@ def format_expr(e: Expression) -> str:
     """Return the string representation of the expression, optionally
     coloring parentheses.
     """
-    text = str(e)
-    text = text.replace(" ", "") if COMPACT else text
-    return color_parens(text) if COLOR_PARENS else text
+    return (
+        color_parens(str(e).replace(" ", "") if COMPACT else str(e))
+        if COLOR_PARENS
+        else (str(e).replace(" ", "") if COMPACT else str(e))
+    )
