@@ -52,9 +52,7 @@ def reduce_once(
             return Application(result[0], e.arg), result[1]
 
         result = reduce_once(e.arg, defs)
-
-        if result:
-            return Application(e.fn, result[0]), result[1]
+        return (Application(e.fn, result[0]), result[1]) if result else None
 
         return None
 
