@@ -46,7 +46,7 @@ class TestConfig:
             assert getrecursionlimit() == RECURSION_LIMIT
 
         else:
-            assert sys.getrecursionlimit() == 2**31 - 1
+            assert getrecursionlimit() == 2**31 - 1
 
 
 class TestExpressions:
