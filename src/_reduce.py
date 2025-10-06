@@ -3,7 +3,7 @@ from __future__ import annotations
 from typing import Optional
 
 from _expressions import (Abstraction, Application, Expression, Variable,
-                          abstract, apply, to_var)
+                          abstract, apply)
 from _vars import subst
 
 
