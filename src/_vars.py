@@ -61,8 +61,8 @@ def substitute(e: Expression, var: str, val: Expression) -> Expression:
 
     if isinstance(e, Application):
         return Application(
-            substitute(expression.fn, variable, value),
-            substitute(expression.arg, variable, value),
+            substitute(e.fn, var, val),
+            substitute(e.arg, var, val),
         )
 
     raise TypeError("Unknown Expression in subst")
