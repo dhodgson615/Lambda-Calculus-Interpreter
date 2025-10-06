@@ -28,7 +28,7 @@ def color_parens(s: str) -> str:
 
     depth = max_depth = 0
 
-    for c in string:
+    for c in s:
         depth += 1 if c == "(" else -1 if c == ")" else 0
         max_depth = max(max_depth, depth) if c == "(" else max_depth
 
