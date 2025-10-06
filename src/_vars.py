@@ -23,12 +23,15 @@ def free_vars(e: Expression) -> frozenset[str]:
             else frozenset()
         )
 
-        elif isinstance(expr, Abstraction):
-            stack.append((expr.body, bound | frozenset([expr.param])))
-
-        elif isinstance(expr, Application):
-            stack.append((expr.fn, bound))
-            stack.append((expr.arg, bound))
+        stack.extend(
+            [(expr.body, bound | frozenset([expr.param]))]
+            if isinstance(expr, Abstraction)
+            else (
+                [(expr.fn, bound), (expr.arg, bound)]
+                if isinstance(expr, Application)
+                else []
+            )
+        )
 
     return result
 
