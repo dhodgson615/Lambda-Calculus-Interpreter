@@ -41,12 +41,7 @@ def color_parens(string: str) -> str:
             else apply_color(depth, max_depth, c) if c == ")" else c
         )
 
-        elif c == ")":
-            result += apply_color(depth, max_depth, c)
-            depth -= 1
-
-        else:
-            result += c
+        depth += 1 if c == "(" else -1 if c == ")" else 0
 
     return result
 
