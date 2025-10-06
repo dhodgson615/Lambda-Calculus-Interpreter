@@ -52,7 +52,8 @@ def reduce_once(
         )
 
     if isinstance(e, Abstraction):
-        result = reduce_once(e.body, defs)
-        return (abstract(e.param, result[0]), result[1]) if result else None
+        return (lambda r: (abstract(e.param, r[0]), r[1]) if r else None)(
+            reduce_once(e.body, defs)
+        )
 
     return None
