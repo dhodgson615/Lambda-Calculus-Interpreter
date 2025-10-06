@@ -53,22 +53,42 @@ def count_applications(e: Expression) -> int:
 
 
 def abstract_numerals(e: Expression) -> Expression:
-    """Replace Church numerals in the expression with their integer
-    equivalents.
-    """
-    return (
-        to_var(str(count_applications(e)))
-        if is_church_numeral(e)
-        else (
-            abstract(e.param, abstract_numerals(e.body))
-            if isinstance(e, Abstraction)
-            else (
-                apply(abstract_numerals(e.fn), abstract_numerals(e.arg))
-                if isinstance(e, Application)
-                else e
-            )
-        )
-    )
+    """Replace Church numerals with their integer equivalents using an iterative approach."""
+    stack: list[tuple[Expression, str]] = []
+    result_map: dict[int, Expression] = {}
+    stack.append((e, "visit"))
+
+    while stack:
+        expr, action = stack.pop()
+        expr_id = id(expr)
+
+        if action == "visit":
+            stack.append((expr, "process"))
+
+            if isinstance(expr, Application):
+                stack.append((expr.arg, "visit"))
+                stack.append((expr.fn, "visit"))
+
+            elif isinstance(expr, Abstraction):
+                stack.append((expr.body, "visit"))
+
+        elif action == "process":
+            if is_church_numeral(expr):
+                result_map[expr_id] = to_var(str(count_applications(expr)))
+
+            elif isinstance(expr, Abstraction):
+                body_result = result_map.get(id(expr.body), expr.body)
+                result_map[expr_id] = abstract(expr.param, body_result)
+
+            elif isinstance(expr, Application):
+                fn_result = result_map.get(id(expr.fn), expr.fn)
+                arg_result = result_map.get(id(expr.arg), expr.arg)
+                result_map[expr_id] = apply(fn_result, arg_result)
+
+            else:
+                result_map[expr_id] = expr
+
+    return result_map.get(id(e), e)
 
 
 def normalize(e: Expression) -> None:
