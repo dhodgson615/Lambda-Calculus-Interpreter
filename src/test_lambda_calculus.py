@@ -563,6 +563,8 @@ class TestBooleanOperations:
             main()
 
         assert mock_print.call_count > 0
+        assert mock_instance.parse.call_count == 1
+        assert mock_input.call_count == 0
 
     def test_main_raises_syntax_error(self) -> None:
         """Test that main exits on syntax error."""
