@@ -66,9 +66,11 @@ def reduce_once(
 
             return full_expr, reduction_type
 
-    if isinstance(e, Abstraction):
-        return (lambda r: (abstract(e.param, r[0]), r[1]) if r else None)(
-            reduce_once(e.body, defs)
-        )
+        if isinstance(expr, Application):
+            stack.append((expr.arg, path + [("arg", expr)]))
+            stack.append((expr.fn, path + [("fn", expr)]))
+
+        elif isinstance(expr, Abstraction):
+            stack.append((expr.body, path + [("body", expr)]))
 
     return None
