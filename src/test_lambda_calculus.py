@@ -538,5 +538,6 @@ class TestBooleanOperations:
 
         if expected:
             assert str(normal_expr) == true_repr
+
         else:
             assert str(normal_expr) == false_repr
