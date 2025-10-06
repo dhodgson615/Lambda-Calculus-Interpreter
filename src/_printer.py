@@ -14,15 +14,10 @@ def strip_spaces(s: str) -> str:
 @lru_cache(maxsize=None)
 def apply_color(depth: int, max_depth: int, ch: str) -> str:
     """Apply color to a character based on the current depth and max depth."""
-    if max_depth > 1:
-        ratio: float = (depth - 1) / (max_depth - 1)
-    else:
-        ratio = 0
-
-    r: int = int(0 * (1 - ratio) + 0 * ratio)
-    g: int = int(128 * (1 - ratio) + 255 * ratio)
-    b: int = int(128 * (1 - ratio) + 255 * ratio)
-
+    ratio = (depth - 1) / (max_depth - 1) if max_depth > 1 else 0
+    r = int(0 * (1 - ratio) + 0 * ratio)
+    g = int(128 * (1 - ratio) + 255 * ratio)
+    b = int(128 * (1 - ratio) + 255 * ratio)
     return rgb(r, g, b) + ch + RESET
 
 
