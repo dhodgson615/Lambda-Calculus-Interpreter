@@ -134,7 +134,7 @@ class Parser:
         chars = []
 
         while True:
-            char = self.peek()
+            c = self.peek()
 
             if not char or char.isspace() or char in "().λ":
                 break
