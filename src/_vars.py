@@ -50,9 +50,7 @@ def substitute(e: Expression, var: str, val: Expression) -> Expression:
 
         if e.param in free_vars(val):
             used = (
-                set(free_vars(expression.body))
-                | set(free_vars(value))
-                | {expression.param, variable}
+                set(free_vars(e.body)) | set(free_vars(val)) | {e.param, var}
             )
 
             new_param = fresh_var(used)
