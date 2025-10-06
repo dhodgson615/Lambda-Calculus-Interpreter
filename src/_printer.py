@@ -27,8 +27,9 @@ def color_parens(string: str) -> str:
         return string
 
     # first pass: find max nesting depth
-    depth: int = 0
-    max_depth: int = 0
+    depth = 0
+    max_depth = 0
+
     for char in string:
         if char == "(":
             depth += 1
