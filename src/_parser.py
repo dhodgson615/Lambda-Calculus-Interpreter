@@ -38,12 +38,8 @@ class Parser:
 
     def skip_whitespace(self) -> None:
         """Skip whitespace characters in the source string."""
-        i, n, src = self.i, self.n, self.src
-
-        while i < n and src[i].isspace():
-            i += 1
-
-        self.i = i
+        while self.i < self.n and self.src[self.i].isspace():
+            self.i += 1
 
     def parse(self) -> Expression:
         """Parse the source string into an expression."""
