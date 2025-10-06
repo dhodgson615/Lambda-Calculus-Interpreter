@@ -524,6 +524,7 @@ class TestBooleanOperations:
     )
     def test_all_comparisons(self, a: int, b: int, expected: bool) -> None:
         normal_expr = Parser(f"≤ {a} {b}").parse()
+
         while True:
             result = reduce_once(normal_expr, DEFS)
             if not result:
