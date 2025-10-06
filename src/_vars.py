@@ -54,12 +54,8 @@ def substitute(e: Expression, var: str, val: Expression) -> Expression:
             )
 
             new_param = fresh_var(used)
-
-            renamed = substitute(
-                expression.body,
-                expression.param,
-                Variable(new_param),
-            )
+            renamed = substitute(e.body, e.param, Variable(new_param))
+            return Abstraction(new_param, substitute(renamed, var, val))
 
             return Abstraction(
                 new_param,
