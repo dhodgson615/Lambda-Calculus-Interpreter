@@ -491,16 +491,6 @@ class TestNumericAbstraction:
         abstracted = abstract_numerals(normal_expr)
         assert str(abstracted) == expected
 
-    # def test_recursion_error_for_large_input(self):
-    #    with pytest.raises(RecursionError):
-    #        expr = Parser("* 1000 1000").parse()
-    #        while True:
-    #            step = reduce_once(expr, DEFS)
-    #            if not step:
-    #                break
-    #
-    #            expr = step[0]
-
 
 class TestBooleanOperations:
     """Test boolean operations and comparisons."""
