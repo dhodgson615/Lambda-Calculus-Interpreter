@@ -347,6 +347,11 @@ class TestMainModule:
         """Test the main function with input and command line
         arguments.
         """
+        # Set up the mock parser to return a valid expression
+        mock_instance = MagicMock()
+        mock_instance.parse.return_value = Variable("x")
+        mock_parser.return_value = mock_instance
+
         with patch("sys.argv", ["main.py"]):
             from main import main
 
