@@ -33,7 +33,7 @@ def color_parens(string: str) -> str:
             depth += 1
             max_depth = max(max_depth, depth)
 
-        elif char == ")":
+        elif c == ")":
             depth -= 1
 
     # second pass: insert ANSI colors
