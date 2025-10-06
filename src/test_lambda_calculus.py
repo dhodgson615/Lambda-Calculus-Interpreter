@@ -84,6 +84,7 @@ class TestExpressions:
             str(Abstraction("z", Abstraction("y", Variable("x"))))
             == "λz.(λy.x)"
         )
+
         assert (
             str(
                 Application(
