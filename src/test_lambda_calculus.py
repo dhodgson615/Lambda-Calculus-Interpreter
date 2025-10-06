@@ -43,7 +43,8 @@ class TestConfig:
     def test_recursion_limit(self) -> None:
         """Test that the recursion limit is set correctly."""
         if RECURSION_LIMIT > 0:
-            assert sys.getrecursionlimit() == RECURSION_LIMIT
+            assert getrecursionlimit() == RECURSION_LIMIT
+
         else:
             assert sys.getrecursionlimit() == 2**31 - 1
 
