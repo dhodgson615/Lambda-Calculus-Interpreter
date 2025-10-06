@@ -1,16 +1,16 @@
 from functools import lru_cache
 from typing import Any
 
-from _expressions import Abstraction, Expression, abstract, apply, var
+from _expressions import Abstraction, Expression, abstract, apply, to_var
 
 
 @lru_cache(maxsize=None)
 def church(n: int) -> Abstraction:
     """Convert a number to its Church numeral representation."""
-    body: Expression = var("x")
+    body: Expression = to_var("x")
 
     for _ in range(n):
-        body = apply(var("f"), body)
+        body = apply(to_var("f"), body)
 
     return abstract("f", abstract("x", body))
 
@@ -109,7 +109,7 @@ class Parser:
         return (
             church(self.parse_number())
             if c.isdigit()
-            else var(self.parse_varname())
+            else to_var(self.parse_varname())
         )
 
     def parse_number(self) -> int:

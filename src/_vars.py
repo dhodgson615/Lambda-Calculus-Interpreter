@@ -5,27 +5,31 @@ from itertools import count
 from string import ascii_lowercase
 
 from _expressions import (Abstraction, Application, Expression, Variable,
-                          abstract, apply, var)
+                          abstract, apply, to_var)
 
 
 @lru_cache(maxsize=None)
-def free_vars(
-    expression: Expression,
-) -> frozenset[str]:
+def free_vars(e: Expression) -> frozenset[str]:
     """Return the set of free variables in the expression."""
-    return (
-        frozenset([expression.name])
-        if isinstance(expression, Variable)
-        else (
-            free_vars(expression.body) - frozenset([expression.param])
-            if isinstance(expression, Abstraction)
-            else (
-                free_vars(expression.fn) | free_vars(expression.arg)
-                if isinstance(expression, Application)
-                else frozenset()
-            )
-        )
-    )
+    stack: list[tuple[Expression, frozenset[str]]] = [(e, frozenset())]
+
+    result: frozenset[str] = frozenset()
+
+    while stack:
+        expr, bound = stack.pop()
+
+        if isinstance(expr, Variable):
+            if expr.name not in bound:
+                result |= frozenset([expr.name])
+
+        elif isinstance(expr, Abstraction):
+            stack.append((expr.body, bound | frozenset([expr.param])))
+
+        elif isinstance(expr, Application):
+            stack.append((expr.fn, bound))
+            stack.append((expr.arg, bound))
+
+    return result
 
 
 def fresh_var(used: set[str]) -> str:
@@ -40,25 +44,58 @@ def fresh_var(used: set[str]) -> str:
 
 @lru_cache(maxsize=None)
 def subst(e: Expression, v: str, val: Expression) -> Expression:
-    """Substitute all free occurrences of variable in expression with
-    value.
-    """
-    if isinstance(e, Variable):
-        return val if e.name == v else e
+    """Substitute all free occurrences of variable in expression with value."""
+    stack = [(e, v, val)]
+    results = {}
 
-    if isinstance(e, Abstraction):
-        if e.param == v:
-            return abstract(e.param, e.body)
+    while stack:
+        expr, var, value = stack.pop()
+        key = (id(expr), var, id(value))
 
-        if e.param in free_vars(val):
-            used = set(free_vars(e.body)) | set(free_vars(val)) | {e.param, v}
-            new_param = fresh_var(used)
-            renamed = subst(e.body, e.param, var(new_param))
-            return abstract(new_param, subst(renamed, v, val))
+        if key in results:
+            continue
 
-        return abstract(e.param, subst(e.body, v, val))
+        if isinstance(expr, Variable):
+            results[key] = value if expr.name == var else expr
 
-    if isinstance(e, Application):
-        return apply(subst(e.fn, v, val), subst(e.arg, v, val))
+        elif isinstance(expr, Abstraction):
+            if expr.param == var:
+                results[key] = abstract(expr.param, expr.body)
 
-    raise TypeError("Unknown Expression in subst")
+            elif expr.param in free_vars(value):
+                used = (
+                    free_vars(expr.body) | free_vars(value) | {expr.param, var}
+                )
+
+                new_param = fresh_var(set(used))
+                renamed = subst(expr.body, expr.param, to_var(new_param))
+                results[key] = abstract(new_param, subst(renamed, var, value))
+
+            else:
+                body_key = (id(expr.body), var, id(value))
+
+                if body_key not in results:
+                    stack.append((expr, var, value))
+                    stack.append((expr.body, var, value))
+                    continue
+
+                results[key] = abstract(expr.param, results[body_key])
+
+        elif isinstance(expr, Application):
+            fn_key = (id(expr.fn), var, id(value))
+            arg_key = (id(expr.arg), var, id(value))
+
+            if fn_key not in results or arg_key not in results:
+                stack.append((expr, var, value))
+
+                if fn_key not in results:
+                    stack.append((expr.fn, var, value))
+
+                if arg_key not in results:
+                    stack.append((expr.arg, var, value))
+
+                continue
+
+            results[key] = apply(results[fn_key], results[arg_key])
+
+    return results[(id(e), v, id(val))]

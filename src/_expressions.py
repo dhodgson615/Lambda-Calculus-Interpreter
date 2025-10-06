@@ -65,7 +65,7 @@ class Application(Expression):
         return f"{fn_s} {arg_s}"
 
 
-def var(name: str) -> Variable:
+def to_var(name: str) -> Variable:
     """Create a variable expression."""
     return Variable(name)
 
