@@ -126,10 +126,7 @@ class Parser:
 
     def parse_varname(self) -> str:
         """Parse a variable name from the source string."""
-        if not self.peek() or self.peek().isspace() or self.peek() in "().λ":
-            raise SyntaxError(
-                f"Invalid var start '{self.peek()}' at pos {self.i}"
-            )
+        c = self.peek()
 
         chars: list[Any] = []
 
