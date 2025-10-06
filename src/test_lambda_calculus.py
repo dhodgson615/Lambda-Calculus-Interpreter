@@ -109,6 +109,7 @@ class TestParser:
             assert numeral.body.param == "x"
             count = 0
             current = numeral.body.body
+
             while isinstance(current, Application):
                 count += 1
                 current = current.arg
