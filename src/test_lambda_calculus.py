@@ -258,7 +258,7 @@ class TestVariables:
     def test_substitute_with_name_clash(self) -> None:
         """Test substitution with name clashes"""
         expr = Parser("λy.x y").parse()
-        result = substitute(expr, "x", var("y"))
+        result = subst(expr, "x", var("y"))
 
         # Should rename the bound 'y' to avoid capture
         assert str(result) != "λy.y y"
