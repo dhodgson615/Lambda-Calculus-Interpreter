@@ -73,7 +73,8 @@ def highlight_diff(old: str, new: str) -> str:
         i += 1
 
     # find common suffix length
-    j: int = 0
+    j = 0
+
     while j < (l - i) and o[-1 - j] == n[-1 - j]:
         j += 1
 
