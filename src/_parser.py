@@ -107,9 +107,8 @@ class Parser:
 
             return expr
 
-        elif char.isdigit():
-            num = self.parse_number()
-            return church(num)
+        if c.isdigit():
+            return church(self.parse_number())
 
         else:
             name = self.parse_varname()
