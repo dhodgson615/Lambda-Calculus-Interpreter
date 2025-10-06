@@ -37,13 +37,9 @@ def fresh_var(used: set[str]) -> str:
 
 
 @lru_cache(maxsize=None)
-def substitute(
-    expression: Expression,
-    variable: str,
-    value: Expression,
-) -> Expression:
-    """Substitute all free occurrences of the variable in the
-    expression with value.
+def substitute(e: Expression, var: str, val: Expression) -> Expression:
+    """Substitute all free occurrences of variable in expression with
+    value.
     """
     if isinstance(expression, Variable):
         return value if expression.name == variable else expression
