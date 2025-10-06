@@ -299,6 +299,8 @@ class TestMainModule:
         """Test is_church_numeral with edge cases"""
         not_church1 = Parser("λf.λx.y").parse()  # Free variable
         not_church2 = Parser("λf.λx.f y").parse()  # Free variable
+        not_church3 = Parser("λf.λx.g x").parse()  # Wrong function
+        assert not is_church_numeral(not_church1)
         assert not is_church_numeral(not_church2)
 
         not_church3 = Parser("λf.λx.g x").parse()  # Wrong function
