@@ -530,6 +530,7 @@ class TestBooleanOperations:
 
             if not result:
                 break
+
             normal_expr = result[0]
 
         true_repr = str(DEFS["⊤"])
