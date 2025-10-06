@@ -86,8 +86,8 @@ def highlight_diff(old: str, new: str) -> str:
 
 
 def format_expr(e: Expression) -> str:
-    """Format the expression as a string, applying configuration
-    options.
+    """Return the string representation of the expression, optionally
+    coloring parentheses.
     """
     text = str(e)
     text = text.replace(" ", "") if COMPACT else text
