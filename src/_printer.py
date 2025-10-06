@@ -67,7 +67,8 @@ def highlight_diff(old: str, new: str) -> str:
     l = min(len(o), len(n))
 
     # find the common prefix length
-    i: int = 0
+    i = 0
+
     while i < l and o[i] == n[i]:
         i += 1
 
