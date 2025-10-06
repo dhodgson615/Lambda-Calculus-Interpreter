@@ -39,7 +39,7 @@ def color_parens(string: str) -> str:
             depth -= 1
 
     # second pass: insert ANSI colors
-    result: str = ""
+    result = ""
     depth = 0
     for char in string:
         if char == "(":
