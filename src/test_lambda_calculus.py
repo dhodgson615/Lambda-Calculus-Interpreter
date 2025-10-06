@@ -113,6 +113,7 @@ class TestParser:
             while isinstance(current, Application):
                 count += 1
                 current = current.arg
+
             assert count == i
 
     def test_peek_and_consume(self) -> None:
