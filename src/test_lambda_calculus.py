@@ -168,6 +168,7 @@ class TestPrinter:
     def test_strip_spaces_with_config(self) -> None:
         """Test strip_spaces with different COMPACT settings."""
         strip_spaces.cache_clear()
+
         with patch("_printer.COMPACT", True):
             assert strip_spaces("a b c") == "abc"
 
