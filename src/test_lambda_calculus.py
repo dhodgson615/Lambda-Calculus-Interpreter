@@ -499,7 +499,6 @@ class TestBooleanOperations:
         """Test true and false values from definitions"""
         true_expr = DEFS["⊤"]
         false_expr = DEFS["⊥"]
-
         assert str(true_expr) == "λx.(λy.x)"
         assert str(false_expr) == "λx.(λy.y)"
 
