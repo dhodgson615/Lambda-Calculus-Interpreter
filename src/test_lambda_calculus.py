@@ -482,6 +482,7 @@ class TestNumericAbstraction:
 
         while True:
             result = reduce_once(normal_expr, DEFS)
+
             if not result:
                 break
             normal_expr = result[0]
