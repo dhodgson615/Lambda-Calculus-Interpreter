@@ -53,8 +53,8 @@ def subst(e: Expression, v: str, val: Expression) -> Expression:
         if e.param in free_vars(val):
             used = set(free_vars(e.body)) | set(free_vars(val)) | {e.param, v}
             new_param = fresh_var(used)
-            renamed = substitute(e.body, e.param, var(new_param))
-            return abstract(new_param, substitute(renamed, v, val))
+            renamed = subst(e.body, e.param, var(new_param))
+            return abstract(new_param, subst(renamed, v, val))
 
         return abstract(e.param, substitute(e.body, v, val))
 
