@@ -129,14 +129,15 @@ class Parser:
         if not c or c.isspace() or c in "().λ":
             raise SyntaxError(f"Invalid var start '{c}' at pos {self.i}")
 
-        chars = []
-
-        while True:
-            c = self.peek()
-
-            if not c or c.isspace() or c in "().λ":
-                break
-
-            chars.append(self.consume())
-
-        return "".join(chars)
+        return "".join(
+            iter(
+                lambda: (
+                    self.consume()
+                    if self.peek()
+                    and not self.peek().isspace()
+                    and self.peek() not in "().λ"
+                    else ""
+                ),
+                "",
+            )
+        )
