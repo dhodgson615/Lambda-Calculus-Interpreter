@@ -136,7 +136,7 @@ class Parser:
         while True:
             c = self.peek()
 
-            if not char or char.isspace() or char in "().λ":
+            if not c or c.isspace() or c in "().λ":
                 break
 
             chars.append(self.consume())
