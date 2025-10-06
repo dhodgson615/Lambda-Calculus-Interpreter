@@ -59,17 +59,7 @@ def substitute(e: Expression, var: str, val: Expression) -> Expression:
 
         return Abstraction(e.param, substitute(e.body, var, val))
 
-        else:
-            return Abstraction(
-                expression.param,
-                substitute(
-                    expression.body,
-                    variable,
-                    value,
-                ),
-            )
-
-    if isinstance(expression, Application):
+    if isinstance(e, Application):
         return Application(
             substitute(expression.fn, variable, value),
             substitute(expression.arg, variable, value),
