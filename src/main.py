@@ -5,7 +5,8 @@ from sys import argv, exit
 
 from _config import DELTA_ABSTRACT, SHOW_STEP_TYPE
 from _defs import DEFS
-from _expressions import Abstraction, Application, Expression, Variable
+from _expressions import (Abstraction, Application, Expression, Variable,
+                          abstract, apply, var)
 from _parser import Parser
 from _printer import format_expr, highlight_diff
 from _reduce import reduce_once
@@ -56,13 +57,13 @@ def abstract_numerals(e: Expression) -> Expression:
     equivalents.
     """
     return (
-        Variable(str(count_applications(e)))
+        var(str(count_applications(e)))
         if is_church_numeral(e)
         else (
-            Abstraction(e.param, abstract_numerals(e.body))
+            abstract(e.param, abstract_numerals(e.body))
             if isinstance(e, Abstraction)
             else (
-                Application(abstract_numerals(e.fn), abstract_numerals(e.arg))
+                apply(abstract_numerals(e.fn), abstract_numerals(e.arg))
                 if isinstance(e, Application)
                 else e
             )

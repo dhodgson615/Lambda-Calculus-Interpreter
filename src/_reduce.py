@@ -2,7 +2,8 @@ from __future__ import annotations
 
 from typing import Optional
 
-from _expressions import Abstraction, Application, Expression, Variable
+from _expressions import (Abstraction, Application, Expression, Variable,
+                          abstract, apply, var)
 from _vars import substitute
 
 
@@ -49,13 +50,13 @@ def reduce_once(
         result = reduce_once(e.fn, defs)
 
         if result:
-            return Application(result[0], e.arg), result[1]
+            return apply(result[0], e.arg), result[1]
 
         result = reduce_once(e.arg, defs)
-        return (Application(e.fn, result[0]), result[1]) if result else None
+        return (apply(e.fn, result[0]), result[1]) if result else None
 
     if isinstance(e, Abstraction):
         result = reduce_once(e.body, defs)
-        return (Abstraction(e.param, result[0]), result[1]) if result else None
+        return (abstract(e.param, result[0]), result[1]) if result else None
 
     return None

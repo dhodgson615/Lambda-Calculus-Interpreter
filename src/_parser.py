@@ -12,7 +12,7 @@ def church(n: int) -> Abstraction:
     for _ in range(n):
         body = apply(var("f"), body)
 
-    return Abstraction("f", Abstraction("x", body))
+    return abstract("f", abstract("x", body))
 
 
 class Parser:
@@ -59,14 +59,14 @@ class Parser:
     def parse_abs(self) -> Abstraction:
         """Parse an abstraction from the source string."""
         self.consume()  # 'λ'
-        var = self.parse_varname()
+        v = self.parse_varname()
         self.skip_whitespace()
 
         if self.consume() != ".":
             raise SyntaxError("Expected '.' after λ parameter")
 
         body = self.parse_expr()
-        return Abstraction(var, body)
+        return abstract(v, body)
 
     def parse_app(self) -> Expression:
         """Parse an application from the source string."""
@@ -87,7 +87,7 @@ class Parser:
         expression = atom
 
         for arg in args:
-            expression = Application(expression, arg)
+            expression = apply(expression, arg)
 
         return expression
 
@@ -109,7 +109,7 @@ class Parser:
         return (
             church(self.parse_number())
             if c.isdigit()
-            else Variable(self.parse_varname())
+            else var(self.parse_varname())
         )
 
     def parse_number(self) -> int:

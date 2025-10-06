@@ -6,7 +6,8 @@ from pytest import mark, raises
 from _ansi_helpers import _ANSI_RE, ESC, HIGHLIGHT, RESET, rgb, strip_ansi
 from _config import RECURSION_LIMIT
 from _defs import DEFS
-from _expressions import Abstraction, Application, Variable
+from _expressions import (Abstraction, Application, Variable, abstract, apply,
+                          var)
 from _parser import Parser, church
 from _printer import apply_color, color_parens, highlight_diff, strip_spaces
 from _reduce import reduce_once
@@ -54,44 +55,30 @@ class TestExpressions:
 
     def test_variable_creation(self) -> None:
         """Test variable creation and string representation."""
-        assert Variable("x").name == "x"
-        assert str(Variable("x")) == "x"
-        assert hash(Variable("x")) == hash("x")
+        assert var("x").name == "x"
+        assert str(var("x")) == "x"
+        assert hash(var("x")) == hash("x")
 
     def test_abstraction_creation(self) -> None:
         """Test abstraction creation and string representation."""
-        assert Abstraction("x", Variable("x")).param == "x"
-        assert Abstraction("x", Variable("x")).body == Variable("x")
-        assert str(Abstraction("x", Variable("x"))) == "λx.x"
-
-        assert hash(Abstraction("x", Variable("x"))) == hash(
-            ("x", Variable("x"))
-        )
+        assert abstract("x", var("x")).param == "x"
+        assert abstract("x", var("x")).body == var("x")
+        assert str(abstract("x", var("x"))) == "λx.x"
+        assert hash(abstract("x", var("x"))) == hash(("x", var("x")))
 
     def test_application_creation(self) -> None:
         """Test application creation and string representation."""
-        assert Application(Variable("x"), Variable("y")).fn == Variable("x")
-        assert Application(Variable("x"), Variable("y")).arg == Variable("y")
-        assert str(Application(Variable("x"), Variable("y"))) == "x y"
-
-        assert hash(Application(Variable("x"), Variable("y"))) == hash(
-            (Variable("x"), Variable("y"))
-        )
+        assert apply(var("x"), var("y")).fn == var("x")
+        assert apply(var("x"), var("y")).arg == var("y")
+        assert str(apply(var("x"), var("y"))) == "x y"
+        assert hash(apply(var("x"), var("y"))) == hash((var("x"), var("y")))
 
     def test_nested_expression_str(self) -> None:
         """Test string representation of nested expressions."""
-        assert (
-            str(Abstraction("z", Abstraction("y", Variable("x"))))
-            == "λz.(λy.x)"
-        )
+        assert str(abstract("z", abstract("y", var("x")))) == "λz.(λy.x)"
 
         assert (
-            str(
-                Application(
-                    Abstraction("y", Variable("x")),
-                    Application(Variable("x"), Variable("x")),
-                )
-            )
+            str(apply(abstract("y", var("x")), apply(var("x"), var("x"))))
             == "(λy.x) (x x)"
         )
 
@@ -272,7 +259,7 @@ class TestVariables:
     def test_substitute_with_name_clash(self) -> None:
         """Test substitution with name clashes"""
         expr = Parser("λy.x y").parse()
-        result = substitute(expr, "x", Variable("y"))
+        result = substitute(expr, "x", var("y"))
 
         # Should rename the bound 'y' to avoid capture
         assert str(result) != "λy.y y"
@@ -327,7 +314,6 @@ class TestMainModule:
         """Test normalization process"""
         expr = Parser("(λx.x) (λy.y)").parse()
         normalize(expr)
-
         assert mock_print.call_count >= 2
 
         with patch("main.DELTA_ABSTRACT", True):
@@ -349,7 +335,7 @@ class TestMainModule:
         """
         # Set up the mock parser to return a valid expression
         mock_instance = MagicMock()
-        mock_instance.parse.return_value = Variable("x")
+        mock_instance.parse.return_value = var("x")
         mock_parser.return_value = mock_instance
 
         with patch("sys.argv", ["main.py"]):
@@ -537,12 +523,7 @@ class TestBooleanOperations:
 
         true_repr = str(DEFS["⊤"])
         false_repr = str(DEFS["⊥"])
-
-        if expected:
-            assert str(normal_expr) == true_repr
-
-        else:
-            assert str(normal_expr) == false_repr
+        assert str(normal_expr) == (true_repr if expected else false_repr)
 
     @patch("builtins.input", return_value="λx.x")
     @patch("builtins.print")
@@ -556,7 +537,7 @@ class TestBooleanOperations:
         """Test the main function with input and command line arguments."""
         # Create a mock parser that returns a valid expression
         mock_instance = MagicMock()
-        mock_instance.parse.return_value = Variable("x")  # Simple expression
+        mock_instance.parse.return_value = var("x")  # Simple expression
         mock_parser.return_value = mock_instance
 
         with patch("sys.argv", ["main.py"]):

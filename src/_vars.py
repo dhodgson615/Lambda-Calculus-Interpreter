@@ -4,7 +4,8 @@ from functools import lru_cache
 from itertools import count
 from string import ascii_lowercase
 
-from _expressions import Abstraction, Application, Expression, Variable
+from _expressions import (Abstraction, Application, Expression, Variable,
+                          abstract, apply, var)
 
 
 @lru_cache(maxsize=None)
@@ -38,32 +39,26 @@ def fresh_var(used: set[str]) -> str:
 
 
 @lru_cache(maxsize=None)
-def substitute(e: Expression, var: str, val: Expression) -> Expression:
+def substitute(e: Expression, v: str, val: Expression) -> Expression:
     """Substitute all free occurrences of variable in expression with
     value.
     """
     if isinstance(e, Variable):
-        return val if e.name == var else e
+        return val if e.name == v else e
 
     if isinstance(e, Abstraction):
-        if e.param == var:
-            return Abstraction(e.param, e.body)
+        if e.param == v:
+            return abstract(e.param, e.body)
 
         if e.param in free_vars(val):
-            used = (
-                set(free_vars(e.body)) | set(free_vars(val)) | {e.param, var}
-            )
-
+            used = set(free_vars(e.body)) | set(free_vars(val)) | {e.param, v}
             new_param = fresh_var(used)
-            renamed = substitute(e.body, e.param, Variable(new_param))
-            return Abstraction(new_param, substitute(renamed, var, val))
+            renamed = substitute(e.body, e.param, var(new_param))
+            return abstract(new_param, substitute(renamed, v, val))
 
-        return Abstraction(e.param, substitute(e.body, var, val))
+        return abstract(e.param, substitute(e.body, v, val))
 
     if isinstance(e, Application):
-        return Application(
-            substitute(e.fn, var, val),
-            substitute(e.arg, var, val),
-        )
+        return apply(substitute(e.fn, v, val), substitute(e.arg, v, val))
 
     raise TypeError("Unknown Expression in subst")
