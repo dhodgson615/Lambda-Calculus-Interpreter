@@ -107,10 +107,11 @@ class Parser:
 
             return expr
 
-        if c.isdigit():
-            return church(self.parse_number())
-
-        return Variable(self.parse_varname())
+        return (
+            church(self.parse_number())
+            if c.isdigit()
+            else Variable(self.parse_varname())
+        )
 
     def parse_number(self) -> int:
         """Parse a number from the source string."""
