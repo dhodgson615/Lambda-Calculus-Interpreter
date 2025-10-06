@@ -2,10 +2,10 @@ import re
 from functools import lru_cache
 from re import Pattern
 
-ESC: str = "\x1b["
-RESET: str = ESC + "0m"
-HIGHLIGHT: str = ESC + "38;2;255;255;0m"
-_ANSI_RE: Pattern[str] = re.compile(r"\x1b\[[0-9;]*m")
+ESC = "\x1b["
+RESET = ESC + "0m"
+HIGHLIGHT = ESC + "38;2;255;255;0m"
+_ANSI_RE = compile(r"\x1b\[[0-9;]*m")
 
 
 @lru_cache(maxsize=None)
