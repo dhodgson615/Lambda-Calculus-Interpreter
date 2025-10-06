@@ -97,7 +97,7 @@ class Parser:
         self.skip_whitespace()
         c = self.peek()
 
-        if char == "(":
+        if c == "(":
             self.consume()
             expression: Expression = self.parse_expr()
             self.skip_whitespace()
