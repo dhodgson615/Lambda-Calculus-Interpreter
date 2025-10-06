@@ -53,24 +53,21 @@ def count_applications(e: Expression) -> int:
     return n
 
 
-def abstract_numerals(
-    e: Expression,
-) -> Expression:
-    """Abstract Church numerals to digits."""
-    if is_church_numeral(e):
-        c = count_applications(e)
-        return Variable(str(c))
-
-    if isinstance(e, Abstraction):
-        return Abstraction(
-            e.param,
-            abstract_numerals(e.body),
-        )
-
-    if isinstance(e, Application):
-        return Application(
-            abstract_numerals(e.fn),
-            abstract_numerals(e.arg),
+def abstract_numerals(e: Expression) -> Expression:
+    """Replace Church numerals in the expression with their integer
+    equivalents.
+    """
+    return (
+        Variable(str(count_applications(e)))
+        if is_church_numeral(e)
+        else (
+            Abstraction(e.param, abstract_numerals(e.body))
+            if isinstance(e, Abstraction)
+            else (
+                Application(abstract_numerals(e.fn), abstract_numerals(e.arg))
+                if isinstance(e, Application)
+                else e
+            )
         )
 
     return e
