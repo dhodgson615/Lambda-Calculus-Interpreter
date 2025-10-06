@@ -17,9 +17,11 @@ def free_vars(e: Expression) -> frozenset[str]:
     while stack:
         expr, bound = stack.pop()
 
-        if isinstance(expr, Variable):
-            if expr.name not in bound:
-                result |= frozenset([expr.name])
+        result |= (
+            frozenset([expr.name])
+            if isinstance(expr, Variable) and expr.name not in bound
+            else frozenset()
+        )
 
         elif isinstance(expr, Abstraction):
             stack.append((expr.body, bound | frozenset([expr.param])))
