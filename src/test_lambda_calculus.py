@@ -541,3 +541,35 @@ class TestBooleanOperations:
 
         else:
             assert str(normal_expr) == false_repr
+
+    @patch("builtins.input", return_value="λx.x")
+    @patch("builtins.print")
+    @patch("main.Parser")  # Mock the parser to avoid syntax error
+    def test_main(
+        self,
+        mock_parser: MagicMock,
+        mock_print: MagicMock,
+        mock_input: MagicMock,
+    ) -> None:
+        """Test the main function with input and command line arguments."""
+        # Create a mock parser that returns a valid expression
+        mock_instance = MagicMock()
+        mock_instance.parse.return_value = Variable("x")  # Simple expression
+        mock_parser.return_value = mock_instance
+
+        with patch("sys.argv", ["main.py"]):
+            from main import main
+
+            main()
+
+        assert mock_print.call_count > 0
+
+    def test_main_raises_syntax_error(self) -> None:
+        """Test that main exits on syntax error."""
+        with patch("builtins.input", return_value="invalid λ expr"), patch(
+            "main.exit", side_effect=SystemExit()
+        ) as mock_exit:
+            with raises(SystemExit):
+                main()
+
+            mock_exit.assert_called_once_with(1)
