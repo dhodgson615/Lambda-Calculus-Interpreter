@@ -40,7 +40,7 @@ def reduce_once(
     if isinstance(e, Variable):
         return delta_reduce(e, defs)
 
-    elif isinstance(e, Application):
+    if isinstance(e, Application):
         result = beta_reduce(e)
 
         if result:
