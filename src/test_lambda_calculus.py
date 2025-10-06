@@ -395,6 +395,7 @@ class TestNumericAbstraction:
 
                 if not result:
                     break
+
                 normal_expr = result[0]
 
             abstracted = abstract_numerals(normal_expr)
