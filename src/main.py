@@ -94,6 +94,8 @@ def normalize(e: Expression) -> None:
         print(f"Step {step}{label}: {curr}")
         prev = curr
 
+    print("→ normal form reached.")
+
     if DELTA_ABSTRACT:
         print("\nδ‑abstracted: " + format_expr(abstract_numerals(e)) + "\n")
 
