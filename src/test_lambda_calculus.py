@@ -523,6 +523,7 @@ class TestBooleanOperations:
         ],
     )
     def test_all_comparisons(self, a: int, b: int, expected: bool) -> None:
+        """Test all comparisons with parametrized values"""
         normal_expr = Parser(f"≤ {a} {b}").parse()
 
         while True:
