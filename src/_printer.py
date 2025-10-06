@@ -62,9 +62,9 @@ def highlight_diff(old: str, new: str) -> str:
     if not COLOR_DIFF:
         return new
 
-    o: str = strip_ansi(old)
-    n: str = strip_ansi(new)
-    l: int = min(len(o), len(n))
+    o = strip_ansi(old)
+    n = strip_ansi(new)
+    l = min(len(o), len(n))
 
     # find the common prefix length
     i: int = 0
