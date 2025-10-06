@@ -85,7 +85,6 @@ def normalize(e: Expression) -> None:
         result = reduce_once(e, DEFS)
 
         if not result:
-            print("→ normal form reached.")
             break
 
         e, stype = result
