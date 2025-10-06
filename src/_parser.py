@@ -7,7 +7,7 @@ from _expressions import Abstraction, Expression, abstract, apply, var
 @lru_cache(maxsize=None)
 def church(n: int) -> Abstraction:
     """Convert a number to its Church numeral representation."""
-    body: Expression = Variable("x")
+    body: Expression = var("x")
 
     for _ in range(n):
         body = Application(Variable("f"), body)
