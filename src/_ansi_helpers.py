@@ -1,6 +1,6 @@
 import re
 from functools import lru_cache
-from re import Pattern
+from re import compile
 
 ESC = "\x1b["
 RESET = ESC + "0m"
