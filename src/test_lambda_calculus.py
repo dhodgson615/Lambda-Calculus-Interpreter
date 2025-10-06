@@ -173,6 +173,7 @@ class TestPrinter:
             assert strip_spaces("a b c") == "abc"
 
         strip_spaces.cache_clear()
+
         with patch("_printer.COMPACT", False):
             assert strip_spaces("a b c") == "a b c"
 
