@@ -8,10 +8,7 @@ from _expressions import Expression
 @lru_cache(maxsize=None)
 def strip_spaces(s: str) -> str:
     """Strip spaces from the string representation of the expression."""
-    if COMPACT:
-        return s.replace(" ", "")
-
-    return s
+    return s.replace(" ", "") if COMPACT else s
 
 
 @lru_cache(maxsize=None)
