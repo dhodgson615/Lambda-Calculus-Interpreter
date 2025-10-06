@@ -69,8 +69,7 @@ def abstract_numerals(e: Expression) -> Expression:
                 else e
             )
         )
-
-    return e
+    )
 
 
 def normalize(e: Expression) -> None:
