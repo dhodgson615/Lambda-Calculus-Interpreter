@@ -479,6 +479,7 @@ class TestNumericAbstraction:
         """Test addition with parametrized values"""
         expr = Parser(f"+ {a} {b}").parse()
         normal_expr = expr
+
         while True:
             result = reduce_once(normal_expr, DEFS)
             if not result:
