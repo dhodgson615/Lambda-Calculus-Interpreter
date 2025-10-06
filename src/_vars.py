@@ -41,8 +41,8 @@ def substitute(e: Expression, var: str, val: Expression) -> Expression:
     """Substitute all free occurrences of variable in expression with
     value.
     """
-    if isinstance(expression, Variable):
-        return value if expression.name == variable else expression
+    if isinstance(e, Variable):
+        return val if e.name == var else e
 
     if isinstance(expression, Abstraction):
         if expression.param == variable:
