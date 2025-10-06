@@ -39,8 +39,7 @@ def count_applications(e: Expression) -> int:
     if not (isinstance(e, Abstraction) and isinstance(e.body, Abstraction)):
         return 0
 
-    n = 0
-    curr = e.body.body
+    n, curr = 0, e.body.body
 
     while (
         isinstance(curr, Application)
