@@ -337,7 +337,13 @@ class TestMainModule:
 
     @patch("builtins.input", return_value="λx.x")
     @patch("builtins.print")
-    def test_main(self, mock_print: MagicMock, mock_input: MagicMock) -> None:
+    @patch("main.Parser")  # Add this patch to mock the Parser class
+    def test_main(
+        self,
+        mock_parser: MagicMock,
+        mock_print: MagicMock,
+        mock_input: MagicMock,
+    ) -> None:
         """Test the main function with input and command line
         arguments.
         """
