@@ -15,22 +15,25 @@ from _reduce import reduce_once
 @lru_cache(maxsize=None)
 def is_church_numeral(e: Expression) -> bool:
     """Check if the expression is a Church numeral."""
-    if isinstance(e, Abstraction) and isinstance(e.body, Abstraction):
-        fpar = e.param
-        bpar = e.body.param
-        b = e.body.body
-        curr = b
-
-        while (
-            isinstance(curr, Application)
-            and isinstance(curr.fn, Variable)
-            and curr.fn.name == fpar
-        ):
-            curr = curr.arg
-
-        return isinstance(curr, Variable) and curr.name == bpar
-
-    return False
+    return (
+        isinstance(e, Abstraction)
+        and isinstance(e.body, Abstraction)
+        and (
+            lambda fpar, bpar, body: (
+                lambda check_apps: check_apps(check_apps, body)
+            )(
+                lambda f, curr: (
+                    isinstance(curr, Variable) and curr.name == bpar
+                    if not (
+                        isinstance(curr, Application)
+                        and isinstance(curr.fn, Variable)
+                        and curr.fn.name == fpar
+                    )
+                    else f(f, curr.arg)
+                )
+            )
+        )(e.param, e.body.param, e.body.body)
+    )
 
 
 def count_applications(e: Expression) -> int:
