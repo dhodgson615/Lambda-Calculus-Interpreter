@@ -62,27 +62,10 @@ def highlight_diff(old: str, new: str) -> str:
     if not COLOR_DIFF:
         return new
 
-    o = strip_ansi(old)
-    n = strip_ansi(new)
-    l = min(len(o), len(n))
-
-    # find the common prefix length
-    i = 0
-
-    while i < l and o[i] == n[i]:
-        i += 1
-
-    # find common suffix length
-    j = 0
-
-    while j < (l - i) and o[-1 - j] == n[-1 - j]:
-        j += 1
-
-    start = new[:i]
-    mid = new[i : len(new) - j]
-    end = new[len(new) - j :]
-
-    return f"{start}{HIGHLIGHT}{mid}{RESET}{end}"
+    o, n, l = strip_ansi(old), strip_ansi(new), min(len(old), len(new))
+    i = next((k for k in range(l) if o[k] != n[k]), l)
+    j = next((k for k in range(l - i) if o[-1 - k] != n[-1 - k]), l - i)
+    return f"{new[:i]}{HIGHLIGHT}{new[i:len(new)-j]}{RESET}{new[len(new)-j:]}"
 
 
 def format_expr(e: Expression) -> str:
