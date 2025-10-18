@@ -559,7 +559,7 @@ class TestBooleanOperations:
                     mock_instance.parse.side_effect = SyntaxError("bad syntax")
                     mock_parser.return_value = mock_instance
 
-            with raises(SystemExit):
-                main()
+                    with raises(SystemExit):
+                        main()
 
             mock_exit.assert_called_once_with(1)
