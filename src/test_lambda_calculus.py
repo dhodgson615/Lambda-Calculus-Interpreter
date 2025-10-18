@@ -651,7 +651,9 @@ class TestBenchmarks:
         benchmark(reduce_once, expr, {})
 
     def test_benchmark_complex_arithmetic(self, benchmark: Any) -> None:
-        """Benchmark reduction and abstraction of a complex arithmetic expression."""
+        """Benchmark reduction and abstraction of a complex arithmetic
+        expression.
+        """
         expr = Parser("+ (* 10 10) (* 20 20)").parse()
         normal_expr = expr
 
