@@ -1,5 +1,3 @@
-from __future__ import annotations
-
 from _expressions import Expression
 from _parser import Parser
 
