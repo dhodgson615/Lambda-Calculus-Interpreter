@@ -593,6 +593,9 @@ class TestBenchmarks:
         benchmark(Parser, expr_str)
 
     def test_benchmark_reduce_once(self, benchmark: Any) -> None:
+        """Benchmark the reduce_once function with a sample
+        expression.
+        """
         expr = Parser("(λx.λy.x y) a b").parse()
         benchmark(reduce_once, expr, {})
 
