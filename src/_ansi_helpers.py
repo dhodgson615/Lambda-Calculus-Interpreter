@@ -1,4 +1,4 @@
-from functools import lru_cache
+from functools import cache
 from re import compile
 
 ESC = "\x1b["
