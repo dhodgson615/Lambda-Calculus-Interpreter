@@ -40,6 +40,8 @@ benchmark: venv
 	$(PYTEST) src/ --benchmark-only --benchmark-columns=min,mean,max,stddev,rounds,iterations
 
 clean:
+	chmod -R u+w src/__pycache__/ || true
+	rm -rf src/__pycache__/ || true
 	rm -rf build/ dist/ *.egg-info .mypy_cache .pytest_cache
 	rm -rf *.so *.c src/*.so src/*.c src/__pycache__/
 
