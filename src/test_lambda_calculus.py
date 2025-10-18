@@ -97,10 +97,14 @@ class TestParser:
         """Test that church numerals are parsed correctly."""
         for i in range(5):
             numeral = church(i)
-            assert isinstance(numeral, Abstraction)
-            assert numeral.param == "f"
-            assert isinstance(numeral.body, Abstraction)
-            assert numeral.body.param == "x"
+
+            assert (
+                isinstance(numeral, Abstraction)
+                and numeral.param == "f"
+                and isinstance(numeral.body, Abstraction)
+                and numeral.body.param == "x"
+            )
+
             count = 0
             current = numeral.body.body
 
