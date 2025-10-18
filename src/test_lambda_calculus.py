@@ -569,7 +569,7 @@ class TestBooleanOperations:
             mock_print.call_count > 0
             and mock_instance.parse.call_count == 1
             and mock_input.call_count == 0
-        )
+        )  # FIXME: AssertionError: assert (3 > 0 and 1 == 1 and 1 == 0)
 
     def test_main_raises_syntax_error(self) -> None:
         """Test that main exits on syntax error."""
