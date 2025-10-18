@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from functools import lru_cache
+from functools import cache
 from itertools import count
 from string import ascii_lowercase
 
