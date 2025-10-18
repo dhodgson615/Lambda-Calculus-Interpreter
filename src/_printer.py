@@ -1,4 +1,4 @@
-from functools import lru_cache
+from functools import cache
 
 from _ansi_helpers import HIGHLIGHT, RESET, rgb, strip_ansi
 from _config import COLOR_DIFF, COLOR_PARENS, COMPACT
