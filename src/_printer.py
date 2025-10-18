@@ -42,7 +42,7 @@ def color_parens(s: str) -> str:
         depth, max_depth = (
             (depth + 1, max(max_depth, depth + 1))
             if c == "("
-            else apply_color(depth, max_depth, c) if c == ")" else c
+            else (depth - 1, max_depth) if c == ")" else (depth, max_depth)
         )
 
         depth += 1 if c == "(" else -1 if c == ")" else 0
