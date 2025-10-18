@@ -56,9 +56,11 @@ class TestExpressions:
 
     def test_variable_creation(self) -> None:
         """Test variable creation and string representation."""
-        assert to_var("x").name == "x"
-        assert str(to_var("x")) == "x"
-        assert hash(to_var("x")) == hash("x")
+        assert (
+            to_var("x").name == "x"
+            and str(to_var("x")) == "x"
+            and hash(to_var("x")) == hash("x")
+        )
 
     def test_abstraction_creation(self) -> None:
         """Test abstraction creation and string representation."""
