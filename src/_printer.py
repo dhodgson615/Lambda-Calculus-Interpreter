@@ -59,8 +59,9 @@ def color_parens(s: str) -> str:
 def highlight_diff(o: str, n: str) -> str:
     """Highlight the difference between two strings."""
     if not COLOR_DIFF:
-        return new
-    o, n = strip_ansi(old), strip_ansi(new)
+        return n
+
+    o, n = strip_ansi(o), strip_ansi(n)
     l = min(len(o), len(n))
     i = next((k for k in range(l) if o[k] != n[k]), l)
     j = next((k for k in range(l - i) if o[-1 - k] != n[-1 - k]), l - i)
