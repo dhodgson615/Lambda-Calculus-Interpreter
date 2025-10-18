@@ -1,4 +1,4 @@
-from functools import lru_cache
+from functools import cache
 from typing import Any
 
 from _expressions import Abstraction, Expression, abstract, apply, to_var
