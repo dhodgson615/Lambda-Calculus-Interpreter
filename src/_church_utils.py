@@ -81,19 +81,23 @@ def abstract_numerals(e: Expression) -> Expression:
             )
 
         elif action == "process":
-            if is_church_numeral(expr):
-                result_map[expr_id] = to_var(str(count_applications(expr)))
-
-            elif isinstance(expr, Abstraction):
-                body_result = result_map.get(id(expr.body), expr.body)
-                result_map[expr_id] = abstract(expr.param, body_result)
-
-            elif isinstance(expr, Application):
-                fn_result = result_map.get(id(expr.fn), expr.fn)
-                arg_result = result_map.get(id(expr.arg), expr.arg)
-                result_map[expr_id] = apply(fn_result, arg_result)
-
-            else:
-                result_map[expr_id] = expr
+            result_map[expr_id] = (
+                to_var(str(count_applications(expr)))
+                if is_church_numeral(expr)
+                else (
+                    abstract(
+                        expr.param, result_map.get(id(expr.body), expr.body)
+                    )
+                    if isinstance(expr, Abstraction)
+                    else (
+                        apply(
+                            result_map.get(id(expr.fn), expr.fn),
+                            result_map.get(id(expr.arg), expr.arg),
+                        )
+                        if isinstance(expr, Application)
+                        else expr
+                    )
+                )
+            )
 
     return result_map.get(id(e), e)
