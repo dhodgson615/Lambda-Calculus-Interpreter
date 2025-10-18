@@ -9,7 +9,6 @@ from src._config import DELTA_ABSTRACT, SHOW_STEP_TYPE
 from src._defs import DEFS
 from src._expressions import Expression
 from src._printer import format_expr, highlight_diff
-from src._church_utils import abstract_numerals
 
 
 def delta_reduce(
