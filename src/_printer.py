@@ -65,7 +65,7 @@ def highlight_diff(o: str, n: str) -> str:
     l = min(len(o), len(n))
     i = next((k for k in range(l) if o[k] != n[k]), l)
     j = next((k for k in range(l - i) if o[-1 - k] != n[-1 - k]), l - i)
-    return f"{new[:i]}{HIGHLIGHT}{new[i:len(new)-j]}{RESET}{new[len(new)-j:]}"
+    return f"{n[:i]}{HIGHLIGHT}{n[i:len(n)-j]}{RESET}{n[len(n)-j:]}"
 
 
 def format_expr(e: Expression) -> str:
