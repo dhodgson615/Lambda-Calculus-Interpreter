@@ -305,9 +305,12 @@ class TestMainModule:
         not_church1 = Parser("λf.λx.y").parse()  # Free variable
         not_church2 = Parser("λf.λx.f y").parse()  # Free variable
         not_church3 = Parser("λf.λx.g x").parse()  # Wrong function
-        assert not is_church_numeral(not_church1)
-        assert not is_church_numeral(not_church2)
-        assert not is_church_numeral(not_church3)
+
+        assert (
+            not is_church_numeral(not_church1)
+            and not is_church_numeral(not_church2)
+            and not is_church_numeral(not_church3)
+        )
 
     def test_count_applications_edge_cases(self) -> None:
         """Test count_applications with edge cases"""
