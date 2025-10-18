@@ -2,8 +2,7 @@ from __future__ import annotations
 
 from typing import Optional
 
-from _expressions import (Abstraction, Application, Expression, Variable,
-                          abstract, apply)
+from _expressions import Abstraction, Application, Variable, abstract, apply
 from _vars import subst
 from src._config import DELTA_ABSTRACT, SHOW_STEP_TYPE
 from src._defs import DEFS
