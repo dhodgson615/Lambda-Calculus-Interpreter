@@ -3,5 +3,5 @@ from setuptools import setup
 
 setup(
     name="lambda_calculus_interpreter",
-    ext_modules=mypycify(["src/main.py"]),
+    ext_modules=mypycify(["src/lambda_calculus.py"]),
 )
