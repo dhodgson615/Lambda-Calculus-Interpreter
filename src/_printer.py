@@ -5,7 +5,7 @@ from _config import COLOR_DIFF, COLOR_PARENS, COMPACT
 from _expressions import Expression
 
 
-@lru_cache(maxsize=None)
+@cache
 def strip_spaces(s: str) -> str:
     """Strip spaces from the string representation of the expression."""
     return s.replace(" ", "") if COMPACT else s
