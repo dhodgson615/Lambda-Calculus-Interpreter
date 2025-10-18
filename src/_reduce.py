@@ -89,3 +89,27 @@ def reduce_once(
             stack.append((expr.body, path + [("body", expr)]))
 
     return None
+
+
+def normalize(e: Expression) -> None:
+    """Normalize the expression and print each reduction step."""
+    step, prev = 0, format_expr(e)
+    print(f"Step {step}: {prev}")
+
+    while True:
+        result = reduce_once(e, DEFS)
+
+        if not result:
+            break
+
+        e, stype = result
+        step += 1
+        curr = highlight_diff(prev, format_expr(e))
+        label = f" ({stype})" if SHOW_STEP_TYPE else ""
+        print(f"Step {step}{label}: {curr}")
+        prev = curr
+
+    print("→ normal form reached.")
+
+    if DELTA_ABSTRACT:
+        print("\nδ‑abstracted: " + format_expr(abstract_numerals(e)) + "\n")
