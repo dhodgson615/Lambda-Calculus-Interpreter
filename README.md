@@ -47,7 +47,7 @@ slow.](https://github.com/dhodgson615/Lambda-Calculus-Interpreter-C/tree/master)
   **One-off evaluation**
 
   ```bash
-  python3 main.py "(λx.x) (λy.y)"
+  python3 cli.py "(λx.x) (λy.y)"
   ```
 
   **Interactive REPL**
