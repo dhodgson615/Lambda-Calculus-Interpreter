@@ -562,7 +562,7 @@ class TestBooleanOperations:
         mock_instance.parse.return_value = to_var("x")  # Simple expression
         mock_parser.return_value = mock_instance
 
-        with patch("sys.argv", ["main.py"]):
+        with patch("sys.argv", ["cli.py"]):
             main()
 
         assert (
