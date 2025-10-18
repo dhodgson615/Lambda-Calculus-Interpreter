@@ -66,14 +66,19 @@ def abstract_numerals(e: Expression) -> Expression:
         expr_id = id(expr)
 
         if action == "visit":
-            stack.append((expr, "process"))
-
-            if isinstance(expr, Application):
-                stack.append((expr.arg, "visit"))
-                stack.append((expr.fn, "visit"))
-
-            elif isinstance(expr, Abstraction):
-                stack.append((expr.body, "visit"))
+            stack.extend(
+                [(expr, "process")]
+                + (
+                    [(expr.arg, "visit"), (expr.fn, "visit")]
+                    if isinstance(expr, Application)
+                    else []
+                )
+                + (
+                    [(expr.body, "visit")]
+                    if isinstance(expr, Abstraction)
+                    else []
+                )
+            )
 
         elif action == "process":
             if is_church_numeral(expr):
