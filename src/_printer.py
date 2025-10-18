@@ -36,7 +36,7 @@ def color_parens(s: str) -> str:
     if not COLOR_PARENS:
         return s
 
-    depth = max_depth = 0
+    depths, depth, max_depth = [], 0, 0
 
     for c in s:
         depth += 1 if c == "(" else -1 if c == ")" else 0
