@@ -53,7 +53,7 @@ slow.](https://github.com/dhodgson615/Lambda-Calculus-Interpreter-C/tree/master)
   **Interactive REPL**
 
   ```bash
-  python3 main.py
+  python3 cli.py
   ```
   ```text
   λ-expr> * 2 3
