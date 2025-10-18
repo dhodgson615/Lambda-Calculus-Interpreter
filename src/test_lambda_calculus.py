@@ -78,8 +78,6 @@ class TestExpressions:
 
     def test_nested_expression_str(self) -> None:
         """Test string representation of nested expressions."""
-        assert str(abstract("z", abstract("y", to_var("x")))) == "λz.(λy.x)"
-
         assert (
             str(abstract("z", abstract("y", to_var("x")))) == "λz.(λy.x)"
             and str(
