@@ -58,14 +58,21 @@ def reduce_once(
             full_expr = reduced_expr
 
             for direction, parent in reversed(path):
-                if direction == "fn" and isinstance(parent, Application):
-                    full_expr = apply(full_expr, parent.arg)
-
-                elif direction == "arg" and isinstance(parent, Application):
-                    full_expr = apply(parent.fn, full_expr)
-
-                elif direction == "body" and isinstance(parent, Abstraction):
-                    full_expr = abstract(parent.param, full_expr)
+                full_expr = (
+                    apply(full_expr, parent.arg)
+                    if direction == "fn" and isinstance(parent, Application)
+                    else (
+                        apply(parent.fn, full_expr)
+                        if direction == "arg"
+                        and isinstance(parent, Application)
+                        else (
+                            abstract(parent.param, full_expr)
+                            if direction == "body"
+                            and isinstance(parent, Abstraction)
+                            else full_expr
+                        )
+                    )
+                )
 
             return full_expr, reduction_type
 
