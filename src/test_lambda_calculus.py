@@ -562,4 +562,4 @@ class TestBooleanOperations:
                     with raises(SystemExit):
                         main()
 
-            mock_exit.assert_called_once_with(1)
+                    mock_exit.assert_called_once_with(1)
