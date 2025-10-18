@@ -268,7 +268,10 @@ class TestVariables:
         expr = Parser("λx.λy.x y z").parse()
         assert free_vars(expr) == frozenset(["z"])
         expr2 = Parser("λx.(λy.x y) z").parse()
-        assert free_vars(expr2) == frozenset(["z"])
+
+        assert free_vars(expr) == frozenset(["z"]) and free_vars(
+            expr2
+        ) == frozenset(["z"])
 
     def test_substitute_with_name_clash(self) -> None:
         """Test substitution with name clashes"""
