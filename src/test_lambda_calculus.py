@@ -322,7 +322,7 @@ class TestMainModule:
         normalize(expr)
         assert mock_print.call_count >= 2
 
-        with patch("main.DELTA_ABSTRACT", True):
+        with patch("_config.DELTA_ABSTRACT", True):
             expr2 = Parser("(λf.λx.f (f x))").parse()
             normalize(expr2)
             assert any("2" in call[0][0] for call in mock_print.call_args_list)
