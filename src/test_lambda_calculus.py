@@ -289,9 +289,13 @@ class TestVariables:
         used = {"a", "b", "c"}
         all_letters = set(chr(ord("a") + i) for i in range(26))
         fresh = fresh_var(frozenset(all_letters))
-        assert fresh[0] in "abcdefghijklmnopqrstuvwxyz"
-        assert len(fresh) > 1
-        assert fresh[1:].isdigit()
+
+        assert (
+            fresh_var(frozenset(used)) == "d"
+            and fresh[0] in "abcdefghijklmnopqrstuvwxyz"
+            and len(fresh) > 1
+            and fresh[1:].isdigit()
+        )
 
 
 class TestMainModule:
