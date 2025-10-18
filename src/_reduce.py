@@ -4,6 +4,7 @@ from typing import Optional
 
 from _expressions import Abstraction, Application, Variable, abstract, apply
 from _vars import subst
+from src._church_utils import abstract_numerals
 from src._config import DELTA_ABSTRACT, SHOW_STEP_TYPE
 from src._defs import DEFS
 from src._expressions import Expression
