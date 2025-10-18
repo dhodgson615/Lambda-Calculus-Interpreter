@@ -13,7 +13,7 @@ def rgb(r: int, g: int, b: int) -> str:
     return f"{ESC}38;2;{r};{g};{b}m"
 
 
-@lru_cache(maxsize=None)
+@cache
 def strip_ansi(s: str) -> str:
     """Strip ANSI SGR sequences from a string."""
     return _ANSI_RE.sub("", s)
