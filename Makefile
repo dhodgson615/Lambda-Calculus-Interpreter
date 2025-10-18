@@ -19,7 +19,7 @@ deps: venv
 	$(PIP) install mypy setuptools types-setuptools flake8 pytest
 
 typecheck: venv
-	$(MYPY) src/
+	$(MYPY) --strict src/
 
 lint: venv
 	$(FLAKE8) src/
