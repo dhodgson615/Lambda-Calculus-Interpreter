@@ -62,10 +62,12 @@ class TestExpressions:
 
     def test_abstraction_creation(self) -> None:
         """Test abstraction creation and string representation."""
-        assert abstract("x", to_var("x")).param == "x"
-        assert abstract("x", to_var("x")).body == to_var("x")
-        assert str(abstract("x", to_var("x"))) == "λx.x"
-        assert hash(abstract("x", to_var("x"))) == hash(("x", to_var("x")))
+        assert (
+            abstract("x", to_var("x")).param == "x"
+            and abstract("x", to_var("x")).body == to_var("x")
+            and str(abstract("x", to_var("x"))) == "λx.x"
+            and hash(abstract("x", to_var("x"))) == hash(("x", to_var("x")))
+        )
 
     def test_application_creation(self) -> None:
         """Test application creation and string representation."""
