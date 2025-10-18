@@ -26,6 +26,7 @@ lint: venv
 
 format:
 	$(BLACK) -l79 src/
+	$(ISORT) src/
 
 build: venv
 	$(PYTHON) src/setup.py build_ext --inplace
