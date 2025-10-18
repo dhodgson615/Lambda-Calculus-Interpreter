@@ -28,6 +28,7 @@ format:
 
 build: venv
 	$(PYTHON) src/setup.py build_ext --inplace
+	mv -f *.so src/ 2>/dev/null || true
 
 test: venv
 	$(PYTEST) src/
