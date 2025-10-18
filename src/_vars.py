@@ -72,7 +72,7 @@ def subst(e: Expression, v: str, val: Expression) -> Expression:
                     free_vars(expr.body) | free_vars(value) | {expr.param, var}
                 )
 
-                new_param = fresh_var(set(used))
+                new_param = fresh_var(frozenset(used))
                 renamed = subst(expr.body, expr.param, to_var(new_param))
                 results[key] = abstract(new_param, subst(renamed, var, value))
 
