@@ -3,7 +3,9 @@ from unittest.mock import MagicMock, patch
 
 from pytest import mark, raises
 
-from _ansi_helpers import _ANSI_RE, ESC, HIGHLIGHT, RESET, rgb, strip_ansi
+from _ansi_helpers import ESC, HIGHLIGHT, RESET, _ANSI_RE, rgb, strip_ansi
+from _church_utils import (abstract_numerals, count_applications,
+                           is_church_numeral)
 from _config import RECURSION_LIMIT
 from _defs import DEFS
 from _expressions import Abstraction, Application, abstract, apply, to_var
