@@ -539,7 +539,6 @@ class TestBooleanOperations:
         mock_input: MagicMock,
     ) -> None:
         """Test the main function with input and command line arguments."""
-        # Create a mock parser that returns a valid expression
         mock_instance = MagicMock()
         mock_instance.parse.return_value = to_var("x")  # Simple expression
         mock_parser.return_value = mock_instance
