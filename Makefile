@@ -22,6 +22,7 @@ typecheck: venv
 	$(MYPY) --strict src/
 
 lint: venv
+	$(MYPY) --strict src/
 	$(FLAKE8) src/
 
 format:
