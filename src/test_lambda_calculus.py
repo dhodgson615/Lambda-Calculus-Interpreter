@@ -135,8 +135,7 @@ class TestParser:
         """Test parse_number method."""
         parser = Parser("123")
         number = parser.parse_number()
-        assert number == 123
-        assert parser.i == 3
+        assert number == 123 and parser.i == 3
 
     def test_error_handling(self) -> None:
         """Test error handling in the parser."""
