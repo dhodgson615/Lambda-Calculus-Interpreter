@@ -69,11 +69,12 @@ class TestExpressions:
 
     def test_application_creation(self) -> None:
         """Test application creation and string representation."""
-        assert apply(to_var("x"), to_var("y")).fn == to_var("x")
-        assert apply(to_var("x"), to_var("y")).arg == to_var("y")
-        assert str(apply(to_var("x"), to_var("y"))) == "x y"
-        assert hash(apply(to_var("x"), to_var("y"))) == hash(
-            (to_var("x"), to_var("y"))
+        assert (
+            apply(to_var("x"), to_var("y")).fn == to_var("x")
+            and apply(to_var("x"), to_var("y")).arg == to_var("y")
+            and str(apply(to_var("x"), to_var("y"))) == "x y"
+            and hash(apply(to_var("x"), to_var("y")))
+            == hash((to_var("x"), to_var("y")))
         )
 
     def test_nested_expression_str(self) -> None:
