@@ -14,7 +14,7 @@ from _parser import Parser, church
 from _printer import apply_color, color_parens, highlight_diff, strip_spaces
 from _reduce import normalize, reduce_once
 from _vars import free_vars, fresh_var, subst
-from main import main
+from cli import main
 
 
 class TestAnsiHelpers:
