@@ -114,13 +114,15 @@ class Parser:
 
     def parse_number(self) -> int:
         """Parse a number from the source string."""
-        return int(
-            "".join(
-                iter(
-                    lambda: self.consume() if self.peek().isdigit() else "", ""
-                )
-            )
-        )
+        start = self.i
+
+        while self.peek().isdigit():
+            self.i += 1
+
+        if start == self.i:
+            raise SyntaxError(f"Expected digit at pos {self.i}")
+
+        return int(self.src[start : self.i])
 
     def parse_varname(self) -> str:
         """Parse a variable name from the source string."""
