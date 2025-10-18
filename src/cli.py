@@ -15,9 +15,6 @@ def main() -> None:
     except SyntaxError as e:
         print(f"Parse error: {e}")
         exit(1)
-        return
-
-    normalize(tree)
 
 
 if __name__ == "__main__":
