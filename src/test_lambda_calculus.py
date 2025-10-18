@@ -553,7 +553,9 @@ class TestBooleanOperations:
     def test_main_raises_syntax_error(self) -> None:
         """Test that main exits on syntax error."""
         with patch("builtins.input", return_value="invalid λ expr"), patch(
-            "main.exit", side_effect=SystemExit()
+            "main.Parser"
+        ) as mock_parser, patch(
+            "main.exit", side_effect=SystemExit
         ) as mock_exit:
             with raises(SystemExit):
                 main()
