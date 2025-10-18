@@ -316,7 +316,11 @@ class TestMainModule:
         """Test count_applications with edge cases"""
         church3_alt = Parser("λf.λx.f (f (f x))").parse()
         malformed = Parser("λf.λx.f (g x)").parse()
-        assert count_applications(malformed) == 1
+
+        assert (
+            count_applications(church3_alt) == 3
+            and count_applications(malformed) == 1
+        )
 
     def test_abstract_numerals_complex(self) -> None:
         """Test abstract_numerals with complex expressions"""
