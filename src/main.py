@@ -2,10 +2,6 @@ from __future__ import annotations
 
 from sys import argv, exit
 
-from _config import DELTA_ABSTRACT, SHOW_STEP_TYPE
-from _defs import DEFS
-from _expressions import (Abstraction, Application, Expression, Variable,
-                          abstract, apply, to_var)
 from _parser import Parser
 from _printer import format_expr, highlight_diff
 from _reduce import reduce_once
