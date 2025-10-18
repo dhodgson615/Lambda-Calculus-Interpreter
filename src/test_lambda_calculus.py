@@ -177,7 +177,12 @@ class TestPrinter:
         color2 = apply_color(5, 10, "(")
         color3 = apply_color(10, 10, "(")
         single_depth = apply_color(1, 1, "(")
-        assert single_depth.startswith(rgb(0, 128, 128))
+
+        assert (
+            color1 != color2
+            and color2 != color3
+            and single_depth.startswith(rgb(0, 128, 128))
+        )
 
     def test_color_parens_with_config(self) -> None:
         """Test the color_parens function with different COLOR_PARENS
