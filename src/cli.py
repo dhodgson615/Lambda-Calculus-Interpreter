@@ -1,7 +1,6 @@
 from sys import argv, exit
 
-from _parser import Parser
-from _reduce import normalize
+from lambda_calculus import run_lambda_calculus
 
 
 def main() -> None:
