@@ -116,6 +116,7 @@ clean:
 	rm -rf src/__pycache__/ || true
 	rm -rf build/ dist/ *.egg-info .mypy_cache .pytest_cache
 	rm -rf *.so *.c src/*.so src/*.c
+	rm -f lambda_calculus
 
 install: venv deps
 	$(PIP) install .
