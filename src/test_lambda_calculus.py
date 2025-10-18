@@ -275,7 +275,7 @@ class TestVariables:
     def test_fresh_var_extended(self) -> None:
         """Test fresh_var with extended scenarios"""
         used = {"a", "b", "c"}
-        assert fresh_var(used) == "d"
+        assert fresh_var(frozenset(used)) == "d"
 
         # Test with all lowercase letters used
         all_letters = set(chr(ord("a") + i) for i in range(26))
