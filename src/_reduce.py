@@ -42,6 +42,7 @@ def reduce_once(
 
     while stack:
         expr, path = stack.pop()
+
         result = (
             beta_reduce(expr)
             if isinstance(expr, Application)
