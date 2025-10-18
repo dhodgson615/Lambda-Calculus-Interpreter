@@ -563,3 +563,45 @@ class TestBooleanOperations:
                         main()
 
                     mock_exit.assert_called_once_with(1)
+
+
+class TestBenchmarks:
+    def test_benchmark_parser(self, benchmark: Any) -> None:
+        expr_str = "(λx.λy.x y) a b"
+        benchmark(Parser, expr_str)
+
+    def test_benchmark_reduce_once(self, benchmark: Any) -> None:
+        expr = Parser("(λx.λy.x y) a b").parse()
+        benchmark(reduce_once, expr, {})
+
+    def test_benchmark_abstract_numerals(self, benchmark: Any) -> None:
+        expr = church(10)
+        benchmark(abstract_numerals, expr)
+
+    def test_benchmark_numeric_addition(self, benchmark: Any) -> None:
+        expr = Parser("+ 10 20").parse()
+        normal_expr = expr
+
+        while True:
+            result = reduce_once(normal_expr, DEFS)
+
+            if not result:
+                break
+
+            normal_expr = result[0]
+
+        benchmark(abstract_numerals, normal_expr)
+
+    def test_benchmark_boolean_comparison(self, benchmark: Any) -> None:
+        expr = Parser("≤ 10 20").parse()
+        normal_expr = expr
+
+        while True:
+            result = reduce_once(normal_expr, DEFS)
+
+            if not result:
+                break
+
+            normal_expr = result[0]
+
+        benchmark(lambda: str(normal_expr))
