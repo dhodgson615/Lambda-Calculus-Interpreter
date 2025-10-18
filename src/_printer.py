@@ -11,7 +11,7 @@ def strip_spaces(s: str) -> str:
     return s.replace(" ", "") if COMPACT else s
 
 
-@lru_cache(maxsize=None)
+@cache
 def apply_color(d: int, d_max: int, c: str) -> str:
     """Apply color to a character based on the current depth and max depth."""
     if d_max > 1:
