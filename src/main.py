@@ -1,5 +1,3 @@
-from __future__ import annotations
-
 from sys import argv, exit
 
 from _parser import Parser
