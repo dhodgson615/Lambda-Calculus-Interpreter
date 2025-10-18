@@ -1,5 +1,3 @@
-from __future__ import annotations
-
 from functools import cache
 
 from _expressions import (Abstraction, Application, Expression, Variable,
