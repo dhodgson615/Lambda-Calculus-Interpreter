@@ -69,9 +69,9 @@ pull off shenanigans like `"* + *"`, but it won't be mathematically useful.
 Some of the following are my personal favorites:
 
 ```bash
-python3 main.py "* 50 49"  # one of the largest multiplications without getting a RecursionError
-python3 main.py "* 49 50"  # note that it's the same as above but runs with a different number of steps
-python3 main.py "* 2 (* 2 (* 2 (* 2 (* 2 (* 2 (* 2 (* 2 (* 2 2))))))))"  # 2^10
+python3 cli.py "* 50 49"  # one of the largest multiplications without getting a RecursionError
+python3 cli.py "* 49 50"  # note that it's the same as above but runs with a different number of steps
+python3 cli.py "* 2 (* 2 (* 2 (* 2 (* 2 (* 2 (* 2 (* 2 (* 2 2))))))))"  # 2^10
 ```
 
 ---
