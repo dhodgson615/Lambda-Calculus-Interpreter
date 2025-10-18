@@ -56,7 +56,7 @@ def color_parens(s: str) -> str:
     return result
 
 
-def highlight_diff(old: str, new: str) -> str:
+def highlight_diff(o: str, n: str) -> str:
     """Highlight the difference between two strings."""
     if not COLOR_DIFF:
         return new
