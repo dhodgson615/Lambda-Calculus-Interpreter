@@ -557,6 +557,10 @@ class TestBooleanOperations:
         ) as mock_parser, patch(
             "main.exit", side_effect=SystemExit
         ) as mock_exit:
+            mock_instance = MagicMock()
+            mock_instance.parse.side_effect = SyntaxError("bad syntax")
+            mock_parser.return_value = mock_instance
+
             with raises(SystemExit):
                 main()
 
