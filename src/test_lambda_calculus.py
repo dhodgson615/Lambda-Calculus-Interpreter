@@ -345,8 +345,6 @@ class TestMainModule:
         mock_parser.return_value = mock_instance
 
         with patch("sys.argv", ["main.py"]):
-            from main import main
-
             main()
 
         assert mock_print.call_count > 0
