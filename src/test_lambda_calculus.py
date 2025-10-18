@@ -121,8 +121,7 @@ class TestParser:
         """Test skip_whitespace method."""
         parser = Parser("  λx.x  ")
         parser.skip_whitespace()
-        assert parser.i == 2
-        assert parser.peek() == "λ"
+        assert parser.i == 2 and parser.peek() == "λ"
 
     def test_parse_varname(self) -> None:
         """Test parse_varname method."""
