@@ -128,8 +128,7 @@ class TestParser:
         """Test parse_varname method."""
         parser = Parser("xyz")
         name = parser.parse_varname()
-        assert name == "xyz"
-        assert parser.i == 3
+        assert name == "xyz" and parser.i == 3
 
     def test_parse_number(self) -> None:
         """Test parse_number method."""
