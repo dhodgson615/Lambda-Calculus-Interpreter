@@ -39,14 +39,8 @@ def color_parens(s: str) -> str:
     depths, depth, max_depth = [], 0, 0
 
     for c in s:
-        depth += 1 if c == "(" else -1 if c == ")" else 0
-        max_depth = max(max_depth, depth) if c == "(" else max_depth
-
-    result, depth = "", 0
-
-    for c in s:
-        result += (
-            apply_color(depth + 1, max_depth, c)
+        depth, max_depth = (
+            (depth + 1, max(max_depth, depth + 1))
             if c == "("
             else apply_color(depth, max_depth, c) if c == ")" else c
         )
