@@ -600,6 +600,9 @@ class TestBenchmarks:
         benchmark(reduce_once, expr, {})
 
     def test_benchmark_abstract_numerals(self, benchmark: Any) -> None:
+        """Benchmark the abstract_numerals function with a Church
+        numeral.
+        """
         expr = church(10)
         benchmark(abstract_numerals, expr)
 
