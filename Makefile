@@ -35,22 +35,38 @@ build: venv
 
 exec: venv
 	$(PYTHON) src/setup.py build_ext --inplace
-	test -f build/init.c || echo "void CPy_Init(void) {}" > build/init.c
-	test -f build/getargs.c || echo "/* stub getargs.c */" > build/getargs.c
-	test -f build/getargsfast.c || echo "/* stub getargsfast.c */" > build/getargsfast.c
-	test -f build/int_ops.c || echo "/* stub int_ops.c */" > build/int_ops.c
-	test -f build/float_ops.c || echo "/* stub float_ops.c */" > build/float_ops.c
-	test -f build/str_ops.c || echo "/* stub str_ops.c */" > build/str_ops.c
-	test -f build/bytes_ops.c || echo "/* stub bytes_ops.c */" > build/bytes_ops.c
-	test -f build/list_ops.c || echo "/* stub list_ops.c */" > build/list_ops.c
-	test -f build/dict_ops.c || echo "/* stub dict_ops.c */" > build/dict_ops.c
-	test -f build/set_ops.c || echo "/* stub set_ops.c */" > build/set_ops.c
-	test -f build/tuple_ops.c || echo "/* stub tuple_ops.c */" > build/tuple_ops.c
-	test -f build/exc_ops.c || echo "/* stub exc_ops.c */" > build/exc_ops.c
-	test -f build/misc_ops.c || echo "/* stub misc_ops.c */" > build/misc_ops.c
-	test -f build/generic_ops.c || echo "/* stub generic_ops.c */" > build/generic_ops.c
-	test -f build/pythonsupport.c || echo "/* stub pythonsupport.c */" > build/pythonsupport.c
-	test -f build/CPy.h || echo "/* stub CPy.h */" > build/CPy.h
+	test -f build/init.c \
+	     || echo "void CPy_Init(void) {}" > build/init.c
+	test -f build/getargs.c \
+	     || echo "/* stub getargs.c */" > build/getargs.c
+	test -f build/getargsfast.c \
+	     || echo "/* stub getargsfast.c */" > build/getargsfast.c
+	test -f build/int_ops.c \
+	     || echo "/* stub int_ops.c */" > build/int_ops.c
+	test -f build/float_ops.c \
+	     || echo "/* stub float_ops.c */" > build/float_ops.c
+	test -f build/str_ops.c \
+	     || echo "/* stub str_ops.c */" > build/str_ops.c
+	test -f build/bytes_ops.c \
+	     || echo "/* stub bytes_ops.c */" > build/bytes_ops.c
+	test -f build/list_ops.c \
+	     || echo "/* stub list_ops.c */" > build/list_ops.c
+	test -f build/dict_ops.c \
+	     || echo "/* stub dict_ops.c */" > build/dict_ops.c
+	test -f build/set_ops.c \
+	     || echo "/* stub set_ops.c */" > build/set_ops.c
+	test -f build/tuple_ops.c \
+	     || echo "/* stub tuple_ops.c */" > build/tuple_ops.c
+	test -f build/exc_ops.c \
+	     || echo "/* stub exc_ops.c */" > build/exc_ops.c
+	test -f build/misc_ops.c \
+	     || echo "/* stub misc_ops.c */" > build/misc_ops.c
+	test -f build/generic_ops.c \
+	     || echo "/* stub generic_ops.c */" > build/generic_ops.c
+	test -f build/pythonsupport.c \
+	     || echo "/* stub pythonsupport.c */" > build/pythonsupport.c
+	test -f build/CPy.h \
+	     || echo "/* stub CPy.h */" > build/CPy.h
 	echo "#ifndef CPY_H" >> build/CPy.h
 	echo "#define CPY_H" >> build/CPy.h
 	echo "" >> build/CPy.h
