@@ -46,7 +46,7 @@ def fresh_var(used: set[str]) -> str:
     )
 
 
-@lru_cache(maxsize=None)
+@cache
 def subst(e: Expression, v: str, val: Expression) -> Expression:
     """Substitute all free occurrences of variable in expression with value."""
     stack = [(e, v, val)]
