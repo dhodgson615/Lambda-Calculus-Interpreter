@@ -94,11 +94,8 @@ exec: venv
 	echo '    Py_Finalize();' >> build/main.c
 	echo '    return 0;' >> build/main.c
 	echo '}' >> build/main.c
-
-
-
-	# Compile main.c and __native.c together
-	gcc build/main.c build/__native.c -ferror-limit=100 -O3 \
+	gcc build/main.c build/__native.c \
+	  -ferror-limit=100 -O3 \
 	  -Ibuild \
 	  -I/opt/homebrew/opt/python@3.12/Frameworks/Python.framework/Versions/3.12/include/python3.12 \
 	  -L/opt/homebrew/opt/python@3.12/Frameworks/Python.framework/Versions/3.12/lib \
