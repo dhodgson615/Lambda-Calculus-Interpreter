@@ -90,13 +90,19 @@ def subst(e: Expression, v: str, val: Expression) -> Expression:
             arg_key = (id(expr.arg), var, id(value))
 
             if fn_key not in results or arg_key not in results:
-                stack.append((expr, var, value))
-
-                if fn_key not in results:
-                    stack.append((expr.fn, var, value))
-
-                if arg_key not in results:
-                    stack.append((expr.arg, var, value))
+                stack.extend(
+                    [(expr, var, value)]
+                    + (
+                        [(expr.fn, var, value)]
+                        if fn_key not in results
+                        else []
+                    )
+                    + (
+                        [(expr.arg, var, value)]
+                        if arg_key not in results
+                        else []
+                    )
+                )
 
                 continue
 
