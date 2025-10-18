@@ -36,7 +36,8 @@ def free_vars(e: Expression) -> frozenset[str]:
     return result
 
 
-def fresh_var(used: set[str]) -> str:
+@cache
+def fresh_var(used: frozenset[str]) -> str:
     """Generate a fresh variable name not in the used set."""
     return next(
         base if i == 0 else f"{base}{i}"
