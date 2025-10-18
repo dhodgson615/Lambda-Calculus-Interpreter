@@ -58,54 +58,13 @@ def color_parens(s: str) -> str:
 
 def highlight_diff(old: str, new: str) -> str:
     """Highlight the difference between two strings."""
-    return (
-        new
-        if not COLOR_DIFF
-        else (
-            (
-                lambda o, n, l, i, j: f"{new[:i]}{HIGHLIGHT}"
-                f"{new[i:len(new)-j]}{RESET}{new[len(new)-j:]}"
-            )(
-                strip_ansi(old),
-                strip_ansi(new),
-                min(len(old), len(new)),
-                next(
-                    (
-                        k
-                        for k in range(min(len(old), len(new)))
-                        if strip_ansi(old)[k] != strip_ansi(new)[k]
-                    ),
-                    min(len(old), len(new)),
-                ),
-                next(
-                    (
-                        k
-                        for k in range(
-                            min(len(old), len(new))
-                            - next(
-                                (
-                                    k
-                                    for k in range(min(len(old), len(new)))
-                                    if strip_ansi(old)[k] != strip_ansi(new)[k]
-                                ),
-                                min(len(old), len(new)),
-                            )
-                        )
-                        if strip_ansi(old)[-1 - k] != strip_ansi(new)[-1 - k]
-                    ),
-                    min(len(old), len(new))
-                    - next(
-                        (
-                            k
-                            for k in range(min(len(old), len(new)))
-                            if strip_ansi(old)[k] != strip_ansi(new)[k]
-                        ),
-                        min(len(old), len(new)),
-                    ),
-                ),
-            )
-        )
-    )
+    if not COLOR_DIFF:
+        return new
+    o, n = strip_ansi(old), strip_ansi(new)
+    l = min(len(o), len(n))
+    i = next((k for k in range(l) if o[k] != n[k]), l)
+    j = next((k for k in range(l - i) if o[-1 - k] != n[-1 - k]), l - i)
+    return f"{new[:i]}{HIGHLIGHT}{new[i:len(new)-j]}{RESET}{new[len(new)-j:]}"
 
 
 def format_expr(e: Expression) -> str:
