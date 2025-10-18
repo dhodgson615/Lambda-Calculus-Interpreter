@@ -42,13 +42,15 @@ def reduce_once(
 
     while stack:
         expr, path = stack.pop()
-        result = None
-
-        if isinstance(expr, Application):
-            result = beta_reduce(expr)
-
-        if result is None and isinstance(expr, Variable):
-            result = delta_reduce(expr, defs)
+        result = (
+            beta_reduce(expr)
+            if isinstance(expr, Application)
+            else (
+                delta_reduce(expr, defs)
+                if isinstance(expr, Variable)
+                else None
+            )
+        )
 
         if result:
             reduced_expr, reduction_type = result
