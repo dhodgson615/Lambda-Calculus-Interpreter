@@ -45,7 +45,7 @@ def color_parens(s: str) -> str:
             else (depth - 1, max_depth) if c == ")" else (depth, max_depth)
         )
 
-        depth += 1 if c == "(" else -1 if c == ")" else 0
+        depths.append(depth)
 
     return "".join(
         apply_color(depths[idx], max_depth, c) if c in "()" else c
