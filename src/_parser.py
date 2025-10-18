@@ -4,7 +4,7 @@ from typing import Any
 from _expressions import Abstraction, Expression, abstract, apply, to_var
 
 
-@lru_cache(maxsize=None)
+@cache
 def church(n: int) -> Abstraction:
     """Convert a number to its Church numeral representation."""
     body: Expression = to_var("x")
