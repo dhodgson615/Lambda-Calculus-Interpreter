@@ -563,9 +563,11 @@ class TestBooleanOperations:
         with patch("sys.argv", ["main.py"]):
             main()
 
-        assert mock_print.call_count > 0
-        assert mock_instance.parse.call_count == 1
-        assert mock_input.call_count == 0
+        assert (
+            mock_print.call_count > 0
+            and mock_instance.parse.call_count == 1
+            and mock_input.call_count == 0
+        )
 
     def test_main_raises_syntax_error(self) -> None:
         """Test that main exits on syntax error."""
