@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from functools import lru_cache
+from functools import cache
 
 from _expressions import (Abstraction, Application, Expression, Variable,
                           abstract, apply, to_var)
