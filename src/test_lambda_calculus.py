@@ -279,7 +279,7 @@ class TestVariables:
 
         # Test with all lowercase letters used
         all_letters = set(chr(ord("a") + i) for i in range(26))
-        fresh = fresh_var(all_letters)
+        fresh = fresh_var(frozenset(all_letters))
         assert fresh[0] in "abcdefghijklmnopqrstuvwxyz"
         assert len(fresh) > 1
         assert fresh[1:].isdigit()
