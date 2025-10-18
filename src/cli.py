@@ -10,7 +10,7 @@ def main() -> None:
     user_input = " ".join(argv[1:]) if len(argv) > 1 else input("λ‑expr> ")
 
     try:
-        tree = Parser(user_input).parse()
+        run_lambda_calculus(user_input)
 
     except SyntaxError as e:
         print(f"Parse error: {e}")
