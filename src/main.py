@@ -3,7 +3,7 @@ from __future__ import annotations
 from sys import argv, exit
 
 from _parser import Parser
-from src._reduce import normalize
+from _reduce import normalize
 
 
 def main() -> None:
