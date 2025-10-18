@@ -42,18 +42,32 @@ slow.](https://github.com/dhodgson615/Lambda-Calculus-Interpreter-C/tree/master)
    cd Lambda-Calculus-Interpreter
    ```
 
-2. **Run**
+2. **Install Dependencies** (for web interface)
+
+  ```bash
+  pip install flask pytest
+  ```
+
+3. **Run**
+
+  **Web Interface** (Recommended for easier interactivity)
+
+  ```bash
+  python3 webapp.py
+  ```
+  
+  Then open your browser to http://localhost:5000
 
   **One-off evaluation**
 
   ```bash
-  python3 main.py "(λx.x) (λy.y)"
+  python3 src/main.py "(λx.x) (λy.y)"
   ```
 
   **Interactive REPL**
 
   ```bash
-  python3 main.py
+  python3 src/main.py
   ```
   ```text
   λ-expr> * 2 3
@@ -69,10 +83,39 @@ pull off shenanigans like `"* + *"`, but it won't be mathematically useful.
 Some of the following are my personal favorites:
 
 ```bash
-python3 main.py "* 50 49"  # one of the largest multiplications without getting a RecursionError
-python3 main.py "* 49 50"  # note that it's the same as above but runs with a different number of steps
-python3 main.py "* 2 (* 2 (* 2 (* 2 (* 2 (* 2 (* 2 (* 2 (* 2 2))))))))"  # 2^10
+python3 src/main.py "* 50 49"  # one of the largest multiplications without getting a RecursionError
+python3 src/main.py "* 49 50"  # note that it's the same as above but runs with a different number of steps
+python3 src/main.py "* 2 (* 2 (* 2 (* 2 (* 2 (* 2 (* 2 (* 2 (* 2 2))))))))"  # 2^10
 ```
+
+---
+
+## Web Interface
+
+The Lambda Calculus Interpreter now includes a web interface for easier interaction! 
+
+### Features
+
+- **User-friendly GUI**: Clean, responsive interface with syntax highlighting
+- **Step-by-step visualization**: See each reduction step with clear formatting  
+- **Example library**: Click-to-try examples for common lambda expressions
+- **Real-time evaluation**: Immediate feedback with error handling
+- **Church numeral abstraction**: Automatic conversion to readable numbers
+
+### Usage
+
+1. Start the web server:
+   ```bash
+   python3 webapp.py
+   ```
+
+2. Open your browser to http://localhost:5000
+
+3. Enter lambda expressions in the input field or click on examples
+
+4. View step-by-step evaluation results
+
+The web interface supports all the same lambda calculus expressions as the command line version, including arithmetic operations, boolean logic, and complex reductions.
 
 ---
 

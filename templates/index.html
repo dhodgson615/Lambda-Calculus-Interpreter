@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>λ-Calculus Interpreter</title>
+    <style>
+        body {
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .header h1 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            color: #7f8c8d;
+            margin: 5px 0;
+        }
+        
+        .input-section {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+        
+        .input-group {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        #expression-input {
+            flex: 1;
+            padding: 15px;
+            border: 2px solid #bdc3c7;
+            border-radius: 5px;
+            font-family: inherit;
+            font-size: 16px;
+        }
+        
+        #expression-input:focus {
+            outline: none;
+            border-color: #3498db;
+        }
+        
+        .btn {
+            padding: 15px 25px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+        
+        .btn-primary {
+            background-color: #3498db;
+            color: white;
+        }
+        
+        .btn-primary:hover:not(:disabled) {
+            background-color: #2980b9;
+        }
+        
+        .btn-secondary {
+            background-color: #95a5a6;
+            color: white;
+        }
+        
+        .btn-secondary:hover {
+            background-color: #7f8c8d;
+        }
+        
+        .btn:disabled {
+            background-color: #bdc3c7;
+            cursor: not-allowed;
+        }
+        
+        .examples-section {
+            margin-bottom: 20px;
+        }
+        
+        .examples-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 15px;
+        }
+        
+        .example-card {
+            background: #ecf0f1;
+            padding: 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .example-card:hover {
+            background-color: #d5dbdb;
+        }
+        
+        .example-name {
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+        
+        .example-expr {
+            color: #e74c3c;
+            margin-bottom: 5px;
+            font-family: 'Courier New', monospace;
+        }
+        
+        .example-desc {
+            color: #7f8c8d;
+            font-size: 14px;
+        }
+        
+        .results-section {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            display: none;
+        }
+        
+        .step {
+            margin-bottom: 15px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-left: 4px solid #3498db;
+            border-radius: 0 5px 5px 0;
+        }
+        
+        .step-header {
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 8px;
+        }
+        
+        .step-expression {
+            font-family: 'Courier New', monospace;
+            color: #e74c3c;
+            word-break: break-all;
+        }
+        
+        .final-result {
+            background: #d5f4e6;
+            border-left-color: #27ae60;
+            font-weight: bold;
+        }
+        
+        .abstracted-result {
+            background: #ffeaa7;
+            border-left-color: #fdcb6e;
+        }
+        
+        .error {
+            background: #ffeaa7;
+            border: 1px solid #e17055;
+            color: #d63031;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+        
+        .loading {
+            text-align: center;
+            color: #7f8c8d;
+            font-style: italic;
+        }
+        
+        .info-box {
+            background: #e8f4fd;
+            border: 1px solid #3498db;
+            border-radius: 5px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .info-box h3 {
+            margin-top: 0;
+            color: #2980b9;
+        }
+        
+        .syntax-help {
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        
+        .syntax-help ul {
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+        
+        @media (max-width: 768px) {
+            .input-group {
+                flex-direction: column;
+            }
+            
+            .examples-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>λ-Calculus Interpreter</h1>
+        <p>Interactive Lambda Calculus Evaluation</p>
+        <p>Enter lambda expressions and see step-by-step evaluation</p>
+    </div>
+    
+    <div class="input-section">
+        <div class="info-box">
+            <h3>Syntax Guide</h3>
+            <div class="syntax-help">
+                <ul>
+                    <li><strong>λx.x</strong> - Lambda abstraction (identity function)</li>
+                    <li><strong>(λx.x) y</strong> - Function application</li>
+                    <li><strong>+ 2 3</strong> - Arithmetic (prefix notation)</li>
+                    <li><strong>* 2 3</strong> - Multiplication</li>
+                    <li><strong>true, false</strong> - Boolean values</li>
+                    <li><strong>Numbers</strong> - Automatically converted to Church numerals</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="input-group">
+            <input type="text" id="expression-input" placeholder="Enter lambda expression (e.g., (λx.x) (λy.y))" autofocus>
+            <button class="btn btn-primary" id="evaluate-btn">Evaluate</button>
+            <button class="btn btn-secondary" id="clear-btn">Clear</button>
+        </div>
+        
+        <div class="examples-section">
+            <h3>Examples (click to try):</h3>
+            <div class="examples-grid" id="examples-container">
+                <!-- Examples will be loaded here -->
+            </div>
+        </div>
+    </div>
+    
+    <div class="results-section" id="results">
+        <!-- Results will appear here -->
+    </div>
+    
+    <script>
+        const expressionInput = document.getElementById('expression-input');
+        const evaluateBtn = document.getElementById('evaluate-btn');
+        const clearBtn = document.getElementById('clear-btn');
+        const resultsSection = document.getElementById('results');
+        const examplesContainer = document.getElementById('examples-container');
+        
+        // Load examples
+        fetch('/examples')
+            .then(response => response.json())
+            .then(examples => {
+                examples.forEach(example => {
+                    const card = document.createElement('div');
+                    card.className = 'example-card';
+                    card.innerHTML = `
+                        <div class="example-name">${example.name}</div>
+                        <div class="example-expr">${example.expression}</div>
+                        <div class="example-desc">${example.description}</div>
+                    `;
+                    card.addEventListener('click', () => {
+                        expressionInput.value = example.expression;
+                        expressionInput.focus();
+                    });
+                    examplesContainer.appendChild(card);
+                });
+            })
+            .catch(error => console.error('Error loading examples:', error));
+        
+        // Handle evaluation
+        function evaluateExpression() {
+            const expression = expressionInput.value.trim();
+            if (!expression) {
+                alert('Please enter a lambda expression');
+                return;
+            }
+            
+            evaluateBtn.disabled = true;
+            evaluateBtn.textContent = 'Evaluating...';
+            resultsSection.style.display = 'block';
+            resultsSection.innerHTML = '<div class="loading">Evaluating expression...</div>';
+            
+            fetch('/evaluate', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ expression: expression })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    displayResults(data);
+                } else {
+                    displayError(data.error);
+                }
+            })
+            .catch(error => {
+                displayError('Network error: ' + error.message);
+            })
+            .finally(() => {
+                evaluateBtn.disabled = false;
+                evaluateBtn.textContent = 'Evaluate';
+            });
+        }
+        
+        function displayResults(data) {
+            let html = `<h2>Evaluation Results for: <code>${data.input}</code></h2>`;
+            
+            data.steps.forEach(step => {
+                const stepClass = step.type === 'initial' ? '' : 
+                                  step.step === data.total_steps ? 'final-result' : '';
+                
+                html += `
+                    <div class="step ${stepClass}">
+                        <div class="step-header">
+                            Step ${step.step}${step.type !== 'initial' ? ` (${step.type}-reduction)` : ''}
+                            ${step.step === data.total_steps ? ' - Normal Form Reached' : ''}
+                        </div>
+                        <div class="step-expression">${step.expression}</div>
+                    </div>
+                `;
+            });
+            
+            if (data.abstracted) {
+                html += `
+                    <div class="step abstracted-result">
+                        <div class="step-header">δ-abstracted (Church numerals converted to numbers)</div>
+                        <div class="step-expression">${data.abstracted}</div>
+                    </div>
+                `;
+            }
+            
+            resultsSection.innerHTML = html;
+        }
+        
+        function displayError(error) {
+            resultsSection.innerHTML = `<div class="error"><strong>Error:</strong> ${error}</div>`;
+        }
+        
+        function clearResults() {
+            expressionInput.value = '';
+            resultsSection.style.display = 'none';
+            expressionInput.focus();
+        }
+        
+        // Event listeners
+        evaluateBtn.addEventListener('click', evaluateExpression);
+        clearBtn.addEventListener('click', clearResults);
+        
+        expressionInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                evaluateExpression();
+            }
+        });
+        
+        // Focus input on page load
+        expressionInput.focus();
+    </script>
+</body>
+</html>
