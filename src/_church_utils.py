@@ -2,7 +2,8 @@ from __future__ import annotations
 
 from functools import lru_cache
 
-from src._expressions import Abstraction, Application, Expression, Variable, abstract, apply, to_var
+from src._expressions import (Abstraction, Application, Expression, Variable,
+                              abstract, apply, to_var)
 
 
 @lru_cache(maxsize=None)
