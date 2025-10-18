@@ -78,7 +78,6 @@ exec: venv
 	echo "static inline int CPyStatics_Initialize(PyObject *statics, PyObject *str, PyObject *bytes, PyObject *i, PyObject *f, PyObject *c, PyObject *t, PyObject *fs) { return 0; }" >> build/CPy.h
 	echo "" >> build/CPy.h
 	echo "#endif /* CPY_H */" >> build/CPy.h
-
 	echo '#include <Python.h>' > build/main.c
 	echo '#include "CPy.h"' >> build/main.c
 	echo 'int main(int argc, char *argv[]) {' >> build/main.c
