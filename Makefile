@@ -5,7 +5,7 @@ PIP    = .venv/bin/pip
 MYPY   = .venv/bin/mypy
 FLAKE8 = .venv/bin/flake8
 PYTEST = .venv/bin/pytest
-BLACK = .venv/bin/black
+BLACK  = .venv/bin/black
 
 all: venv deps lint typecheck build test
 
