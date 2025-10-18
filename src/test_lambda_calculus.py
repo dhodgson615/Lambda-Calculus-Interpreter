@@ -639,3 +639,28 @@ class TestBenchmarks:
             normal_expr = result[0]
 
         benchmark(lambda: str(normal_expr))
+
+    def test_benchmark_large_expression(self, benchmark: Any) -> None:
+        """Benchmark parsing a large chained application."""
+        expr_str = " ".join(["x"] * 100)
+        benchmark(Parser, expr_str)
+
+    def test_benchmark_deep_reduction(self, benchmark: Any) -> None:
+        """Benchmark reduction of a deeply nested Church numeral."""
+        expr = church(50)
+        benchmark(reduce_once, expr, {})
+
+    def test_benchmark_complex_arithmetic(self, benchmark: Any) -> None:
+        """Benchmark reduction and abstraction of a complex arithmetic expression."""
+        expr = Parser("+ (* 10 10) (* 20 20)").parse()
+        normal_expr = expr
+
+        while True:
+            result = reduce_once(normal_expr, DEFS)
+
+            if not result:
+                break
+
+            normal_expr = result[0]
+
+        benchmark(abstract_numerals, normal_expr)
