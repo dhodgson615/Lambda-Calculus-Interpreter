@@ -30,6 +30,7 @@ def is_church_numeral(e: Expression) -> bool:
     )
 
 
+@cache
 def count_applications(e: Expression) -> int:
     """Count the number of applications in a Church numeral."""
     return (
