@@ -6,7 +6,7 @@ from _expressions import (Abstraction, Application, Expression, Variable,
                           abstract, apply, to_var)
 
 
-@lru_cache(maxsize=None)
+@cache
 def is_church_numeral(e: Expression) -> bool:
     """Check if the expression is a Church numeral."""
     return (
