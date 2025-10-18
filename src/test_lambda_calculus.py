@@ -607,6 +607,9 @@ class TestBenchmarks:
         benchmark(abstract_numerals, expr)
 
     def test_benchmark_numeric_addition(self, benchmark: Any) -> None:
+        """Benchmark numeric addition expression reduction and
+        abstraction.
+        """
         expr = Parser("+ 10 20").parse()
         normal_expr = expr
 
