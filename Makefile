@@ -1,8 +1,8 @@
 .PHONY: all venv deps typecheck lint build test clean install
 
 PYTHON = .venv/bin/python
-PIP = .venv/bin/pip
-MYPY = .venv/bin/mypy
+PIP    = .venv/bin/pip
+MYPY   = .venv/bin/mypy
 FLAKE8 = .venv/bin/flake8
 PYTEST = .venv/bin/pytest
 BLACK = .venv/bin/black
