@@ -266,7 +266,6 @@ class TestVariables:
     def test_free_vars_complex(self) -> None:
         """Test free_vars with complex expressions"""
         expr = Parser("λx.λy.x y z").parse()
-        assert free_vars(expr) == frozenset(["z"])
         expr2 = Parser("λx.(λy.x y) z").parse()
 
         assert free_vars(expr) == frozenset(["z"]) and free_vars(
