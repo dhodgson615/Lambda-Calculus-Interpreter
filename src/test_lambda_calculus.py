@@ -81,7 +81,8 @@ class TestExpressions:
         assert str(abstract("z", abstract("y", to_var("x")))) == "λz.(λy.x)"
 
         assert (
-            str(
+            str(abstract("z", abstract("y", to_var("x")))) == "λz.(λy.x)"
+            and str(
                 apply(
                     abstract("y", to_var("x")), apply(to_var("x"), to_var("x"))
                 )
