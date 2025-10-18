@@ -624,6 +624,9 @@ class TestBenchmarks:
         benchmark(abstract_numerals, normal_expr)
 
     def test_benchmark_boolean_comparison(self, benchmark: Any) -> None:
+        """Benchmark boolean comparison expression reduction and
+        abstraction.
+        """
         expr = Parser("≤ 10 20").parse()
         normal_expr = expr
 
