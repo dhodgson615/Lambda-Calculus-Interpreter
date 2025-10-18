@@ -33,25 +33,20 @@ def is_church_numeral(e: Expression) -> bool:
 @cache
 def count_applications(e: Expression) -> int:
     """Count the number of applications in a Church numeral."""
-    return (
-        0
-        if not (isinstance(e, Abstraction) and isinstance(e.body, Abstraction))
-        else (
-            lambda abs_e: (
-                lambda count: count(count, 0, abs_e.body.body, abs_e.param)
-            )(
-                lambda f, n, curr, fpar: (
-                    n
-                    if not (
-                        isinstance(curr, Application)
-                        and isinstance(curr.fn, Variable)
-                        and curr.fn.name == fpar
-                    )
-                    else f(f, n + 1, curr.arg, fpar)
-                )
-            )
-        )(e)
-    )
+    if not (isinstance(e, Abstraction) and isinstance(e.body, Abstraction)):
+        return 0
+
+    curr, fpar, count = e.body.body, e.param, 0
+
+    while (
+        isinstance(curr, Application)
+        and isinstance(curr.fn, Variable)
+        and curr.fn.name == fpar
+    ):
+        count += 1
+        curr = curr.arg
+
+    return count
 
 
 def abstract_numerals(e: Expression) -> Expression:
