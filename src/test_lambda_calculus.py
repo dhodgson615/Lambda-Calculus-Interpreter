@@ -369,7 +369,7 @@ class TestMainModule:
             mock_print.call_count > 0 and mock_input.call_count == 0
         )  # FIXME: AssertionError: assert (3 > 0 and 1 == 0)
 
-        with patch("sys.argv", ["main.py", "λx.x", "y"]):
+        with patch("sys.argv", ["cli.py", "λx.x", "y"]):
             mock_print.reset_mock()
             main()
             assert mock_print.call_count > 0
