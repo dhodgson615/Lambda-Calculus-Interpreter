@@ -53,7 +53,10 @@ def color_parens(s: str) -> str:
 
         depth += 1 if c == "(" else -1 if c == ")" else 0
 
-    return result
+    return "".join(
+        apply_color(depths[idx], max_depth, c) if c in "()" else c
+        for idx, c in enumerate(s)
+    )
 
 
 def highlight_diff(o: str, n: str) -> str:
