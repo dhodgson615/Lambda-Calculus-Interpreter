@@ -588,6 +588,7 @@ class TestBenchmarks:
     """Benchmark tests for performance measurement."""
 
     def test_benchmark_parser(self, benchmark: Any) -> None:
+        """Benchmark the parser with a sample expression."""
         expr_str = "(λx.λy.x y) a b"
         benchmark(Parser, expr_str)
 
