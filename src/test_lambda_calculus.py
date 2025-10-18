@@ -365,8 +365,7 @@ class TestMainModule:
         with patch("sys.argv", ["main.py"]):
             main()
 
-        assert mock_print.call_count > 0
-        assert mock_input.call_count == 0
+        assert mock_print.call_count > 0 and mock_input.call_count == 0
 
         with patch("sys.argv", ["main.py", "λx.x", "y"]):
             mock_print.reset_mock()
