@@ -8,7 +8,7 @@ from _expressions import (Abstraction, Application, Expression, Variable,
                           abstract, apply, to_var)
 
 
-@lru_cache(maxsize=None)
+@cache
 def free_vars(e: Expression) -> frozenset[str]:
     """Return the set of free variables in the expression."""
     stack: list[tuple[Expression, frozenset[str]]] = [(e, frozenset())]
