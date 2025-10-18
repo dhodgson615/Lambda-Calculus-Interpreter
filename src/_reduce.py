@@ -2,7 +2,12 @@ from __future__ import annotations
 
 from typing import Optional
 
-from _expressions import Abstraction, Application, Variable, abstract, apply
+from _church_utils import abstract_numerals
+from _config import DELTA_ABSTRACT, SHOW_STEP_TYPE
+from _defs import DEFS
+from _expressions import (Abstraction, Application, Expression, Variable,
+                          abstract, apply)
+from _printer import format_expr, highlight_diff
 from _vars import subst
 from src._church_utils import abstract_numerals
 from src._config import DELTA_ABSTRACT, SHOW_STEP_TYPE
