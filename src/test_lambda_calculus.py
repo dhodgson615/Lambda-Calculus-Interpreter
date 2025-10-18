@@ -278,10 +278,11 @@ class TestVariables:
         expr = Parser("λy.x y").parse()
         result = subst(expr, "x", to_var("y"))
 
-        # Should rename the bound 'y' to avoid capture
-        assert str(result) != "λy.y y"
-        assert isinstance(result, Abstraction)
-        assert result.param != "y"  # Should be renamed
+        assert (
+            str(result) != "λy.y y"
+            and isinstance(result, Abstraction)
+            and result.param != "y"
+        )
 
     def test_fresh_var_extended(self) -> None:
         """Test fresh_var with extended scenarios"""
