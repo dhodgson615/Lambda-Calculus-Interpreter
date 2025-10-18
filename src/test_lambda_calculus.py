@@ -113,9 +113,12 @@ class TestParser:
     def test_peek_and_consume(self) -> None:
         """Test peek and consume methods."""
         parser = Parser("λx.x y")
-        assert parser.peek() == "λ"
-        assert parser.consume() == "λ"
-        assert parser.peek() == "x"
+
+        assert (
+            parser.peek() == "λ"
+            and parser.consume() == "λ"
+            and parser.peek() == "x"
+        )
 
     def test_skip_whitespace(self) -> None:
         """Test skip_whitespace method."""
