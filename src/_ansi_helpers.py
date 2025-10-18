@@ -7,7 +7,7 @@ HIGHLIGHT = ESC + "38;2;255;255;0m"
 _ANSI_RE = compile(r"\x1b\[[0-9;]*m")
 
 
-@lru_cache(maxsize=None)
+@cache
 def rgb(r: int, g: int, b: int) -> str:
     """Return ANSI SGR sequence for RGB color."""
     return f"{ESC}38;2;{r};{g};{b}m"
