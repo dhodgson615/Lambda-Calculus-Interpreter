@@ -13,8 +13,7 @@ from _parser import Parser, church
 from _printer import apply_color, color_parens, highlight_diff, strip_spaces
 from _reduce import normalize, reduce_once
 from _vars import free_vars, fresh_var, subst
-from main import (abstract_numerals, count_applications, is_church_numeral,
-                  main, normalize)
+from main import main
 
 
 class TestAnsiHelpers:
